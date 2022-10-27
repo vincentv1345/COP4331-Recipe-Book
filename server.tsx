@@ -73,7 +73,7 @@ app.get('/', function (req, res) {
 });
 */
 
-
+/*
 app.post('/api/sign-up', async (req, res, next) =>
 {
     var error = '';
@@ -96,23 +96,24 @@ app.post('/api/sign-up', async (req, res, next) =>
     }
   
 
-  /*
-  userID                  INT NOT NULL AUTO_INCREMENT,
-  DateCreated             DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  DateLastLoggedIn        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  UserName VARCHAR(50)    NOT NULL DEFAULT '' ,
-  Password VARCHAR(50)    NOT NULL DEFAULT '' ,
-  Email    VARCHAR(50)    NOT NULL DEFAULT '' ,
-  Bio VARCHAR(280)        NOT NULL DEFAULT '' ,
-  profileImageName        VARCHAR (100),
-  imageData               BINARY (max),
-  PRIMARY KEY (userID)
-  */
+  
+  //userID                  INT NOT NULL AUTO_INCREMENT,
+  //DateCreated             DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  //DateLastLoggedIn        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  //UserName VARCHAR(50)    NOT NULL DEFAULT '' ,
+  //Password VARCHAR(50)    NOT NULL DEFAULT '' ,
+  //Email    VARCHAR(50)    NOT NULL DEFAULT '' ,
+  //Bio VARCHAR(280)        NOT NULL DEFAULT '' ,
+  //profileImageName        VARCHAR (100),
+  //imageData               BINARY (max),
+  //PRIMARY KEY (userID)
+  
   
   var ret = { id:id, firstName:fn, lastName:ln, error:''};
   res.status(200).json(ret);
 
 })
+*/
 
 
 // login with username and password
