@@ -1,11 +1,12 @@
-/*
+import { resourceLimits } from "worker_threads";
+
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const url = process.env.MONGODB_URI;
 const client = new MongoClient(url);
 client.connect();
 
-
+/*
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -133,7 +134,38 @@ app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
+app.post('/api/create_user',async (req, res, next) => {
+  
+  
+  const { DateCreated, DateLastLoggedIn, UserName, Password, Email } = req.body;
 
+  const newUser = {DateCreated: DateCreated, lastLogin: DateLastLoggedIn, userName: UserName, password: Password, email: Email};
+  
+  var error = '';
+  try{
+    const db = client.db("COOKBOOKDATABASE");
+    const result = db.collection('Users').insert(newUser);
+    var dateC = '';
+    var dateL = '';
+    var userName = '';
+    var password = '';
+    var email = '';
+    if(result.length>0){
+      dateC = result[0].DateCreated;
+      dateL = result[0].DateLastLoggedIn;
+      userName = result[0].UserName;
+      password = result[0].Password;
+      email = result[0].Email;
+    }
+    var ret = {DateCreated: dateC, DateLastLoggedIn: dateL, userName: userName, password:password, email:email, error:error};
+    res.status(200).json(ret);
+  }catch(e){
+    error = e.toString();
+    res.status(200).json(error);
+  }
+  
+  
+});
 //Gets dynamically given port number from Heroku
 
 app.listen(PORT, () => 
