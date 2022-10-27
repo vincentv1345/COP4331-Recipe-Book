@@ -32,6 +32,13 @@ app.set( 'port', (process.env.PORT || 5000 ));
 app.use(cors());
 app.use(bodyParser.json());
 
+const MongoClient = require('mongodb').MongoClient;
+//const url = 'mongodb+srv://RickLeinecker:WeLoveCOP4331@cluster0.ehunp00.mongodb.net/?retryWrites=true&w=majority';
+const url = process.env.MONGODB_URI;
+
+const client = new MongoClient(url);
+client.connect();
+
 // Get request
 /*
 app.get('/', function (req, res) {
@@ -65,6 +72,48 @@ app.get('/', function (req, res) {
     });
 });
 */
+
+
+app.post('/api/sign-up', async (req, res, next) =>
+{
+    var error = '';
+
+    const { login, password, email } = req.body;
+
+    var id = -1;
+    var fn = '';
+    var ln = '';
+  
+    if(login.toLowerCase() == "jesse" && password == "j" && email == "j@gmail.com")
+    {
+        id = 1;
+        fn = 'Jesse';
+        ln = 'Johnson';
+    }
+    else
+    {
+        error = "login error";
+    }
+  
+
+  /*
+  userID                  INT NOT NULL AUTO_INCREMENT,
+  DateCreated             DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  DateLastLoggedIn        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  UserName VARCHAR(50)    NOT NULL DEFAULT '' ,
+  Password VARCHAR(50)    NOT NULL DEFAULT '' ,
+  Email    VARCHAR(50)    NOT NULL DEFAULT '' ,
+  Bio VARCHAR(280)        NOT NULL DEFAULT '' ,
+  profileImageName        VARCHAR (100),
+  imageData               BINARY (max),
+  PRIMARY KEY (userID)
+  */
+  
+  var ret = { id:id, firstName:fn, lastName:ln, error:''};
+  res.status(200).json(ret);
+
+})
+
 
 // login with username and password
 app.post('/api/login', async (req, res, next) => 
