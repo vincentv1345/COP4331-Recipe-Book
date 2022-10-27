@@ -1,6 +1,14 @@
 import { resourceLimits } from "worker_threads";
 
 /*
+const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+const url = process.env.MONGODB_URI;
+const client = new MongoClient(url);
+client.connect();
+
+
+>>>>>>> 9e9241502b41a9176aef6d41b8537cfbc2e10f37
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
