@@ -1,11 +1,5 @@
 import { resourceLimits } from "worker_threads";
 
-const MongoClient = require('mongodb').MongoClient;
-require('dotenv').config();
-const url = process.env.MONGODB_URI;
-const client = new MongoClient(url);
-client.connect();
-
 /*
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -34,9 +28,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const MongoClient = require('mongodb').MongoClient;
-//const url = 'mongodb+srv://RickLeinecker:WeLoveCOP4331@cluster0.ehunp00.mongodb.net/?retryWrites=true&w=majority';
+require('dotenv').config();
 const url = process.env.MONGODB_URI;
-
 const client = new MongoClient(url);
 client.connect();
 
