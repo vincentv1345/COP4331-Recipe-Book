@@ -1,5 +1,3 @@
-import { resourceLimits } from "worker_threads";
-
 /*
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
@@ -192,15 +190,15 @@ app.post('/api/create_user',async (req, res, next) => {
 
   const newUser = {DateCreated: DateCreated, lastLogin: DateLastLoggedIn, userName: UserName, password: Password, email: Email};
   
-  var error = '';
+  let error:string = "status 404";
   try{
     const db = client.db("COOKBOOKDATABASE");
     const result = db.collection('Users').insert(newUser);
-    var dateC = '';
-    var dateL = '';
-    var userName = '';
-    var password = '';
-    var email = '';
+    let dateC: string = '';
+    let dateL: string = '';
+    let userName: string = '';
+    let password: string = '';
+    let email: string = '';
     if(result.length>0){
       dateC = result[0].DateCreated;
       dateL = result[0].DateLastLoggedIn;
