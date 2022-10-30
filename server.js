@@ -1,26 +1,3 @@
-/*
-const MongoClient = require('mongodb').MongoClient;
-require('dotenv').config();
-const url = process.env.MONGODB_URI;
-const client = new MongoClient(url);
-client.connect();
-
-
->>>>>>> 9e9241502b41a9176aef6d41b8537cfbc2e10f37
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const path = require('path');
-const PORT = process.env.PORT || 5000;
-
-const app = express();
-app.emitt('port', (process.env.PORT|| 5000));
-app.use(cors());
-app.use(bodyParser.json());
-const mssql = require("mysql");
- 
-*/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -58,168 +35,81 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var express = require('express'); // Used to create API
-var bodyParser = require('body-parser'); // Checks HTML and JSON parsing
-var cors = require('cors'); // Prevents CORS errors
-var path = require('path');
-var PORT = process.env.PORT || 5000;
-var app = express();
-app.set('port', (process.env.PORT || 5000));
-app.use(cors());
-app.use(bodyParser.json());
-var MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
-var url = process.env.MONGODB_URI;
-var client = new MongoClient(url);
-client.connect();
-// Get request
-/*
-app.get('/', function (req, res) {
- 
-    // Config your database credential
-    const config = {
-        user: 'SA',
-        password: 'Your_Password',
-        server: 'localhost',
-        database: 'geek'
-    };
- 
-    // Connect to your database
-    mssql.connect(config, function (err) {
- 
-        // Create Request object to perform
-        // query operation
-        var request = new mssql.Request();
- 
-        // Query to the database and get the records
-        request.query('select * from student',
-            function (err, records) {
- 
-                if (err) console.log(err)
- 
-                // Send records as a response
-                // to browser
-                res.send(records);
- 
-            });
-    });
-});
-*/
-/*
-app.post('/api/sign-up', async (req, res, next) =>
-{
-    var error = '';
-
-    const { login, password, email } = req.body;
-
-    var id = -1;
-    var fn = '';
-    var ln = '';
-  
-    if(login.toLowerCase() == "jesse" && password == "j" && email == "j@gmail.com")
-    {
-        id = 1;
-        fn = 'Jesse';
-        ln = 'Johnson';
-    }
-    else
-    {
-        error = "login error";
-    }
-  
-
-  
-  //userID                  INT NOT NULL AUTO_INCREMENT,
-  //DateCreated             DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  //DateLastLoggedIn        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  //UserName VARCHAR(50)    NOT NULL DEFAULT '' ,
-  //Password VARCHAR(50)    NOT NULL DEFAULT '' ,
-  //Email    VARCHAR(50)    NOT NULL DEFAULT '' ,
-  //Bio VARCHAR(280)        NOT NULL DEFAULT '' ,
-  //profileImageName        VARCHAR (100),
-  //imageData               BINARY (max),
-  //PRIMARY KEY (userID)
-  
-  
-  var ret = { id:id, firstName:fn, lastName:ln, error:''};
-  res.status(200).json(ret);
-
-})
-*/
-// login with username and password
-app.post('/api/login', function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-    var error, _a, login, password, db, results, id, fn, ln, ret;
+var ObjectId = require('mongodb').ObjectID;
+var User = require("./models/User");
+var port = 4000;
+var test = 0;
+var ObjectID = require('bson').ObjectID;
+var express = require('express');
+var app = express();
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URL);
+var db = mongoose.connection;
+db.on('error', function (error) { return console.error(error); });
+db.once('open', function () { return console.error('Connected to Database'); });
+app.use(express.json());
+app.get('/', function (req, res) { return res.send('Hell World!'); }); // Testing, DELETE later
+app.post('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, Username, Password, user, result, id, ret, e_1, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                error = '';
-                _a = req.body, login = _a.login, password = _a.password;
-                db = client.db("COOKBOOKDATABASE");
-                return [4 /*yield*/, db.collection('Users').find({ Login: login, Password: password }).toArray()];
+                _a = req.body, Username = _a.Username, Password = _a.Password;
+                user = { Username: Username, Password: Password };
+                _b.label = 1;
             case 1:
-                results = _b.sent();
-                id = -1;
-                fn = '';
-                ln = '';
-                if (results.length > 0) {
-                    id = results[0].UserID;
-                    fn = results[0].FirstName;
-                    ln = results[0].LastName;
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, User.find(user)];
+            case 2:
+                result = _b.sent();
+                if (result.length == 1) {
+                    console.log("Found User!");
+                    id = result[0]._id;
+                    ret = { id: id };
+                    res.status(200).json(ret);
                 }
-                ret = { id: id, firstName: fn, lastName: ln, error: '' };
-                res.status(200).json(ret);
-                return [2 /*return*/];
+                else if (result.length == 0)
+                    res.status(400).json("No user found :(");
+                else
+                    res.status(400).json("ERROR: more then one user with same username and password");
+                return [3 /*break*/, 4];
+            case 3:
+                e_1 = _b.sent();
+                error = e_1.toString();
+                res.status(400).json(error);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
-// Handles all incoming requests we havnt handled from above
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-    next();
-});
-/*
-var server = app.listen(5000, function () {
-    console.log('Server is listening at port 5000...');
-});
-*/
-// For testing, DELETE
-app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/index.html");
-});
-app.post('/api/create_user', function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, DateCreated, DateLastLoggedIn, UserName, Password, Email, newUser, error, db, result, dateC, dateL, userName, password, email, ret;
+app.post('/api/create_user', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var Bio, Favorites, Follwing, _a, Username, Password, Email, newUser, result, id, ret, e_2, error;
     return __generator(this, function (_b) {
-        _a = req.body, DateCreated = _a.DateCreated, DateLastLoggedIn = _a.DateLastLoggedIn, UserName = _a.UserName, Password = _a.Password, Email = _a.Email;
-        newUser = { DateCreated: DateCreated, lastLogin: DateLastLoggedIn, userName: UserName, password: Password, email: Email };
-        error = "status 404";
-        try {
-            db = client.db("COOKBOOKDATABASE");
-            result = db.collection('Users').insert(newUser);
-            dateC = '';
-            dateL = '';
-            userName = '';
-            password = '';
-            email = '';
-            if (result.length > 0) {
-                dateC = result[0].DateCreated;
-                dateL = result[0].DateLastLoggedIn;
-                userName = result[0].UserName;
-                password = result[0].Password;
-                email = result[0].Email;
-            }
-            ret = { DateCreated: dateC, DateLastLoggedIn: dateL, userName: userName, password: password, email: email, error: error };
-            res.status(200).json(ret);
+        switch (_b.label) {
+            case 0:
+                Bio = "";
+                Favorites = [];
+                Follwing = [];
+                _a = req.body, Username = _a.Username, Password = _a.Password, Email = _a.Email;
+                newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Follwing };
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, User.create(newUser)];
+            case 2:
+                result = _b.sent();
+                id = result._id;
+                ret = { id: id };
+                res.status(200).json(ret);
+                return [3 /*break*/, 4];
+            case 3:
+                e_2 = _b.sent();
+                error = e_2.toString();
+                res.status(400).json(error);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
-        catch (e) {
-            error = e.toString();
-            res.status(200).json(error);
-        }
-        return [2 /*return*/];
     });
 }); });
-//Gets dynamically given port number from Heroku
-app.listen(PORT, function () {
-    console.log('Server listening on port ' + PORT);
-});
+app.listen(process.env.PORT || port, function () { return console.log("Example app listening at http://localhost:".concat(port)); });

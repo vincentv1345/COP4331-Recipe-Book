@@ -1,0 +1,27 @@
+to deploy to heroku:
+    heroku login
+    git add .
+    git commit -m "My first commit"
+    heroku git:remote -a safe-thicket-43465
+    git push heroku main
+
+heroku doesnt need node_modules or .env files so you can put them in .gitignore
+
+There are 2 git repositories we need to worry about, one that is in github and the other is in heroku.
+After getting the most recent code from github, you can push into heroku
+
+Mongodb .updateOne, .updateMany functions do not go through schema verification, so do not use unless absolutely necessary
+Check to see if function does validation, like the .findOne... functions
+
+__v in collection is the "version key". It describes the number of internal revision done on the document/instance.
+
+TODO:
+ - hook up domain to heroku server
+ - connect local git repostiory to github
+ - Discuss different aspects of code to make things running
+
+
+RESOURCES:
+ - Using mongoose: https://www.youtube.com/watch?v=DZBGEVgL2eE
+ - Example of creating REST API using Node.js, Express, & MongoDB : https://www.youtube.com/watch?v=fgTGADljAeg
+ - Deploying Heroku and MongoDB: https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-heroku-and-mongodb-atlas
