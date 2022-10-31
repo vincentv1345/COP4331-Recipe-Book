@@ -1,9 +1,28 @@
+To run on own computer:
+    - make sure you have the following downloaded: npm, dotenv, express, nodemon, mongodb, mongoose
+    - do "npm run dev" to run server and update it.
+    - do "npm run start" to run app?
+
+*** PLEASE MAKE A SEPARATE BRANCH FOR YOURSELF, main should always be working! ***
+To push to github
+    git add .
+    git commit -m "comment" 
+    git push 
+
+*** THIS SHOULD ONLY BE DONE WHEN A WHOLE PAGE IS DONE AND BUG FREE ***
 to deploy to heroku:
     heroku login
     git add .
     git commit -m "My first commit"
-    heroku git:remote -a safe-thicket-43465
+    heroku git:remote -a recipebook5959
     git push heroku main
+
+
+
+
+
+-----------------------------------------------------------------------
+API notes     
 
 heroku doesnt need node_modules or .env files so you can put them in .gitignore
 
@@ -14,12 +33,6 @@ Mongodb .updateOne, .updateMany functions do not go through schema verification,
 Check to see if function does validation, like the .findOne... functions
 
 __v in collection is the "version key". It describes the number of internal revision done on the document/instance.
-
-TODO:
- - hook up domain to heroku server
- - connect local git repostiory to github
- - Discuss different aspects of code to make things running
-
 
 RESOURCES:
  - Using mongoose: https://www.youtube.com/watch?v=DZBGEVgL2eE
