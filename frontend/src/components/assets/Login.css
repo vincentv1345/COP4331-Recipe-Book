@@ -1,0 +1,96 @@
+.App {
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .App-logo {
+    height: 50px;
+    margin-right: '25%';
+    pointer-events: none;
+  }
+  
+  .App-header {
+    background-color: #ffeecc;
+    height: 100vh;
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: black;
+  }
+  
+  .App-link {
+    color: #5F2829;
+    font-size: 15px;
+  }
+  
+  .small-text{
+    font-size: 15px;
+  }
+  
+  .Title {
+    font-size: 30px;
+  }
+  
+  .img-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form-container {
+    width: 250px;
+    height: auto;
+    padding: 2% 1%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 #000;
+    margin: auto;
+  }
+  
+  ul.list {
+    list-style-type: none;
+  }
+  
+  ul.list li {
+    width: 45%;
+    margin-left: -10%;
+    margin-bottom: 5%;
+  }
+  
+  ul.list li input {
+    background-color: #ffeecc;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 200%;
+    padding: 8% 0%;
+    text-align: left;
+    padding-left: 20%;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 5px;
+    color: #5F2829;
+  }
+  
+  ul.list li button {
+    background-color:  #5F2829;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 15%;
+    margin-top: 10%;
+    padding: 8% 0%;
+    width: 190%;
+    border-radius: 20px;
+    transition-duration: .5s;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: white;
+    color:#000000;
+}
+
