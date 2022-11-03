@@ -18,7 +18,7 @@ db.once('open', () => console.error('Connected to Database'));
 
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
+//app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
 
 app.post('/api/login', async (req, res) => 
 {
