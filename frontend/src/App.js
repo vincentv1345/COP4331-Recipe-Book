@@ -7,12 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() 
 {
   return (
-    <BrowserRouter>
+    <HashRouter>
     <Routes>
       <Route path="/Login" index element={<LoginPage />} />
       <Route path="/SignUp" index element={<SignUpPage />} />
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
 }
 export default App;
