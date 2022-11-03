@@ -51,7 +51,12 @@ db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
 app.use(express.json());
 //app.use("/auth", userRoutes);
-app.get('/', function (req, res) { return res.send('Hell World Test!'); }); // Testing, DELETE later
+//app.get('/', function (req, res) { return res.send('Hell World Test!'); }); // Testing, DELETE later
+const buildPath = path.normalize(path.join(__dirname, './frontend'));
+app.use(express.static(buildPath));
+
+const rootRouter = express.Router();
+
 app.post('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, ret, e_1, error;
     return __generator(this, function (_b) {
@@ -114,4 +119,10 @@ app.post('/api/create_user', function (req, res) { return __awaiter(_this, void 
         }
     });
 }); });
+
+rootRouter.get('(/*)?', async (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+  app.use(rootRouter);
+
 app.listen(process.env.PORT || port, function () { return console.log("Example app listening at http://localhost:".concat(port)); });
