@@ -2,7 +2,8 @@
   "name": "herokudeploy",
   "version": "1.0.0",
   "description": "",
-  "main": "App.js",
+  "homepage": "https://recipebook5959.herokuapp.com/Login",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
