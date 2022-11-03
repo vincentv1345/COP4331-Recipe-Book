@@ -55,10 +55,10 @@ app.use(express.json());
 
 //app.use("/auth", userRoutes);
 //app.get('/', function (req, res) { return res.send('Hell World Test!'); }); // Testing, DELETE later
-const buildPath = path.normalize(path.join(__dirname, './frontend/build'));
+const buildPath = path.normalize(path.join(__dirname, 'frontend/build'));
 app.use('/static',express.static(buildPath));
 app.get('/*', function(req,res) {
-    res.sendFile(path.join(__dirname, './frontend/public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'frontend/public', 'index.html'));
     });
 
 const rootRouter = express.Router();
