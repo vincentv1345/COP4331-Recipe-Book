@@ -1,45 +1,38 @@
 import React from 'react';
 import { useState } from 'react';
 import cookbook from './assets/cookbook.png';
-import './assets/Login.css';
+import './assets/SignUp.css';
 
-function Login()
+function SignUp()
 {
+    var email;
     var username;
-    var pass;
+    var password;
     const [message,setMessage] = useState('');
     
-    const doLogin = async event => 
+    const doSignUp = async event => 
     {
         event.preventDefault();
-        var obj = {Username: username,Password: pass};
+        var obj = {Email:email,Username:username,Password:password};
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/login', {
-              method: 'POST',
-              body: js,
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              }
-            });
-            
-          var res = JSON.parse(await response.text());
-          
+            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user',
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var res = JSON.parse(await response.text());
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
           } 
           else
           {
-            var user = {id: res.id}
+            var user = 
+            {firstName:res.firstName,lastName:res.lastName,id:res.id}
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
-            // window.location.href = '/Login';
+              window.location.href = '/cards';
           }
         }
-
         catch(e)
         {
           alert(e.toString());
@@ -47,9 +40,9 @@ function Login()
           return;
         }    
     };
-
+ 
     return (
-      <div className="login">
+      <div className="SignUp">
         <header className="App-header">
           <div className='form-container'>
             <div className="img-text">
@@ -61,15 +54,16 @@ function Login()
               </div>
             </div>
             <ul className="list">
-              <li><input type="username" name="username" placeholder="Username"></input></li>
-              <li><input type="password" name="pass" placeholder="Password"></input></li>
-              <li><button type="button" name="Submit" class="button" onClick={doLogin} >Login</button></li>
+              <li><input type="Email" name="Email" placeholder="Email"></input></li>
+              <li><input type="user" name="User" placeholder="User Name"></input></li>
+              <li><input type="password" name="Password" placeholder="Password"></input></li>
+              <li><button type="button" name="Submit" class="button" onClick={doSignUp} >SignUp</button></li>
               
             </ul>
             <div className="small-text">
-              Don't have an account?
-              <a className="App-link" href="./SignUp" target="_blank">
-                Create one
+              Already have an account?
+              <a className="App-link" href="./" target="_blank">
+                Log In
               </a>
             </div>
           </div>
@@ -77,4 +71,4 @@ function Login()
       </div>
     );
 };
-export default Login;
+export default SignUp;
