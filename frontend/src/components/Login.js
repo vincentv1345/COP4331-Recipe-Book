@@ -69,7 +69,7 @@ function Login()
             </ul>
             <div className="small-text">
               Don't have an account?
-              <a className="App-link" href="./SignUp" target="_blank">
+              <a className="App-link" href="./SignUp">
                 Create one
               </a>
             </div>
