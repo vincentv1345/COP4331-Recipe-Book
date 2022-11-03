@@ -59,7 +59,6 @@ const buildPath = path.normalize(path.join(__dirname, './frontend'));
 app.use('/static',express.static(buildPath));
 app.get('/*', function(req,res) {
     res.sendFile(path.join(__dirname + '/frontend/public/index.html'));
-    
     });
 
 const rootRouter = express.Router();
