@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import path from 'path';
 var _this = this;
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
