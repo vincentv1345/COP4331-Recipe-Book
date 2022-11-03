@@ -2,7 +2,7 @@
   "name": "herokudeploy",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "App.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
