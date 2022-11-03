@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "homepage": "https://recipebook5959.herokuapp.com/Login",
   "private": true,
   "type": "module",
   "dependencies": {
