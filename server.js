@@ -44,12 +44,14 @@ var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
+const path = require('node:path');
 // var userRoutes = require("./userRoutes");
 mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
 app.use(express.json());
+
 //app.use("/auth", userRoutes);
 //app.get('/', function (req, res) { return res.send('Hell World Test!'); }); // Testing, DELETE later
 const buildPath = path.normalize(path.join(__dirname, './frontend'));
