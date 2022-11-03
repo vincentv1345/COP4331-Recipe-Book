@@ -44,7 +44,7 @@ var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var userRoutes = require("./userRoutes");
+// var userRoutes = require("./userRoutes");
 mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 db.on('error', function (error) { return console.error(error); });

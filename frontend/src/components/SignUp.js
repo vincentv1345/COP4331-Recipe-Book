@@ -13,13 +13,14 @@ function SignUp()
     const doSignUp = async event => 
     {
         event.preventDefault();
-        var obj = {Email:email,Username:username,Password:password};
+        let obj = {Email:email,Username:username,Password:password};
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user',
+            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user', { mode: 'cors' },
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var res = JSON.parse(await response.text());
+            var stringified = JSON.stringify(await response.text()); 
+            var res = JSON.parse(stringified);
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
@@ -27,10 +28,9 @@ function SignUp()
           else
           {
             var user = 
-            {firstName:res.firstName,lastName:res.lastName,id:res.id}
+            {id:res.id}
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
-              window.location.href = '/cards';
           }
         }
         catch(e)

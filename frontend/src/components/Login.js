@@ -16,7 +16,7 @@ function Login()
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/login', {
+            const response = await fetch('https://recipebook5959.herokuapp.com/api/login', { mode: 'cors' }, {
               method: 'POST',
               body: js,
               headers: {
@@ -24,8 +24,8 @@ function Login()
                 'Content-Type': 'application/json'
               }
             });
-            
-          var res = JSON.parse(await response.text());
+          var stringified = JSON.stringify(await response.text()); 
+          var res = JSON.parse(stringified);
           
           if( res.id <= 0 )
           {
@@ -49,6 +49,7 @@ function Login()
     };
 
     return (
+      <title>Cookbook</title>,
       <div className="login">
         <header className="App-header">
           <div className='form-container'>
