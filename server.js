@@ -58,7 +58,7 @@ app.use(express.json());
 const buildPath = path.normalize(path.join(__dirname, './frontend'));
 app.use(express.static(buildPath));
 app.get('/*', function(req,res) {
-    res.sendFile(path.join(__dirname + './frontend/index.html'));
+    res.sendFile(path.join(__dirname + '/frontend/index.html'));
     
     });
 
