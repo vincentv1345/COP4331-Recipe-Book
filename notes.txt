@@ -38,3 +38,13 @@ RESOURCES:
  - Using mongoose: https://www.youtube.com/watch?v=DZBGEVgL2eE
  - Example of creating REST API using Node.js, Express, & MongoDB : https://www.youtube.com/watch?v=fgTGADljAeg
  - Deploying Heroku and MongoDB: https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-heroku-and-mongodb-atlas
+
+Things to talk about this meeting
+ - requirments for this weeks front-end lab
+    - DONE Website is hosted on server (Heroku, AWS, DigitalOcean, etc.) and not localhost
+    - DONE Website has https:// (using SSL/TLS/etc.)
+    - Showcase Password Hashing in Source Code (either in Frontend or API code)
+    - Demonstrate Sign Up through web frontend
+    - Demonstrate Login through web frontend
+    - OPTIONAL: Implement failed login time out
+    - OPTIONAL: Implement CAPTCHA for sign up and login

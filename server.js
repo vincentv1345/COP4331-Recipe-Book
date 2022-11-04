@@ -50,7 +50,7 @@ db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
 app.use(express.json());
 app.get('/', function (req, res) { return res.send('Hell World!'); }); // Testing, DELETE later
-app.post('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.get('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, ret, e_1, error;
     return __generator(this, function (_b) {
         switch (_b.label) {

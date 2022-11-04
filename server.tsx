@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
 
-app.post('/api/login', async (req, res) => 
+app.get('/api/login', async (req, res) => 
 {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
