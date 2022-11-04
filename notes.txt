@@ -10,14 +10,14 @@ To push to github
     git push 
 
 *** THIS SHOULD ONLY BE DONE WHEN A WHOLE PAGE IS DONE AND BUG FREE ***
-to deploy to heroku:
-    heroku login
+To heroku login
     git add .
     git commit -m "My first commit"
     heroku git:remote -a recipebook5959
     git push heroku main
 
-
+To compile server.tsx
+    tsc server.tsx
 
 
 
