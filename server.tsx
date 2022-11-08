@@ -1,9 +1,12 @@
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 const User = require("./models/User");
+const bodyParser = require('body-parser');
+const path = require('path');
+const cors = require('cors');
 
-const port = 4000;
-const test = 0;
+const PORT = 4000; //process.env.PORT || 4000
+const testFlag = 0;
 
 const { ObjectID } = require('bson');
 const express = require('express');
@@ -16,14 +19,48 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.error('Connected to Database'));
 
-app.use(express.json());
+app.use(bodyParser.json());
+app.set( 'port', ( 4000 )); //process.env.PORT || 4000
+app.use(cors());
 
 //app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
+
+let path1;
+
+if (process.env.NODE_ENV === 'production') 
+{
+  console.log("Im a hosted server")
+  // Set static folder
+  app.use(express.static('frontend/build'));
+
+  path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.join
+  console.log("path1: " + path1);
+  app.get('*', (req, res,) =>  //app.use((req, res, next)
+  {
+      res.sendFile(path1);
+  });
+}
+else if(process.env.NODE_ENV === 'development')
+{
+  console.log("Im a local server");
+
+  app.use(express.static('frontend/build'));
+
+ app.get('*', (req, res) => 
+ {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
+
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
+});
 
 app.post('/api/login', async (req, res) => 
 {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
+    console.log("Inside api login");
         
     const { Username, Password } = req.body;
     var user = { Username: Username, Password: Password };
@@ -81,4 +118,21 @@ app.post('/api/create_user',async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT || port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.use((req, res, next) => 
+{
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PATCH, DELETE, OPTIONS'
+  );
+  next();
+});
+
+app.listen(PORT, () => 
+{
+  console.log('Server listening on port ' + PORT);
+});

@@ -1,3 +1,6 @@
+To compile tsx file:
+    - tsc server.tsx
+
 To run on own computer:
     - make sure you have the following downloaded: npm, dotenv, express, nodemon, mongodb, mongoose
     - do "npm run dev" to run server and update it.

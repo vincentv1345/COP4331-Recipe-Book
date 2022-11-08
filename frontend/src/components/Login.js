@@ -5,28 +5,54 @@ import './assets/Login.css';
 
 function Login()
 {
+  /*
+  console.log("In login function");
+    const app_name = 'recipebook5959';
+    function buildPath(route)
+    {
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:4000/' + route;
+        }
+    }
+    */
+
     var username;
-    var pass;
+    var password;
     const [message,setMessage] = useState('');
     
     const doLogin = async event => 
     {
         event.preventDefault();
-        var obj = {Username: username,Password: pass};
+        var obj = {Username: username.value,Password: password.value};
+        console.log("username.value: " + username.value + " pass.value: " + password.value);
         var js = JSON.stringify(obj);
+        console.log("js: " + js);
+
+        let response;
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/login', { mode: 'cors' }, {
+              console.log("Before try");
+              response = await fetch('http://localhost:4000/api/login', { mode: 'cors' }, {  //buildPath('api/login') //https:recipebook5959.herokuapp.com
               method: 'POST',
               body: js,
               headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
               }
             });
-          var stringified = JSON.stringify(await response.text()); 
-          var res = JSON.parse(stringified);
-          
+
+          console.log("response: " + response);
+          console.log("In login try");
+          //var stringified = JSON.stringify(await response.text()); 
+          var res = JSON.parse(await response.text());
+          console.log("res " + res);
+
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
@@ -37,16 +63,38 @@ function Login()
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
             // window.location.href = '/Login';
+            console.log("unable to find user");
           }
         }
 
         catch(e)
         {
           alert(e.toString());
-          
+          console.log("Failed to get API call. response: " + response);
           return;
         }    
     };
+
+    /*
+    const [data, setData] = React.useState(null);
+
+    
+    React.useEffect(() => {
+      fetch("/api")
+        .then((res) => res.json())
+        .then((data) => setData(data.message));
+    }, []);
+    
+
+    return (
+      <div className="App">
+      <header className="App-header">
+        <p>{!data ? "Loading..." : data}</p>
+      </header>
+      </div>
+      
+    );
+    */
 
     return (
       <title>Cookbook</title>,
@@ -62,9 +110,9 @@ function Login()
               </div>
             </div>
             <ul className="list">
-              <li><input type="username" name="username" placeholder="Username"></input></li>
-              <li><input type="password" name="pass" placeholder="Password"></input></li>
-              <li><button type="button" name="Submit" class="button" onClick={doLogin} >Login</button></li>
+              <li><input type="username" name="username" placeholder="Username" ref={(c) => username = c}></input></li>
+              <li><input type="password" name="pass" placeholder="Password" ref={(c) => password = c}></input></li>
+              <li><button type="button" name="Submit" className="button" onClick={doLogin} >Login</button></li>
               
             </ul>
             <div className="small-text">
@@ -77,5 +125,6 @@ function Login()
         </header>
       </div>
     );
+
 };
 export default Login;
