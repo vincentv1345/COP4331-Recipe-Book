@@ -27,20 +27,32 @@ app.use(cors());
 
 let path1;
 
-if (process.env.NODE_ENV === 'production') 
-{
-  console.log("Im a hosted server")
-  // Set static folder
-  app.use(express.static('frontend/build'));
 
-  path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.join
-  console.log("path1: " + path1);
-  app.get('*', (req, res,) =>  //app.use((req, res, next)
-  {
-      res.sendFile(path1);
-  });
-}
-else if(process.env.NODE_ENV === 'development')
+
+const root = express.Router();
+
+const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
+root.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+app.use(root);
+
+/*
+console.log("Im a hosted server")
+// Set static folder
+app.use(express.static('frontend/build'));
+
+path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.join
+console.log("path1: " + path1);
+app.get('*', (req, res,) =>  //app.use((req, res, next)
+{
+    res.sendFile(path1);
+});
+*/
+
+  /*
+if(process.env.NODE_ENV === 'development')
 {
   console.log("Im a local server");
 
@@ -51,6 +63,7 @@ else if(process.env.NODE_ENV === 'development')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
+*/
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
