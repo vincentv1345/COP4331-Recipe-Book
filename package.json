@@ -2,19 +2,23 @@
   "name": "herokudeploy",
   "version": "1.0.0",
   "description": "",
+  "homepage": ".",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongodb": "^4.11.0",
-    "mongoose": "^6.7.0",
-    "dotenv": "^16.0.3"
+    "mongoose": "^6.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

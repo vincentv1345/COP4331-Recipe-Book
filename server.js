@@ -38,8 +38,11 @@ var _this = this;
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 var User = require("./models/User");
-var port = 4000;
-var test = 0;
+var bodyParser = require('body-parser');
+var path = require('path');
+var cors = require('cors');
+var PORT = process.env.PORT || 5000;
+var testFlag = 0;
 var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
@@ -48,13 +51,55 @@ mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
-app.use(express.json());
-app.get('/', function (req, res) { return res.send('Hell World!'); }); // Testing, DELETE later
+app.use(bodyParser.json());
+app.set('port', (process.env.PORT || 5000));
+app.use(cors());
+//app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
+/*
+const root = express.Router();
+
+const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
+root.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+app.use(root);
+*/
+var path1;
+if (process.env.NODE_ENV === 'production') {
+    console.log("Im a production server");
+    // Set static folder
+    app.use(express.static('frontend/build'));
+    path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
+    console.log("path: " + path1);
+    app.get('*', function (req, res) {
+        res.sendFile(path1);
+    });
+}
+/*
+if(process.env.NODE_ENV === 'development')
+{
+console.log("Im a local server");
+
+app.use(express.static('frontend/build'));
+
+app.get('*', (req, res) =>
+{
+  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+});
+}
+*/
+app.get("/api", function (req, res) {
+    res.json({ message: "Hello from server!" });
+});
 app.get('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, ret, e_1, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
+                // incoming: login, password
+                // outgoing: id, firstName, lastName, error
+                console.log("Inside api login");
                 _a = req.body, Username = _a.Username, Password = _a.Password;
                 user = { Username: Username, Password: Password };
                 _b.label = 1;
@@ -112,4 +157,12 @@ app.post('/api/create_user', function (req, res) { return __awaiter(_this, void 
         }
     });
 }); });
-app.listen(process.env.PORT || port, function () { return console.log("Example app listening at http://localhost:".concat(port)); });
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+    next();
+});
+app.listen(PORT, function () {
+    console.log('Server listening on port ' + PORT);
+});
