@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 
-const PORT = 4000; //process.env.PORT || 4000
+const PORT = process.env.PORT || 5000;
 const testFlag = 0;
 
 const { ObjectID } = require('bson');
@@ -20,7 +20,7 @@ db.on('error', (error) => console.error(error));
 db.once('open', () => console.error('Connected to Database'));
 
 app.use(bodyParser.json());
-app.set( 'port', ( 4000 )); //process.env.PORT || 4000
+app.set( 'port', ( process.env.PORT || 5000 ));
 app.use(cors());
 
 //app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
@@ -28,7 +28,7 @@ app.use(cors());
 let path1;
 
 
-
+/*
 const root = express.Router();
 
 const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
@@ -37,13 +37,14 @@ root.get('(/*)?', async (req, res, next) => {
 });
 
 app.use(root);
+*/
 
 /*
 console.log("Im a hosted server")
 // Set static folder
 app.use(express.static('frontend/build'));
 
-path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.join
+path1 = path.join(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
 console.log("path1: " + path1);
 app.get('*', (req, res,) =>  //app.use((req, res, next)
 {

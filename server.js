@@ -41,7 +41,7 @@ var User = require("./models/User");
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
-var PORT = 4000; //process.env.PORT || 4000
+var PORT = process.env.PORT || 5000;
 var testFlag = 0;
 var ObjectID = require('bson').ObjectID;
 var express = require('express');
@@ -52,25 +52,26 @@ var db = mongoose.connection;
 db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
-app.set('port', (4000)); //process.env.PORT || 4000
+app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 //app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
 var path1;
-var root = express.Router();
-var buildPath = path.normalize(path.join(__dirname, './frontend/build'));
-root.get('(/*)?', function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        res.sendFile(path.join(buildPath, 'index.html'));
-        return [2 /*return*/];
-    });
-}); });
+/*
+const root = express.Router();
+
+const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
+root.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+
 app.use(root);
+*/
 /*
 console.log("Im a hosted server")
 // Set static folder
 app.use(express.static('frontend/build'));
 
-path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.join
+path1 = path.join(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
 console.log("path1: " + path1);
 app.get('*', (req, res,) =>  //app.use((req, res, next)
 {

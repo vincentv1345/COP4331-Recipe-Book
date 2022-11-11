@@ -36,21 +36,36 @@ function Login()
         console.log("js: " + js);
 
         let response;
+        
         try
         {    
+          /*
               console.log("Before try");
-              response = await fetch('http://localhost:4000/api/login', { mode: 'cors' }, {  //buildPath('api/login') //https:recipebook5959.herokuapp.com
+              response = await fetch('http://localhost:5000/api/login', { mode: 'cors' }, {  //buildPath('api/login') //https:recipebook5959.herokuapp.com
               method: 'POST',
               body: js,
               headers: {
                 'Content-Type': 'application/json'
               }
-            });
+              */
+              response = await fetch('http://localhost:5000/api/login',
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          
+            
+
+            
 
           console.log("response: " + response);
           console.log("In login try");
-          //var stringified = JSON.stringify(await response.text()); 
-          var res = JSON.parse(await response.text());
+          var res;
+          try{
+             res = JSON.parse(await response.text());
+          } 
+          catch(e)
+          {
+            console.log(e);
+          }
+          
           console.log("res " + res);
 
           if( res.id <= 0 )

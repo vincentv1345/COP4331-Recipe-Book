@@ -1,6 +1,10 @@
 To compile tsx file:
     - tsc server.tsx
 
+/src/package.json -> scripts
+"start" : node app -> react-scripts start --openssl-legacy-provider
+react-scripts build --openssl-legacy-provider
+
 To run on own computer:
     - make sure you have the following downloaded: npm, dotenv, express, nodemon, mongodb, mongoose
     - do "npm run dev" to run server and update it.
