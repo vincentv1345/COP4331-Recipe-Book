@@ -5,7 +5,7 @@ import './assets/Login.css';
 
 function Login()
 {
-  /*
+  
   console.log("In login function");
     const app_name = 'recipebook5959';
     function buildPath(route)
@@ -18,10 +18,10 @@ function Login()
         else
         {       
             console.log("CHECK: In local server"); 
-            return 'http://localhost:4000/' + route;
+            return 'http://localhost:5000/' + route;
         }
     }
-    */
+    
 
     var username;
     var password;
@@ -39,33 +39,17 @@ function Login()
         
         try
         {    
-          /*
-              console.log("Before try");
-              response = await fetch('http://localhost:5000/api/login', { mode: 'cors' }, {  //buildPath('api/login') //https:recipebook5959.herokuapp.com
-              method: 'POST',
-              body: js,
-              headers: {
-                'Content-Type': 'application/json'
-              }
-              */
-              response = await fetch('http://localhost:5000/api/login',
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          const response = await fetch(buildPath('api/login'),
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+          // local option
+          //response = await fetch('http://localhost:5000/api/login',
+          //{method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
           
-            
-
-            
-
-          console.log("response: " + response);
           console.log("In login try");
-          var res;
-          try{
-             res = JSON.parse(await response.text());
-          } 
-          catch(e)
-          {
-            console.log(e);
-          }
-          
+
+          var res = JSON.parse(await response.text());
+
           console.log("res " + res);
 
           if( res.id <= 0 )
@@ -78,10 +62,9 @@ function Login()
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
             // window.location.href = '/Login';
-            console.log("unable to find user");
+            console.log("Found user");
           }
         }
-
         catch(e)
         {
           alert(e.toString());
@@ -89,27 +72,6 @@ function Login()
           return;
         }    
     };
-
-    /*
-    const [data, setData] = React.useState(null);
-
-    
-    React.useEffect(() => {
-      fetch("/api")
-        .then((res) => res.json())
-        .then((data) => setData(data.message));
-    }, []);
-    
-
-    return (
-      <div className="App">
-      <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-      </div>
-      
-    );
-    */
 
     return (
       <title>Cookbook</title>,

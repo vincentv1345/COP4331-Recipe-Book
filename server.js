@@ -55,7 +55,6 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 //app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
-var path1;
 /*
 const root = express.Router();
 
@@ -66,18 +65,17 @@ root.get('(/*)?', async (req, res, next) => {
 
 app.use(root);
 */
-/*
-console.log("Im a hosted server")
-// Set static folder
-app.use(express.static('frontend/build'));
-
-path1 = path.join(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
-console.log("path1: " + path1);
-app.get('*', (req, res,) =>  //app.use((req, res, next)
-{
-    res.sendFile(path1);
-});
-*/
+var path1;
+if (process.env.NODE_ENV === 'production') {
+    console.log("Im a production server");
+    // Set static folder
+    app.use(express.static('frontend/build'));
+    path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
+    console.log("path: " + path1);
+    app.get('*', function (req, res) {
+        res.sendFile(path1);
+    });
+}
 /*
 if(process.env.NODE_ENV === 'development')
 {
