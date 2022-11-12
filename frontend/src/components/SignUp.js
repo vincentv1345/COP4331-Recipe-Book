@@ -62,7 +62,7 @@ function SignUp()
             </ul>
             <div className="small-text">
               Already have an account?
-              <a className="App-link" href="./login" >
+              <a className="App-link" href="./" >
                 Log In
               </a>
             </div>
