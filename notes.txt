@@ -1,5 +1,6 @@
-To compile tsx file:
-    - tsc server.tsx
+When running locally make sure to command search for "COMMENT OUT" and change it. Look for the phrases in files:
+    - server.tsx
+    - Login.js 
 
 /src/package.json -> scripts
 "start" : node app -> react-scripts start --openssl-legacy-provider

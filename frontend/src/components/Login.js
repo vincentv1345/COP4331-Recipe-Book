@@ -5,7 +5,8 @@ import './assets/Login.css';
 
 function Login()
 {
-  
+ 
+  //COMMENT OUT when running locally
   console.log("In login function");
     const app_name = 'recipebook5959';
     function buildPath(route)
@@ -39,16 +40,24 @@ function Login()
         
         try
         {    
-          const response = await fetch(buildPath('api/login'),
+          //COMMENT OUT when running through HEROKU
+          const response = await fetch(buildPath('api/login'), 
           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-          // local option
+          // UNCOMMENT OUT when running locally
           //response = await fetch('http://localhost:5000/api/login',
           //{method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-          
+        
           console.log("In login try");
+          var res;
+          try{
+             res = JSON.parse(await response.text());
+          } 
+          catch(e)
+          {
+            console.log(e);
+          }
 
-          var res = JSON.parse(await response.text());
 
           console.log("res " + res);
 

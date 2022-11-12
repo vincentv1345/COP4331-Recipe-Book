@@ -37,7 +37,9 @@ app.use(root);
 */
 let path1;
 
-if(process.env.NODE_ENV === 'production')
+//Comment out when local
+/*
+if(process.env.NODE_ENV === 'aeiou')
 {
   console.log("Im a production server")
   // Set static folder
@@ -50,10 +52,10 @@ if(process.env.NODE_ENV === 'production')
       res.sendFile(path1);
   });
 }
+*/
 
-
-  /*
-if(process.env.NODE_ENV === 'development')
+//COMMENT OUT when running locally
+if(process.env.NODE_ENV === 'production')
 {
   console.log("Im a local server");
 
@@ -64,13 +66,13 @@ if(process.env.NODE_ENV === 'development')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
-*/
+
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get('/api/login', async (req, res) => 
+app.post('/api/login', async (req, res) => 
 {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error

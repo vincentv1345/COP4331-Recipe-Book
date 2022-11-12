@@ -66,33 +66,34 @@ root.get('(/*)?', async (req, res, next) => {
 app.use(root);
 */
 var path1;
-if (process.env.NODE_ENV === 'production') {
-    console.log("Im a production server");
-    // Set static folder
-    app.use(express.static('frontend/build'));
-    path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
-    console.log("path: " + path1);
-    app.get('*', function (req, res) {
-        res.sendFile(path1);
-    });
-}
+//Comment out when local
 /*
-if(process.env.NODE_ENV === 'development')
+if(process.env.NODE_ENV === 'aeiou')
 {
-console.log("Im a local server");
-
-app.use(express.static('frontend/build'));
-
-app.get('*', (req, res) =>
-{
-  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-});
+  console.log("Im a production server")
+  // Set static folder
+  app.use(express.static('frontend/build'));
+  
+  path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
+  console.log("path: " + path1);
+  app.get('*', (req, res,) =>  //app.use((req, res, next)
+  {
+      res.sendFile(path1);
+  });
 }
 */
+//COMMENT OUT when running locally
+if (process.env.NODE_ENV === 'production') {
+    console.log("Im a local server");
+    app.use(express.static('frontend/build'));
+    app.get('*', function (req, res) {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    });
+}
 app.get("/api", function (req, res) {
     res.json({ message: "Hello from server!" });
 });
-app.get('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.post('/api/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, ret, e_1, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
