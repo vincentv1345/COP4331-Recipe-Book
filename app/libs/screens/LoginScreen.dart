@@ -13,12 +13,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: MainPage(),
+    return Container(
+        child:
+        RaisedButton(
+            child: Text('Do Login',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+            onPressed: ()
+            {
+              Navigator.pushNamed(context, '/cards');
+            },
+            color:Colors.brown[50],
+            textColor: Colors.black,
+            padding: EdgeInsets.all(2.0),
+            splashColor: Colors.grey[100]
+        )
+
+
+
     );
   }
-}
 
 class MainPage extends StatefulWidget {
   @override
