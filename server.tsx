@@ -1,6 +1,7 @@
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 const User = require("./models/User");
+const Recipe = require("./models/Recipes");
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -149,7 +150,7 @@ app.post("/api/create_recipe",async (req, res) => {
   const {RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
   const newRecipe = {RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
   try{
-    const result = await User.create(newRecipe);
+    const result = await Recipe.create(newRecipe);
     let id = result._id;
     var ret = { id:id };
 
