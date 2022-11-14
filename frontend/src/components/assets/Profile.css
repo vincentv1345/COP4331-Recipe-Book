@@ -1,0 +1,38 @@
+
+.App {
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.App-header {
+    background-color: #ffeecc;
+    height: 100vh;
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: black;
+  }
+
+.button {
+    background-color:  #5F2829;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 15%;
+    margin-top: 10%;
+    padding: 8% 0%;
+    width: 190%;
+    border-radius: 20px;
+    transition-duration: .5s;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: white;
+    color:#000000;
+}
