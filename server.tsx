@@ -110,13 +110,13 @@ app.post('/api/create_user',async (req, res) => {
     //var objectid = new ObjectID();
     var Bio = "";
     const Favorites = [];
-    const Follwing = [];
+    const Following = [];
 
     //console.log("objectID: " + objectid);
   
     const { Username, Password, Email } = req.body;
   
-    const newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Follwing};
+    const newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following};
 
     try{
         //const result = db.collection('Users').insertOne(newUser);
@@ -134,6 +134,39 @@ app.post('/api/create_user',async (req, res) => {
     }
 });
 
+app.PATCH("api/update_cookbook", async(req,res)=>{
+  
+});
+app.post("/api/create_cookbook", async(req,res)=>{
+ 
+});
+
+app.post("/api/create_recipe",async (req, res) => {
+   /*var RecipeName = "";
+  var RecipeDirections ="";
+  const RecipeIngredients = [];
+  const tags = [];*/
+  const {RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
+  const newRecipe = {RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
+  try{
+    const result = await User.create(newRecipe);
+    let id = result._id;
+    var ret = { id:id };
+
+  res.status(200).json(ret);
+  }catch(e){
+    let error = e.toString();
+    res.status(400).json(error);
+  }
+});
+
+app.PATCH("/api/update_user", async(req, res)=>{
+
+});
+
+app.PATCH("/api/update_recipe",async(req,res)=>{
+
+});
 app.use((req, res, next) => 
 {
   res.setHeader('Access-Control-Allow-Origin', '*');
