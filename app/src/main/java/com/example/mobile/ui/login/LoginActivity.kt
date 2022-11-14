@@ -1,6 +1,7 @@
 package com.example.mobile.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,9 +13,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.example.mobile.MainActivity
 import com.example.mobile.databinding.ActivityLoginBinding
 
 import com.example.mobile.R
+import com.example.mobile.ui.home.HomeFragment
 
 class LoginActivity : AppCompatActivity() {
 
@@ -62,7 +65,9 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
         })
 
         username.afterTextChanged {
