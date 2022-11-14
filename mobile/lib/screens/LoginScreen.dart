@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/utils/getAPI.dart';
+import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
-import '../utils/getAPI.dart';
 
 String message = "This is a message", newMessageText = '';
 
@@ -180,7 +179,7 @@ class _MainPageState extends State<MainPage> {
                       }
                       catch(e)
                       {
-                        newMessageText = e.message;
+                     //   newMessageText = e.message;
                         changeText();
                         return;
                       }

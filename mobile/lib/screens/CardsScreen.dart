@@ -79,6 +79,12 @@ class _MainPageState extends State<MainPage> {
 
 
     return Container(
+      /*  decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bulb.jpg"),
+              fit: BoxFit.cover,
+            ),
+        ), */
         width: 400,
         child:
         Column(
@@ -149,7 +155,7 @@ class _MainPageState extends State<MainPage> {
                         }
                         catch(e)
                         {
-                          newSearchMessage = e.message;
+                         // newSearchMessage = e.message;
                           changeSearchText();
                           return;
                         }
@@ -230,7 +236,7 @@ class _MainPageState extends State<MainPage> {
                         }
                         catch(e)
                         {
-                          newAddMessage = e.message;
+                        //  newAddMessage = e.message;
                           changeAddText();
                           return;
                         }

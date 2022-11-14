@@ -1,4 +1,4 @@
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
@@ -10,7 +10,7 @@ class CardsData {
 
     try
     {
-      http.Response response = await http.post(url,
+   /*   http.Response response = await http.post(url,
           body: utf8.encode(outgoing),
           headers:
           {
@@ -18,8 +18,8 @@ class CardsData {
             "Content-Type": "application/json",
           },
           encoding: Encoding.getByName("utf-8")
-      );
-      ret = response.body;
+      ); */
+    //  ret = response.body;
     }
     catch (e)
     {
