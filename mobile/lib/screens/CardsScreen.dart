@@ -211,6 +211,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       Row(
+
                         children: <Widget>[
                           Text('$addMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
                         ],
@@ -219,6 +220,7 @@ class _MainPageState extends State<MainPage> {
                   ),
 
                   MaterialButton(
+
                       child: Text('Add',style: TextStyle(fontSize: 14 ,color:Colors.black)),
                       onPressed: () async
                       {
