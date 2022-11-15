@@ -1,8 +1,7 @@
-//import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-
-class CardsData {
+class recipeData {
 
   static Future<String> getJson(String url, String outgoing) async
   {
