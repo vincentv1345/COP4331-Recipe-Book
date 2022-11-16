@@ -150,7 +150,7 @@ class _MainPageState extends State<MainPage> {
                         try
                         {
                           String url = 'https://cop4331-10.herokuapp.com/api/searchcards';
-                          String ret = await recipeData.getJson(url, payload);
+                          String ret = await RecipeData.getJson(url, payload);
                           jsonObject = json.decode(ret);
                         }
                         catch(e)
@@ -233,7 +233,7 @@ class _MainPageState extends State<MainPage> {
                         try
                         {
                           String url = 'https://cop4331-10.herokuapp.com/api/addcard';
-                          String ret = await recipeData.getJson(url, payload);
+                          String ret = await RecipeData.getJson(url, payload);
                           jsonObject = json.decode(ret);
                         }
                         catch(e)

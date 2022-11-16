@@ -229,7 +229,7 @@ class _MainPageState extends State<MainPage> {
                             try
                             {
                               String url = 'https://cop4331-10.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
-                              String ret = await recipeData.getJson(url, payload);
+                              String ret = await RecipeData.getJson(url, payload);
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
                             }
