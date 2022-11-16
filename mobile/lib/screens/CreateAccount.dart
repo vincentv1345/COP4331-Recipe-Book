@@ -82,7 +82,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 255),
+                        margin: const EdgeInsets.only(top: 225),
                         child: Text('Create Account For',style: TextStyle(fontSize: 24 ,color:Colors.black))
                     ),
                   ],
@@ -100,7 +100,7 @@ class _MainPageState extends State<MainPage> {
 
                   children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(top: 40),
+                      margin: const EdgeInsets.only(top: 20),
                       child: Text('$message',style: TextStyle(fontSize: 18 ,color:Colors.black)),
                     )
                   ],
