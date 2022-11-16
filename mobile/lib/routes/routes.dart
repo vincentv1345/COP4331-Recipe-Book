@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/LoginScreen.dart';
-import 'package:mobile/screens/CardsScreen.dart';
+import 'package:mobile/screens/HomeScreen.dart';
 
 class Routes {
   static const String LOGINSCREEN = '/login';

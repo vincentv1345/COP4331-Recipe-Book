@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/CreateAccount.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
@@ -39,9 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-
-
 
 
 class MainPage extends StatefulWidget {
@@ -229,7 +227,7 @@ class _MainPageState extends State<MainPage> {
                             try
                             {
                               String url = 'https://cop4331-10.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
-                              String ret = await recipeData.getJson(url, payload);
+                              String ret = await RecipeData.getJson(url, payload);
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
                             }
@@ -271,11 +269,18 @@ class _MainPageState extends State<MainPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
 
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        child:
-                      Text('Don\'t have an account? Create One',style: TextStyle(fontSize: 15 ,color: Color(0xff5F2829))),
-                      )
+                      const Text('Don\'t have an account?'),
+                      TextButton(
+                        child: const Text(
+                          'Create One',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {
+                          //signup screen
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CreateScreen()));
+
+                        },)
                         ],
                   ) //CREATE ACC
                   ],

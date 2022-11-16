@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ACTUAL.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ACTUAL.iml" afterDir="false" />
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="small changes to getAPI.dart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +24,15 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,6 +56,7 @@
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="additionalArgs" value="--no-sound-null-safety" />
       <option name="filePath" value="$PROJECT_DIR$/mobile/lib/main.dart" />
       <method v="2" />
     </configuration>
@@ -62,6 +70,35 @@
       <option name="presentableId" value="Default" />
       <updated>1668392465683</updated>
     </task>
+    <task id="LOCAL-00001" summary="updated pubsec file with dependencies for getAPI">
+      <created>1668531704593</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668531704593</updated>
+    </task>
+    <task id="LOCAL-00002" summary="/">
+      <created>1668536418840</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668536418840</updated>
+    </task>
+    <task id="LOCAL-00003" summary="small changes to getAPI.dart">
+      <created>1668624399152</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668624399152</updated>
+    </task>
+    <task id="LOCAL-00004" summary="small changes to getAPI.dart">
+      <created>1668627558755</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668627558755</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -75,7 +112,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="local_mobile" />
+                        <option value="origin/mobile2" />
                       </list>
                     </value>
                   </entry>
@@ -86,5 +123,26 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/mobile2" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated pubsec file with dependencies for getAPI" />
+    <MESSAGE value="/" />
+    <MESSAGE value="small changes to getAPI.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="small changes to getAPI.dart" />
   </component>
 </project>
