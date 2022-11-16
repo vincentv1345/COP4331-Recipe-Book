@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -232,7 +231,7 @@ class _MainPageState extends State<MainPage> {
                       TextButton(
                         child: const Text(
                           'Create One',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
                         ),
                         onPressed: () {
                           //signup screen
@@ -247,9 +246,6 @@ class _MainPageState extends State<MainPage> {
           )
     );
   }
-
-
-
 
 }
 

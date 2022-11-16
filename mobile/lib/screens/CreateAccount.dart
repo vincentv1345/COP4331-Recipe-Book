@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
@@ -214,7 +215,7 @@ class _MainPageState extends State<MainPage> {
 
                             try
                             {
-                              String url = 'https://cop4331-10.herokuapp.com/api/'; //http://www.flavordaddy.xyz/
+                              String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
                               String ret = await RecipeData.getJson(url, payload);
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
@@ -253,6 +254,24 @@ class _MainPageState extends State<MainPage> {
                     )
                   ],
                 ), //BUTTON
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                  children: <Widget>[
+                    TextButton(
+                      child: const Text(
+                        'Log in',
+                        style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
+                      ),
+                      onPressed: () {
+                        //signup screen
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginScreen()));
+
+                      },)
+                  ],
+                ) //CREATE ACC
                /* Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
