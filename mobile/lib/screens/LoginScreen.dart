@@ -103,7 +103,7 @@ class _MainPageState extends State<MainPage> {
 
                     children: <Widget>[
                       Container(
-                        margin: const EdgeInsets.only(top: 120),
+                        margin: const EdgeInsets.only(top: 60),
                       child: Text('$message',style: TextStyle(fontSize: 18 ,color:Colors.black)),
                       )
                     ],
