@@ -140,8 +140,8 @@ app.post("/api/create_recipe",async (req, res) => {
   var RecipeDirections ="";
   const RecipeIngredients = [];
   const tags = [];*/
-  const {RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
-  const newRecipe = {IsPublic: false, RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
+  const {IsPublic, RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
+  const newRecipe = {IsPublic: IsPublic, RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
   try{
     const result = await Recipe.create(newRecipe);
     let id = result._id;
