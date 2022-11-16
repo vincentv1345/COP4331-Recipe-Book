@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RecipeData {
-
+  //base url for api can access specific API functions with base + '/function/
 
 
   static Future<String> getJson(String url, String outgoing) async
@@ -30,6 +30,52 @@ class RecipeData {
     return ret;
   }
 
+  //complete API request for login
+  Future<String> doLogin(String url, String email, String password) async
+  {
+    var ret = "";
+
+    var jsonBody = {"email": "email", "password":"password"};
+
+    try
+    {
+      http.Response response = await http.post(url,
+        body: jsonBody,
+      );
+      ret = response.body;
+    }
+    catch (e)
+    {
+      print(e.toString());
+    }
+
+    return ret;
+
+  }
+  /*
+  Future<String> CreateAccount(String url, String email, String password) async
+  {
+
+    var ret = "";
+
+    //var jsonBody = {"email": "email", "password":"password"};
+
+    try
+    {
+      http.Response response = await http.post(url,
+        body: jsonBody,
+      );
+      ret = response.body;
+    }
+    catch (e)
+    {
+      print(e.toString());
+    }
+
+    return ret;
+
+  }
+
+   */
+
 }
-
-
