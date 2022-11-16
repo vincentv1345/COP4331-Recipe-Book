@@ -38,6 +38,7 @@ var _this = this;
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 var User = require("./models/User");
+var Recipe = require("./models/Recipes");
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
@@ -130,15 +131,15 @@ app.post('/api/login', function (req, res) { return __awaiter(_this, void 0, voi
     });
 }); });
 app.post('/api/create_user', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var Bio, Favorites, Follwing, _a, Username, Password, Email, newUser, result, id, ret, e_2, error;
+    var Bio, Favorites, Following, _a, Username, Password, Email, newUser, result, id, ret, e_2, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 Bio = "";
                 Favorites = [];
-                Follwing = [];
+                Following = [];
                 _a = req.body, Username = _a.Username, Password = _a.Password, Email = _a.Email;
-                newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Follwing };
+                newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following };
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
@@ -156,6 +157,53 @@ app.post('/api/create_user', function (req, res) { return __awaiter(_this, void 
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
+    });
+}); });
+app.post("/api/create_recipe", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, newRecipe, result, id, ret, e_3, error;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, UserID = _a.UserID, RecipeName = _a.RecipeName, RecipeIngredients = _a.RecipeIngredients, RecipeDirections = _a.RecipeDirections, IsPublic = _a.IsPublic, Tags = _a.Tags;
+                newRecipe = { RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags: Tags, UserID: UserID };
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.create(newRecipe)];
+            case 2:
+                result = _b.sent();
+                id = result._id;
+                ret = { id: id };
+                /*
+                try{
+                  db.students.updateOne(
+                    { _id: UserID },
+                    { $push: { scores: id } }
+                 )
+                }
+                catch(e){
+                  res.status(400).json(e.toString());
+                }
+                */
+                res.status(200).json(ret);
+                return [3 /*break*/, 4];
+            case 3:
+                e_3 = _b.sent();
+                error = e_3.toString();
+                res.status(400).json(error);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.patch("/api/update_user", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
+    });
+}); });
+app.patch("/api/update_recipe", function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
     });
 }); });
 app.use(function (req, res, next) {

@@ -7,26 +7,26 @@ const recipeSchema = new mongoose.Schema({
         immutable : true,
         default : () => Date.now(),
     },
-    IsPublic : {
-        type : Boolean,
-        required: true,
-    },
-    RecipeDirections : {
+    RecipeName : {
         type : String,
         required: true
     },
     RecipeIngredients : {
         type : String,
         required: true
-    },  
-    RecipeName : {
+    }, 
+    RecipeDirections : {
         type : String,
         required: true
+    }, 
+    IsPublic : {
+        type : Boolean,
+        required: true,
     },
     Tags : [{
         type: String
     }],
-    Users_id : [mongoose.SchemaTypes.ObjectId]
+    UserID : mongoose.SchemaTypes.ObjectId
 }, { collection: 'Recipes' } );
 
 module.exports = mongoose.model("Recipe", recipeSchema);

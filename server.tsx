@@ -135,39 +135,45 @@ app.post('/api/create_user',async (req, res) => {
     }
 });
 
-app.PATCH("api/update_cookbook", async(req,res)=>{
-  
-});
-app.post("/api/create_cookbook", async(req,res)=>{
- 
-});
-
 app.post("/api/create_recipe",async (req, res) => {
    /*var RecipeName = "";
   var RecipeDirections ="";
   const RecipeIngredients = [];
   const tags = [];*/
-  const {RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
-  const newRecipe = {RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
+  const { UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags } = req.body;
+  const newRecipe = {RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags:Tags, UserID:UserID};
   try{
     const result = await Recipe.create(newRecipe);
     let id = result._id;
     var ret = { id:id };
 
-  res.status(200).json(ret);
+    /*
+    try{
+      db.students.updateOne(
+        { _id: UserID },
+        { $push: { scores: id } }
+     )
+    }
+    catch(e){
+      res.status(400).json(e.toString());
+    }
+    */
+
+    res.status(200).json(ret);
   }catch(e){
     let error = e.toString();
     res.status(400).json(error);
   }
 });
 
-app.PATCH("/api/update_user", async(req, res)=>{
+app.patch("/api/update_user", async(req, res)=>{
 
 });
 
-app.PATCH("/api/update_recipe",async(req,res)=>{
+app.patch("/api/update_recipe",async(req,res)=>{
 
 });
+
 app.use((req, res, next) => 
 {
   res.setHeader('Access-Control-Allow-Origin', '*');
