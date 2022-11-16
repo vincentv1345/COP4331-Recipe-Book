@@ -61,47 +61,6 @@ class _MainPageState extends State<MainPage> {
   }
 
 
-  /* Two Buttons Example
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child:
-            Column(
-              children: [
-                MaterialButton(
-                    child: Text('Do Login',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                    onPressed: ()
-                    {
-                      Navigator.pushNamed(context, '/cards');
-                    },
-                    color:Colors.brown[50],
-                    textColor: Colors.black,
-                    padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.grey[100]
-                ),
-                MaterialButton(
-                    child: Text('To Login',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                    onPressed: ()
-                    {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    color:Colors.brown[50],
-                    textColor: Colors.black,
-                    padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.grey[100]
-                )
-
-
-
-
-
-
-              ],
-            )
-
-    );
-  }
-*/
 
   @override
   Widget build(BuildContext context) {

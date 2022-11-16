@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="small changes to getAPI.dart">
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Linked sign in page to create account/working on CreateAccount.dart">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668627558755</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Linked sign in page to create account/working on CreateAccount.dart">
+      <created>1668635152759</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668635152759</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,6 +149,7 @@
     <MESSAGE value="updated pubsec file with dependencies for getAPI" />
     <MESSAGE value="/" />
     <MESSAGE value="small changes to getAPI.dart" />
-    <option name="LAST_COMMIT_MESSAGE" value="small changes to getAPI.dart" />
+    <MESSAGE value="Linked sign in page to create account/working on CreateAccount.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Linked sign in page to create account/working on CreateAccount.dart" />
   </component>
 </project>

@@ -100,11 +100,39 @@ class _MainPageState extends State<MainPage> {
 
                   children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(top: 120),
+                      margin: const EdgeInsets.only(top: 40),
                       child: Text('$message',style: TextStyle(fontSize: 18 ,color:Colors.black)),
                     )
                   ],
                 ), //ERROR MSG
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        width: 350,
+                        child:
+                        TextField (
+                          obscureText: true,
+                          style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
+                          decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xecb19d7e),
+                            //    border: OutlineInputBorder(),
+                            border: InputBorder.none,
+                            labelText: 'Username',
+                            hintText: 'Enter a username',
+                            labelStyle: TextStyle(color: Colors.white),
+
+                          ),
+                          onChanged: (text) {
+                            password = text;
+                          },
+                        ),
+                      ),
+                    ]
+                ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,7 +148,7 @@ class _MainPageState extends State<MainPage> {
                             border: InputBorder.none,
                             fillColor: Color(0xecb19d7e),
                             labelText: 'Email',
-                            hintText: 'Enter Your Email',
+                            hintText: 'Enter a valid Email',
                             labelStyle: TextStyle(color: Colors.white),
 
                           ),
@@ -148,7 +176,7 @@ class _MainPageState extends State<MainPage> {
                             //    border: OutlineInputBorder(),
                             border: InputBorder.none,
                             labelText: 'Password',
-                            hintText: 'Enter Your Password',
+                            hintText: 'Enter a password',
                             labelStyle: TextStyle(color: Colors.white),
 
                           ),
@@ -166,23 +194,27 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     Container(
                       margin: const EdgeInsets.only(top: 15),
-                      width: 350,
+                      width: 300,
                       child:
                       MaterialButton(
 
-                          child: Text('ENTER',style: TextStyle(fontSize: 20 ,color:Color(0xffFEEACB))),
+
+                      child: Text('Sign Up',style: TextStyle(fontSize: 20 ,color:Color(0xffFEEACB))
+                      ),
+
+
                           onPressed: () async
                           {
                             newMessageText = "";
                             changeText();
-
+                            //add username to payload
                             String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
                             var userId = -1;
                             var jsonObject;
 
                             try
                             {
-                              String url = 'https://cop4331-10.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
+                              String url = 'https://cop4331-10.herokuapp.com/api/'; //http://www.flavordaddy.xyz/
                               String ret = await RecipeData.getJson(url, payload);
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
@@ -213,6 +245,7 @@ class _MainPageState extends State<MainPage> {
                           },
 
                           color:const Color(0xff5F2829),
+                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
                           textColor: Color(0xffFEEACB),
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
@@ -220,7 +253,7 @@ class _MainPageState extends State<MainPage> {
                     )
                   ],
                 ), //BUTTON
-                Row(
+               /* Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -238,7 +271,7 @@ class _MainPageState extends State<MainPage> {
 
                       },)
                   ],
-                ) //CREATE ACC
+                ) *///CREATE ACC
               ],
             )
         )
