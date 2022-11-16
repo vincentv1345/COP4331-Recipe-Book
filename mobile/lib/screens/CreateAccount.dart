@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage("lib/assets/loginbg.PNG"), fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("lib/assets/signupbg.PNG"), fit: BoxFit.cover),
         ),
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -77,17 +77,17 @@ class _MainPageState extends State<MainPage> {
               crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
 
               children: <Widget>[
-                Row( //WELCOME TO
+                Row( //Create
 
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 225),
+                        margin: const EdgeInsets.only(top: 260),
                         child: Text('Create Account For',style: TextStyle(fontSize: 24 ,color:Colors.black))
                     ),
                   ],
-                ), //Welcome to
+                ), //Create
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,7 +106,7 @@ class _MainPageState extends State<MainPage> {
                     )
                   ],
                 ), //ERROR MSG
-                Row(
+                Row( //USERNAME
                     mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -119,7 +119,7 @@ class _MainPageState extends State<MainPage> {
                           style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
                           decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Color(0xecb19d7e),
+                            fillColor: Color(0xecBC93A2),
                             //    border: OutlineInputBorder(),
                             border: InputBorder.none,
                             labelText: 'Username',
@@ -134,7 +134,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ]
                 ),
-                Row(
+                Row( //EMAIL
                     mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -147,7 +147,7 @@ class _MainPageState extends State<MainPage> {
                           decoration: const InputDecoration(
                             filled: true,
                             border: InputBorder.none,
-                            fillColor: Color(0xecb19d7e),
+                            fillColor: Color(0xecBC93A2),
                             labelText: 'Email',
                             hintText: 'Enter a valid Email',
                             labelStyle: TextStyle(color: Colors.white),
@@ -159,8 +159,8 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                     ]
-                ), //USERNAME
-                Row(
+                ), //EMAIL
+                Row( //PASS
                     mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -173,7 +173,7 @@ class _MainPageState extends State<MainPage> {
                           style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
                           decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Color(0xecb19d7e),
+                            fillColor: Color(0xecBC93A2),
                             //    border: OutlineInputBorder(),
                             border: InputBorder.none,
                             labelText: 'Password',
@@ -189,7 +189,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ]
                 ), //PASSWORD
-                Row(
+                Row( //BUTTON
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -200,7 +200,7 @@ class _MainPageState extends State<MainPage> {
                       MaterialButton(
 
 
-                      child: Text('Sign Up',style: TextStyle(fontSize: 20 ,color:Color(0xffFEEACB))
+                      child: Text('Sign Up',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
                       ),
 
 
@@ -247,7 +247,7 @@ class _MainPageState extends State<MainPage> {
 
                           color:const Color(0xff5F2829),
                           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
-                          textColor: Color(0xffFEEACB),
+                          textColor: Color(0xffF9DEE8),
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
                       ),
