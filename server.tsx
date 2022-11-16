@@ -135,25 +135,18 @@ app.post('/api/create_user',async (req, res) => {
     }
 });
 
-app.PATCH("api/update_cookbook", async(req,res)=>{
-  
-});
-app.post("/api/create_cookbook", async(req,res)=>{
- 
-});
-
 app.post("/api/create_recipe",async (req, res) => {
    /*var RecipeName = "";
   var RecipeDirections ="";
   const RecipeIngredients = [];
   const tags = [];*/
   const {RecipeName, RecipeDirections, RecipeIngredients, tags} = req.body;
-  const newRecipe = {RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
+  const newRecipe = {IsPublic: false, RecipeName: RecipeName, RecipeDirections: RecipeDirections, RecipeIngredients: RecipeIngredients, tags:tags};
   try{
     const result = await Recipe.create(newRecipe);
     let id = result._id;
     var ret = { id:id };
-
+    
   res.status(200).json(ret);
   }catch(e){
     let error = e.toString();
