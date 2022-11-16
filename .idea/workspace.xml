@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="/">
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="small changes to getAPI.dart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CardsScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +20,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -73,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668536418840</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="small changes to getAPI.dart">
+      <created>1668624399152</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668624399152</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,17 +115,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated pubsec file with dependencies for getAPI" />
     <MESSAGE value="/" />
-    <option name="LAST_COMMIT_MESSAGE" value="/" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart</url>
-          <line>11</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="small changes to getAPI.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="small changes to getAPI.dart" />
   </component>
 </project>
