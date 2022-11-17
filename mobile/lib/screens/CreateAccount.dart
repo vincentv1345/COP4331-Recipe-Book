@@ -83,7 +83,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 260),
+                        margin: const EdgeInsets.only(top: 230),
                         child: Text('Create Account For',style: TextStyle(fontSize: 24 ,color:Colors.black))
                     ),
                   ],
@@ -101,7 +101,7 @@ class _MainPageState extends State<MainPage> {
 
                   children: <Widget>[
                     Container(
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 0),
                       child: Text('$message',style: TextStyle(fontSize: 18 ,color:Colors.black)),
                     )
                   ],
@@ -268,29 +268,10 @@ class _MainPageState extends State<MainPage> {
                         //signup screen
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => LoginScreen()));
-
                       },)
                   ],
                 ) //CREATE ACC
-               /* Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
 
-                  children: <Widget>[
-                    const Text('Don\'t have an account?'),
-                    TextButton(
-                      child: const Text(
-                        'Create One',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        //signup screen
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CreateScreen()));
-
-                      },)
-                  ],
-                ) *///CREATE ACC
               ],
             )
         )

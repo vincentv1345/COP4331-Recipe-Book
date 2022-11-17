@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import '../utils/getAPI.dart';
 
 
 String message = '', newMessageText = '';
 String addMessage = '', newAddMessage = '';
 String searchMessage = '', newSearchMessage = '';
+
 
 class GlobalData
 {
@@ -22,12 +21,12 @@ var card, search;
 
 
 
-class CardsScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _CardsScreenState createState() => _CardsScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _CardsScreenState extends State<CardsScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
@@ -79,12 +78,12 @@ class _MainPageState extends State<MainPage> {
 
 
     return Container(
-      /*  decoration: BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/bulb.jpg"),
+              image: AssetImage("assets/images/createAccountbg.png"),
               fit: BoxFit.cover,
             ),
-        ), */
+        ),
         width: 400,
         child:
         Column(
