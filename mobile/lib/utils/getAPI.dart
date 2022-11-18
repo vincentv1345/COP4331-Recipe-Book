@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RecipeData {
-  //base url for api can access specific API functions with base + '/function/
-
 
   static Future<String> getJson(String url, String outgoing) async
   {
@@ -31,48 +29,33 @@ class RecipeData {
   }
 
   //complete API request for login
-  Future<String> doLogin(String url, String email, String password) async
+  /*
+  Future<dynamic> doLogin(String email, String password) async
   {
-    var ret = "";
+    //var ret = "";
 
-    var jsonBody = {"email": "email", "password":"password"};
+    final response = await http
+        .get(Uri.parse('https://cop4331-10.herokuapp.com/api/login'));
 
-    try
-    {
-      http.Response response = await http.post(url,
-        body: jsonBody,
-      );
-      ret = response.body;
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Album.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
     }
-    catch (e)
-    {
-      print(e.toString());
-    }
-
-    return ret;
+  }
 
   }
-  /*
-  Future<String> CreateAccount(String url, String email, String password) async
+
+
+
+  Future<dynamic> CreateAccount(String email, String password) async
   {
 
-    var ret = "";
 
-    //var jsonBody = {"email": "email", "password":"password"};
-
-    try
-    {
-      http.Response response = await http.post(url,
-        body: jsonBody,
-      );
-      ret = response.body;
-    }
-    catch (e)
-    {
-      print(e.toString());
-    }
-
-    return ret;
 
   }
 

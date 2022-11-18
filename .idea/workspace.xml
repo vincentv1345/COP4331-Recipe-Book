@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Minor update to CreateAccount">
-      <change afterPath="$PROJECT_DIR$/mobile/lib/assets/createAccountbg.png" afterDir="false" />
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Working on mobile homepage">
+      <change afterPath="$PROJECT_DIR$/mobile/lib/utils/mongoDB.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/routes/routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/LoginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668641976201</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Working on mobile homepage">
+      <created>1668698651911</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668698651911</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -185,6 +194,7 @@
     <MESSAGE value="small changes to getAPI.dart" />
     <MESSAGE value="Linked sign in page to create account/working on CreateAccount.dart" />
     <MESSAGE value="Minor update to CreateAccount" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor update to CreateAccount" />
+    <MESSAGE value="Working on mobile homepage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on mobile homepage" />
   </component>
 </project>

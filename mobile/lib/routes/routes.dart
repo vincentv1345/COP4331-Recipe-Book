@@ -4,7 +4,7 @@ import 'package:mobile/screens/HomeScreen.dart';
 
 class Routes {
   static const String LOGINSCREEN = '/login';
-  static const String HOMESCREEN = '/cards';
+  static const String HOMESCREEN = '/cards'; // ask TA
 
   // routes of pages in the app
   static Map<String, Widget Function(BuildContext)> get getroutes => {

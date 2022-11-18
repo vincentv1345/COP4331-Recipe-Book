@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/routes/routes.dart';
+//import 'package:mongo_dart/mongo_dart.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: '',
+      title: 'Recipe-Book',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
       routes: Routes.getroutes,

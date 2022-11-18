@@ -201,7 +201,7 @@ class _MainPageState extends State<MainPage> {
                               changeText();
 
                               //delete
-                              Navigator.pushNamed(context, '/cards');
+                              //Navigator.pushNamed(context, '/cards');
                             }
                             else
                             {
@@ -210,6 +210,8 @@ class _MainPageState extends State<MainPage> {
                              // GlobalData.lastName = jsonObject["lastName"];
                               GlobalData.loginName = loginName;
                               GlobalData.password = password;
+
+                              //ask ta about this line
                               Navigator.pushNamed(context, '/cards');
                             }
                           },
