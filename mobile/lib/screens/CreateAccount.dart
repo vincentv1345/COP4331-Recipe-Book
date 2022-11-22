@@ -209,7 +209,8 @@ class _MainPageState extends State<MainPage> {
                             newMessageText = "";
                             changeText();
                             //add username to payload
-                            String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
+                           String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
+                            var data = {"login": loginName ,"password": password};
                             var userId = -1;
                             var jsonObject;
 

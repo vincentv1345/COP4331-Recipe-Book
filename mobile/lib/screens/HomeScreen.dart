@@ -80,11 +80,11 @@ class _MainPageState extends State<MainPage> {
     return Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/createAccountbg.png"),
+              image: AssetImage("lib/assets/homescreen.PNG"),
               fit: BoxFit.cover,
             ),
         ),
-        width: 400,
+        width: 500,
         child:
         Column(
           mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
@@ -143,7 +143,9 @@ class _MainPageState extends State<MainPage> {
                         newSearchMessage = "";
                         changeSearchText();
 
-                        String payload = '{"userId":"' + GlobalData.userId.toString() + '","search":"' + search.trim() + '"}';
+                       String payload = '{"userId":"' + GlobalData.userId.toString() + '","search":"' + search.trim() + '"}';
+                        var data = {"userId": GlobalData.userId ,"search": search};
+
 
                         var jsonObject;
                         try
@@ -226,7 +228,10 @@ class _MainPageState extends State<MainPage> {
                         newAddMessage = "";
                         changeAddText();
 
-                        String payload = '{"userId":"' + GlobalData.userId.toString() + '","card":"' + card.trim() + '"}';
+                       String payload = '{"userId":"' + GlobalData.userId.toString() + '","card":"' + card.trim() + '"}';
+                        var data = {"userId": GlobalData.userId ,"card": card};
+
+
 
                         var jsonObject;
                         try

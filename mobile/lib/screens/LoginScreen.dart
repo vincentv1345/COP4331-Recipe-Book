@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/CreateAccount.dart';
+import 'package:mobile/screens/HomeScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
+
 import 'dart:convert';
 
 String message = "", newMessageText = ''; //error messages
@@ -11,7 +13,7 @@ String loginName = '', password = '';
 
 class GlobalData
 {
-static int userId = 0;
+static String userId = '';
 static String firstName = '';
 static String lastName = '';
 static String loginName = '';
@@ -20,8 +22,10 @@ static String password = '';
 
 
 class LoginScreen extends StatefulWidget {
+
+  const LoginScreen({Key? key}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -179,23 +183,26 @@ class _MainPageState extends State<MainPage> {
                             changeText();
 
                             String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                            var userId = -1;
+                            var data = {"login": loginName.trim() ,"password": password.trim()};
+
+                            var userId = "";
                             var jsonObject;
 
                             try
                             {
-                              String url = 'https://cop4331-10.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.getJson(url, payload);
+                              String url = 'https://recipebook5959.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
+                              var ret = await RecipeData.getJson(url, payload);
                               jsonObject = json.decode(ret);
-                              userId = jsonObject["id"];
+                             // print(json.decode(ret));
+                              //userId = jsonObject["id"];
+                              //print(userId);
+
                             }
                             catch(e)
                             {
-                           //   newMessageText = e.message;
-                              changeText();
-                          //    return;
+
                             }
-                            if( userId <= 0 )
+                            if( userId == "" )
                             {
                               newMessageText = "Incorrect Email or Password";
                               changeText();
@@ -210,9 +217,12 @@ class _MainPageState extends State<MainPage> {
                              // GlobalData.lastName = jsonObject["lastName"];
                               GlobalData.loginName = loginName;
                               GlobalData.password = password;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomeScreen()),
+                              );
 
-                              //ask ta about this line
-                              Navigator.pushNamed(context, '/cards');
+                             // Navigator.pushNamed(context, '/cards');
                             }
                           },
 
