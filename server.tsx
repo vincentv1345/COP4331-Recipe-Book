@@ -1,3 +1,5 @@
+import { createCipheriv } from "crypto";
+
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 const User = require("./models/User");
@@ -172,6 +174,19 @@ app.patch("/api/update_user", async(req, res)=>{
 
 app.patch("/api/update_recipe",async(req,res)=>{
 
+});
+
+app.delete("/api/delete_recipe", async(req,res)=>{
+  const { RecipeID } = req.body;
+
+  try{
+    const result = Recipe.findById({_id: new ObjectId(RecipeID)});
+    await result.deleteOne();
+
+    res.status(200).send("Deleted recipe"); //.json(reportInfo)
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
 });
 
 app.use((req, res, next) => 
