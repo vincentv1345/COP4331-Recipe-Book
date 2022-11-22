@@ -169,7 +169,27 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-
+  const { UserID,  Username, Password, Bio, Favorites, Following } = req.body;
+  var user = {UserID: UserID};
+  const result = await User.find(user);
+  if(req.body.Username && Username)
+    result.Username = req.body.User.Username;
+  if(req.body.Password && Password)
+    result.Password = Password;  
+  if(req.body.Bio && req.body.User.Bio)
+    result.Bio = Bio;
+  if(req.body.Favorites && Favorites)
+    result.Favorites && Favorites;
+  if(User.Following && Following)
+    result.Following = Following;
+  try{
+    res.send();
+  }catch(e){
+    let error = e.toString();
+    res.status(400).json(error);
+  }
+  res.status(204);
+  res.send({'User':result});
 });
 
 app.patch("/api/update_recipe",async(req,res)=>{
