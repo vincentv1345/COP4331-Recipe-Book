@@ -198,12 +198,58 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/];
+    var _a, UserID, Username, Password, Bio, Favorites, Following, user, result, error;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, UserID = _a.UserID, Username = _a.Username, Password = _a.Password, Bio = _a.Bio, Favorites = _a.Favorites, Following = _a.Following;
+                user = { UserID: UserID };
+                return [4 /*yield*/, User.find(user)];
+            case 1:
+                result = _b.sent();
+                if (req.body.Username && Username)
+                    result.Username = req.body.User.Username;
+                if (req.body.Password && Password)
+                    result.Password = Password;
+                if (req.body.Bio && req.body.User.Bio)
+                    result.Bio = Bio;
+                if (req.body.Favorites && Favorites)
+                    result.Favorites && Favorites;
+                if (User.Following && Following)
+                    result.Following = Following;
+                try {
+                    res.send();
+                }
+                catch (e) {
+                    error = e.toString();
+                    res.status(400).json(error);
+                }
+                res.status(204);
+                res.send({ 'User': result });
+                return [2 /*return*/];
+        }
     });
 }); });
 app.patch("/api/update_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var RecipeID;
     return __generator(this, function (_a) {
+        RecipeID = req.body.RecipeID;
+        try {
+            // parameters(id, new info, options (for this it retuns the new updated instance), callback)
+            Recipe.findByIdAndUpdate(RecipeID, { $set: req.body }, { "new": true }, function (err, user) {
+                if (err) {
+                    console.log(err);
+                    res.status(400).json(err);
+                }
+                else {
+                    console.log(user);
+                    res.status(200).json(user);
+                }
+            });
+        }
+        catch (e) {
+            res.status(400).json(e.toString());
+        }
         return [2 /*return*/];
     });
 }); });

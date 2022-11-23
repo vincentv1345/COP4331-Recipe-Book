@@ -193,7 +193,25 @@ app.patch("/api/update_user", async(req, res)=>{
 });
 
 app.patch("/api/update_recipe",async(req,res)=>{
+  const { RecipeID } = req.body;
 
+  try{
+    // parameters(id, new info, options (for this it retuns the new updated instance), callback)
+    Recipe.findByIdAndUpdate(RecipeID, {$set: req.body}, {new:true}, (err, user) => {
+      if(err)
+      {
+        console.log(err);
+        res.status(400).json(err);
+      }
+      else
+      {
+        console.log(user);
+        res.status(200).json(user);
+      }
+    });
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
 });
 
 app.delete("/api/delete_recipe", async(req,res)=>{
