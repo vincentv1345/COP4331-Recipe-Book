@@ -3,9 +3,11 @@ import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
+import 'HomeScreen.dart';
+
 String message = "", newMessageText = ''; //error messages
 
-String loginName = '', password = '';
+String loginName = '', email = '', password = '';
 
 
 
@@ -128,7 +130,7 @@ class _MainPageState extends State<MainPage> {
 
                           ),
                           onChanged: (text) {
-                            password = text;
+                            loginName = text;
                           },
                         ),
                       ),
@@ -154,7 +156,7 @@ class _MainPageState extends State<MainPage> {
 
                           ),
                           onChanged: (text) {
-                            loginName = text;
+                            email = text;
                           },
                         ),
                       ),
@@ -209,40 +211,36 @@ class _MainPageState extends State<MainPage> {
                             newMessageText = "";
                             changeText();
                             //add username to payload
-                           String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                            var data = {"login": loginName ,"password": password};
+                        //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
+                          //  var data = {"login": loginName ,"password": password};
                             var userId = -1;
                             var jsonObject;
 
                             try
                             {
+
+                              //CHECK to make sure that username is > 0 and other requirements here!!!!!
+
+
                               String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.getJson(url, payload);
+                              String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
-                            }
-                            catch(e)
-                            {
-                              //   newMessageText = e.message;
-                              changeText();
-                              //    return;
-                            }
-                            if( userId <= 0 )
-                            {
-                              newMessageText = "Incorrect Email or Password";
-                              changeText();
 
-                              //delete
-                              Navigator.pushNamed(context, '/cards');
-                            }
-                            else
-                            {
                               GlobalData.userId = userId;
                               // GlobalData.firstName = jsonObject["firstName"];
                               // GlobalData.lastName = jsonObject["lastName"];
                               GlobalData.loginName = loginName;
                               GlobalData.password = password;
-                              Navigator.pushNamed(context, '/cards');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => HomeScreen()),
+                              );
+                            }
+                            catch(e)
+                            {
+                              newMessageText = "Incorrect Email or Password";
+                              changeText();
                             }
                           },
 

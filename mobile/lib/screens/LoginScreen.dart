@@ -125,8 +125,8 @@ class _MainPageState extends State<MainPage> {
                                 filled: true,
                               border: InputBorder.none,
                                 fillColor: Color(0xecb19d7e),
-                                labelText: 'Email',
-                                hintText: 'Enter Your Email',
+                                labelText: 'Username',
+                                hintText: 'Enter Your Username',
                                 labelStyle: TextStyle(color: Colors.white),
 
                             ),
@@ -182,39 +182,24 @@ class _MainPageState extends State<MainPage> {
                             newMessageText = "";
                             changeText();
 
-                            String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                            var data = {"login": loginName.trim() ,"password": password.trim()};
+                        //    String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
+                          //  var data = {"login": loginName.trim() ,"password": password.trim()};
 
                             var userId = "";
-                            var jsonObject;
+                           // var jsonObject;
 
                             try
                             {
-                              String url = 'https://recipebook5959.herokuapp.com/api/login'; //http://www.flavordaddy.xyz/
-                              var ret = await RecipeData.getJson(url, payload);
-                              jsonObject = json.decode(ret);
-                             // print(json.decode(ret));
-                              //userId = jsonObject["id"];
-                              //print(userId);
 
-                            }
-                            catch(e)
-                            {
+                              var jsonObject = await RecipeData.login(loginName.trim(), password.trim());
 
-                            }
-                            if( userId == "" )
-                            {
-                              newMessageText = "Incorrect Email or Password";
-                              changeText();
-
-                              //delete
-                              //Navigator.pushNamed(context, '/cards');
-                            }
-                            else
-                            {
-                              GlobalData.userId = userId;
-                             // GlobalData.firstName = jsonObject["firstName"];
-                             // GlobalData.lastName = jsonObject["lastName"];
+                              //test later
+                              print("RESULTS" + jsonObject.toString());
+                              userId = jsonObject["id"];
+                              print(userId);
+                              GlobalData.userId = userId; //do these work?
+                              GlobalData.firstName = jsonObject["firstName"];
+                              GlobalData.lastName = jsonObject["lastName"];
                               GlobalData.loginName = loginName;
                               GlobalData.password = password;
                               Navigator.push(
@@ -222,7 +207,11 @@ class _MainPageState extends State<MainPage> {
                                 MaterialPageRoute(builder: (context) => HomeScreen()),
                               );
 
-                             // Navigator.pushNamed(context, '/cards');
+                            }
+                            catch(e)
+                            {
+                              newMessageText = "Incorrect Username or Password";
+                              changeText();
                             }
                           },
 
