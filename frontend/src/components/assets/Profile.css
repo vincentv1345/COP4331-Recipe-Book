@@ -1,38 +1,192 @@
 
-.App {
-    text-align: center;
-    height: 100vh;
-    width: 100vw;
+
+body {
+    background-color: #ffeecc;
 }
 
 .App-header {
     background-color: #ffeecc;
-    height: 100vh;
+    min-height:100%;
     width: 100vw; 
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: 20px;
     color: black;
+
   }
 
 .button {
     background-color:  #5F2829;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-    margin-left: 15%;
-    margin-top: 10%;
-    padding: 8% 0%;
-    width: 190%;
+    font: "Darker Grotesque";
+    font-weight: normal;
+    font-size: 16px;
+    padding: .5% 3%;
+    width: fit-content;
     border-radius: 20px;
     transition-duration: .5s;
     text-align: center;
-    color: white;
+    color: #ffeecc;
     cursor: pointer;
+    position: absolute;
+    left: 1000px;
+    top: 125px;
 }
 .button:hover {
-    background-color: white;
-    color:#000000;
+    background-color: #ffeecc;
+    color:#5F2829;
 }
+
+.circle {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    background-color: #5F2829;
+    border-radius: 50%;
+    border-color: #3a1819;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+  }
+
+  .username-text{
+    font-size: 30px;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    position: absolute;
+    left: 500px;
+    top: 120px;
+  }
+
+  .followers-text{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 900px;
+    top: 190px;
+  }
+
+  .following-text{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 700px;
+    top: 190px;
+  }
+
+  .recipes-text{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 500px;
+    top: 190px;
+  }
+
+  .bio-text{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 500px;
+    top: 300px;
+  }
+
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .image-gallery > li {
+    top: 300px;
+    height: 300px;
+    list-style-type: none;
+    position: relative;
+  }
+  
+  .image-gallery li img {
+    object-fit: cover;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+  .image-gallery img:hover{
+    opacity:.3;
+    transition: 1000ms;
+ } 
+
+ .recipe-title  {
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    position: absolute;
+
+ }
+
+ .recipe-author  {
+    font-size: 15px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: relative;
+    top: 19px;
+
+ }
+
+ hr {
+    position: absolute;
+    top: 340pt;
+    opacity: 1;
+    width: 100%;
+    height: 1px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#5F2829;
+    border: none;
+ }
+/* Popup style */
+.popup-box {
+  position: fixed;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+ 
+.box {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+ 
+.close-icon {
+  content: 'x';
+  cursor: pointer;
+  position: fixed;
+  right: calc(15% - 30px);
+  top: calc(100vh - 85vh - 33px);
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}
+
+  
+
+
