@@ -1,3 +1,5 @@
+import { createCipheriv } from "crypto";
+
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
 const User = require("./models/User");
@@ -167,11 +169,59 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-
+  const { UserID} = req.body;
+  
+  try{
+    User.findByIdAndUpdate(UserID, {$set: req.body}, {new:true}, (err, user) => {
+      if(err)
+      {
+        console.log(err);
+        res.status(400).json(err);
+      }
+      else
+      {
+        console.log(user);
+        res.status(200).json(user);
+      }
+    });
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
 });
 
 app.patch("/api/update_recipe",async(req,res)=>{
+  const { RecipeID } = req.body;
 
+  try{
+    // parameters(id, new info, options (for this it retuns the new updated instance), callback)
+    Recipe.findByIdAndUpdate(RecipeID, {$set: req.body}, {new:true}, (err, user) => {
+      if(err)
+      {
+        console.log(err);
+        res.status(400).json(err);
+      }
+      else
+      {
+        console.log(user);
+        res.status(200).json(user);
+      }
+    });
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
+});
+
+app.delete("/api/delete_recipe", async(req,res)=>{
+  const { RecipeID } = req.body;
+
+  try{
+    const result = Recipe.findById({_id: new ObjectId(RecipeID)});
+    await result.deleteOne();
+
+    res.status(200).send("Deleted recipe"); //.json(reportInfo)
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
 });
 
 app.use((req, res, next) => 
