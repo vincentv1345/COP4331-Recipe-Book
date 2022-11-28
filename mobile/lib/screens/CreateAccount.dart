@@ -223,15 +223,15 @@ class _MainPageState extends State<MainPage> {
 
 
                               String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
+                              String ret = await RecipeData.signup(email.trim(),loginName.trim(), password.trim());
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
 
-                              GlobalData.userId = userId;
+                             // GlobalData.userId = userId;
                               // GlobalData.firstName = jsonObject["firstName"];
                               // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
+                             // GlobalData.loginName = loginName;
+                             // GlobalData.password = password;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => HomeScreen()),
