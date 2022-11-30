@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/screens/HomeScreen.dart';
 import 'package:mobile/screens/Profile.dart';
+import 'package:mobile/screens/ViewRecipe.dart';
 
 class Routes {
   static const String LOGINSCREEN = '/login';
   static const String HOMESCREEN = '/homescreen';
   static const String PROFILEPAGE = '/profile';
+  static const String RECIPESCREEN = '/recipe';
 
   // routes of pages in the app
   static Map<String, Widget Function(BuildContext)> get getroutes => {
@@ -14,5 +16,6 @@ class Routes {
     LOGINSCREEN: (context) => LoginScreen(),
     HOMESCREEN: (context) => HomeScreen(),
     PROFILEPAGE: (context) => ProfileScreen(),
+    RECIPESCREEN: (context) => RecipeScreen(),
   };
 }

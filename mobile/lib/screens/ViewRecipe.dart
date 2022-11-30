@@ -28,12 +28,12 @@ class GlobalData
 }
 
 
-class ProfileScreen extends StatefulWidget {
+class RecipeScreen extends StatefulWidget {
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _RecipeScreenState createState() => _RecipeScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _RecipeScreenState extends State<RecipeScreen> {
   @override
   void initState() {
     super.initState();
@@ -75,8 +75,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage("lib/assets/profilebg.PNG"), fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("lib/assets/homescreen.PNG"), fit: BoxFit.cover),
         ),
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -90,17 +91,34 @@ class _MainPageState extends State<MainPage> {
 
               children: <Widget>[
 
-
-                Row( //BUTTON
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
+
                   children: <Widget>[
+
                     Container(
-                      margin: const EdgeInsets.only(top: 20, left: 225),
+                        margin: const EdgeInsets.only(right: 50),
+                        color: Color(0xffFCF6EC),
+                        child:
+                        TextButton(
+                          child: const Text(
+                            'HOME',
+                            style: TextStyle(fontSize: 16, color: Color(0xff000000)),
+                          ),
+                          onPressed: () {
+                            //signup screen
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                          },)
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(top: 40, left: 20),
                       width: 150,
                       child:
                       MaterialButton(
-                          child: Text('Edit Profile',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
+                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
                           ),
 
                           onPressed: () async
@@ -148,42 +166,36 @@ class _MainPageState extends State<MainPage> {
                           splashColor: Colors.black
                       ),
                     )
+
                   ],
-                ), //BUTTON
+                ), //buttons
 
 
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+
                       Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        width: 350,
-                        height: 150,
-                        child:
-                        CircleAvatar(
-                            radius: 80,
-                            backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                            radius: 72,
+                        padding: EdgeInsets.all(15), // Border width
+                        decoration: BoxDecoration(color: Colors.transparent,),
+                          margin: const EdgeInsets.only(top: 20),
+                          width: MediaQuery.of(context).size.width - 50,
+                          height: 300,
 
-                            backgroundColor: Colors.transparent,
-                            child: SizedBox(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
 
-
-                                child: ClipOval(
-
-                                  child: Image.asset("lib/assets/profilepicture.png",
-                                  ),
-                                )
-                            )
-                        )
-                        )
-                      ),
+                            child: Image.asset(
+                              "lib/assets/food.jpg",
+                              width: 600.0,
+                              height: 240.0,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                      )
                     ]
-                ), //IMAGE
-
-
+                ), //IMAGE //NAME
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
@@ -191,22 +203,91 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     Text(GlobalData.loginName + 'test',style: TextStyle(fontSize: 60 ,color:Colors.black)),
                   ],
-
                 ), //NAME
 
-                Row(
 
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 10),
+                        margin: const EdgeInsets.only(top: 10, right: 200, bottom: 5),
                         child:
-                        Text( GlobalData.recipesCount.toString() + ' Recipes   ' + GlobalData.followers.toString() + ' Follwers   ' +  GlobalData.following.toString() + ' Following',
-                            style: TextStyle(fontSize: 20 ,color:Colors.black))
+                        Text('Ingredients',
+                            style: TextStyle(fontSize: 25 ,color:Colors.black))
                     ),
                   ],
-                ), //rep folling er
+                ),
+
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: <Widget>[
+                      Container(
+
+                       // color: Colors.white,
+                        child: const Expanded(
+                        flex: 1,
+
+
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+
+                          child: Text(
+                            "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
+                            style: TextStyle(
+                              fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ),
+                    ]
+                ),
+
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        margin: const EdgeInsets.only(top: 20, right: 200, bottom: 5),
+                        child:
+                        const Text('Directions',
+                            style: TextStyle(fontSize: 25 ,color:Colors.black))
+                    ),
+                  ],
+                ),
+
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        // color: Colors.white,
+                        child: const Expanded(
+                          flex: 1,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Text(
+                              "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
+                              style: TextStyle(
+                                fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]
+                ),
+
+
+
+
 
                 Row(
 
@@ -216,101 +297,16 @@ class _MainPageState extends State<MainPage> {
                     Container(
                         height: 30,
                         margin: const EdgeInsets.only(top: 15),
-                        child: Text(GlobalData.bio.toString() + 'oooooooooo',
-                            style: TextStyle(fontSize: 15 ,color:Colors.black))
+                     //   child: Text(GlobalData.bio.toString() + 'oooooooooo oooooooooo oooooooooo oooooooooo',
+                       //     style: TextStyle(fontSize: 15 ,color:Colors.black))
                     ),
                   ],
                 ), //bio
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.only(right: 50),
-                        color: Color(0xffFCF6EC),
-                        child:
-                      TextButton(
-                        child: const Text(
-                          'my recipes',
-                          style: TextStyle(fontSize: 16, color: Color(0xff000000)),
-                        ),
-                        onPressed: () {
-                            print("ndfkns" + GlobalData.loginName);
-
-
-                        },
-                      ),
-                    ),
-
-                    Container(
-                      margin: const EdgeInsets.only(left: 50),
-                      color: Color(0xffFCF6EC),
-                      child:
-                    TextButton(
-                      child: const Text(
-                        'liked recipes',
-                        style: TextStyle(fontSize: 16, color: Color(0xff000000)),
-                      ),
-                      onPressed: () {
-                        //signup screen
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
-                      },)
-                    ),
-
-                  ],
-                ), //buttons
 
 
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 15),
-                        width: 350,
-                       /*  child: ListView.builder(
-                          // Let the ListView know how many items it needs to build.
-                          itemCount: items.length,
-                          // Provide a builder function. This is where the magic happens.
-                          // Convert each item into a widget based on the type of item it is.
-                          itemBuilder: (context, index) {
-                            final item = items[index];
 
-                            return Row(
-
-                                children: <Widget>[
-
-                                  const CircleAvatar(
-                                    backgroundImage: AssetImage('assets/images/cat3.png'), //set image //item.image
-                                    radius: 100,
-                                  ),
-
-                                  TextButton(
-                                    child: const Text(
-                                      'item.name',
-                                      style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
-                                    ),
-                                    onPressed: () {
-                                      //open recipe info pageeeeee
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
-                                    },
-                                  )
-
-                                  ]
-
-                            );
-                          },
-                        ), */
-
-                        )
-
-                    ]
-                )
 
               ],
             )

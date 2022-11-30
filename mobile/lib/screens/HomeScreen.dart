@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Profile.dart';
+import 'package:mobile/screens/ViewRecipe.dart';
 import '../utils/getAPI.dart';
 
 
@@ -119,6 +120,25 @@ class _MainPageState extends State<MainPage> {
                      // Navigator.pushNamed(context, '/profile');
                       Navigator.push(context, new MaterialPageRoute(
                           builder: (context) => new ProfileScreen())
+                      );
+                    },
+                    color:Colors.brown[50],
+                    textColor: Colors.black,
+                    padding: EdgeInsets.all(2.0),
+                    splashColor: Colors.grey[100]
+                )
+              ],
+            ),
+
+            Row(
+              children: <Widget>[
+                MaterialButton(
+                    child: Text('recipe',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                    onPressed: ()
+                    {
+                      // Navigator.pushNamed(context, '/profile');
+                      Navigator.push(context, new MaterialPageRoute(
+                          builder: (context) => new RecipeScreen())
                       );
                     },
                     color:Colors.brown[50],
