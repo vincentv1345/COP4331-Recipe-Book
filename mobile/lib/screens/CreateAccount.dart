@@ -13,7 +13,7 @@ String loginName = '', email = '', password = '';
 
 class GlobalData
 {
-  static int userId = 0;
+  static String userId = '';
   static String firstName = '';
   static String lastName = '';
   static String loginName = '';
@@ -208,20 +208,21 @@ class _MainPageState extends State<MainPage> {
 
                           onPressed: () async
                           {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  LoginScreen()),
+                            );
                             newMessageText = "";
                             changeText();
                             //add username to payload
                         //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
                           //  var data = {"login": loginName ,"password": password};
-                            var userId = -1;
+                            var userId = '';
                             var jsonObject;
 
-                            try {
-                              //CHECK to make sure that username is > 0 and other requirements here!!!!!
-
-
                               String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.signup(email.trim(),
+                              var ret = await RecipeData.signup(email.trim(),
                                   loginName.trim(), password.trim());
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
@@ -229,19 +230,8 @@ class _MainPageState extends State<MainPage> {
                               GlobalData.userId = userId;
                               // GlobalData.firstName = jsonObject["firstName"];
                               // GlobalData.lastName = jsonObject["lastName"];
-                              // GlobalData.loginName = loginName;
-                              // GlobalData.password = password;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>
-                                    HomeScreen()),
-                              );
-                            }
-                            catch(e)
-                            {
-                              newMessageText = "Incorrect Email or Password";
-                              changeText();
-                            }
+                              GlobalData.loginName = loginName;
+                              GlobalData.password = password;
                           },
 
                           color:const Color(0xff5F2829),

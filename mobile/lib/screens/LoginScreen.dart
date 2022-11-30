@@ -176,17 +176,13 @@ class _MainPageState extends State<MainPage> {
                         child:
                         MaterialButton(
 
-                          child: Text('ENTER',style: TextStyle(fontSize: 20 ,color:Color(0xffFEEACB))),
+                          child: Text('Login',style: TextStyle(fontSize: 25 ,color:Color(0xffFEEACB))),
                           onPressed: () async
                           {
                             newMessageText = "";
                             changeText();
-
-                        //    String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                          //  var data = {"login": loginName.trim() ,"password": password.trim()};
-
                             var userId = "";
-                           // var jsonObject;
+
 
                             try
                             {
@@ -215,10 +211,11 @@ class _MainPageState extends State<MainPage> {
                             }
                           },
 
-                          color:const Color(0xff5F2829),
-                          textColor: Color(0xffFEEACB),
-                          padding: EdgeInsets.all(2.0),
-                          splashColor: Colors.black
+                            color:const Color(0xff5F2829),
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
+                            textColor: Color(0xffF9DEE8),
+                            padding: EdgeInsets.all(2.0),
+                            splashColor: Colors.black
                       ),
                       )
                     ],

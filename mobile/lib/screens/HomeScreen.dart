@@ -189,76 +189,19 @@ class _MainPageState extends State<MainPage> {
                 ]
             ),
             Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        width: 200,
-                        child:
-                        TextField (
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(),
-                              labelText: 'Add',
-                              hintText: 'Add a Card'
-                          ),
-                          onChanged: (text)
-                          {
-                            card = text;
-                          },
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                 const SizedBox(width: 16),
 
-                        ),
-                      ),
-                      Row(
-
-                        children: <Widget>[
-                          Text('$addMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  MaterialButton(
-
-                      child: Text('Add',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                      onPressed: () async
-                      {
-                        newAddMessage = "";
-                        changeAddText();
-
-                       String payload = '{"userId":"' + GlobalData.userId.toString() + '","card":"' + card.trim() + '"}';
-                        var data = {"userId": GlobalData.userId ,"card": card};
-
-
-
-                        var jsonObject;
-                        try
-                        {
-                          String url = 'https://cop4331-10.herokuapp.com/api/addcard';
-                          String ret = await RecipeData.login(url, payload); //not correct
-                          jsonObject = json.decode(ret);
-                        }
-                        catch(e)
-                        {
-                        //  newAddMessage = e.message;
-                          changeAddText();
-                          return;
-                        }
-
-                        newAddMessage = "Card has been added";
-                        changeAddText();
-                      },
-
-                      color:Colors.brown[50],
-                      textColor: Colors.black,
-                      padding: EdgeInsets.all(2.0),
-                      splashColor: Colors.grey[100]
-                  )
-
-                ]
+                FloatingActionButton.small(
+                  backgroundColor: Color(0xff5F2829),
+                   onPressed: () {
+                       // Add your onPressed code here!
+                                },
+                 child: const Icon(Icons.add),
             ),
+
+            ]),
             Row(
               children: <Widget>[
                 Text('$message',style: TextStyle(fontSize: 14 ,color:Colors.black)),
