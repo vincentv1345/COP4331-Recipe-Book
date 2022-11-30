@@ -67,7 +67,9 @@ flutter:
   assets:
     - lib/assets/loginbg.PNG
     - lib/assets/signupbg.PNG
+    - lib/assets/profilebg.PNG
     - lib/assets/homescreen.PNG
+    - lib/assets/profilepicture.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
