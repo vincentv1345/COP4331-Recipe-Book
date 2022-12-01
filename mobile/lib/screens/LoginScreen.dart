@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/CreateAccount.dart';
 import 'package:mobile/screens/HomeScreen.dart';
+import 'package:mobile/screens/ViewRecipe.dart';
 import 'package:mobile/utils/getAPI.dart';
 
 import 'dart:convert';
@@ -238,7 +239,31 @@ class _MainPageState extends State<MainPage> {
 
                         },)
                         ],
-                  ) //CREATE ACC
+                  ),
+
+
+                  Row(
+                    children: <Widget>[
+                      MaterialButton(
+                          child: Text('recipe',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                          onPressed: ()
+                          {
+                            // Navigator.pushNamed(context, '/profile');
+                            Navigator.push(context, new MaterialPageRoute(
+                                builder: (context) => new RecipeScreen())
+                            );
+                          },
+                          color:Colors.brown[50],
+                          textColor: Colors.black,
+                          padding: EdgeInsets.all(2.0),
+                          splashColor: Colors.grey[100]
+                      )
+                    ],
+                  ),
+
+
+
+                  //CREATE ACC
                   ],
               )
           )
