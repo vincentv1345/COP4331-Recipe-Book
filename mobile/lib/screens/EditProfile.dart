@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/LoginScreen.dart';
+import 'package:mobile/screens/Profile.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
@@ -21,12 +22,12 @@ class GlobalData
 }
 
 
-class CreateScreen extends StatefulWidget {
+class EditProfileScreen extends StatefulWidget {
   @override
   _CreateScreenState createState() => _CreateScreenState();
 }
 
-class _CreateScreenState extends State<CreateScreen> {
+class _CreateScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
@@ -66,7 +67,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage("lib/assets/signupbg.PNG"), fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("lib/assets/homescreen.PNG"), fit: BoxFit.cover),
         ),
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -86,17 +87,11 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     Container(
                         margin: const EdgeInsets.only(top: 230),
-                        child: Text('Create Account For',style: TextStyle(fontSize: 24 ,color:Colors.black))
+                        child: Text('Edit Profile',style: TextStyle(fontSize: 40 ,color:Colors.black))
                     ),
                   ],
                 ), //Create
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Cookbook',style: TextStyle(fontSize: 60 ,color:Colors.black)),
-                  ],
-                ), //COOKBOOK
+
                 Row( //ERROR MSG
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,15 +112,15 @@ class _MainPageState extends State<MainPage> {
                         width: 350,
                         child:
                         TextField (
-                          style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
+                          style: TextStyle(fontSize: 18, color: Colors.black.withOpacity(1.0)),
                           decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Color(0xecBC93A2),
-                            //    border: OutlineInputBorder(),
-                            border: InputBorder.none,
-                            labelText: 'Username',
-                            hintText: 'Enter a username',
-                            labelStyle: TextStyle(color: Colors.white),
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(),
+                            //border: InputBorder.none,
+                            labelText: 'Bio',
+                            hintText: 'Enter a bio',
+                            labelStyle: TextStyle(color: Colors.black),
 
                           ),
                           onChanged: (text) {
@@ -144,14 +139,15 @@ class _MainPageState extends State<MainPage> {
                         width: 350,
                         child:
                         TextField (
-                          style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
+                          obscureText: true,
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                           decoration: const InputDecoration(
                             filled: true,
-                            border: InputBorder.none,
-                            fillColor: Color(0xecBC93A2),
-                            labelText: 'Email',
-                            hintText: 'Enter a valid Email',
-                            labelStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(),
+                            fillColor: Colors.white,
+                            labelText: 'New Password',
+                            hintText: 'Enter a valid password',
+                            labelStyle: TextStyle(color: Colors.black),
 
                           ),
                           onChanged: (text) {
@@ -171,15 +167,15 @@ class _MainPageState extends State<MainPage> {
                         child:
                         TextField (
                           obscureText: true,
-                          style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(1.0)),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                           decoration: const InputDecoration(
                             filled: true,
-                            fillColor: Color(0xecBC93A2),
-                            //    border: OutlineInputBorder(),
-                            border: InputBorder.none,
-                            labelText: 'Password',
-                            hintText: 'Enter a password',
-                            labelStyle: TextStyle(color: Colors.white),
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(),
+                           // border: InputBorder.none,
+                            labelText: 'Re-Enter Password',
+                            hintText: 'Re-Enter password',
+                            labelStyle: TextStyle(color: Colors.black),
 
                           ),
                           onChanged: (text) {
@@ -201,7 +197,7 @@ class _MainPageState extends State<MainPage> {
                       MaterialButton(
 
 
-                      child: Text('Sign Up',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
+                      child: Text('Save',style: TextStyle(fontSize: 20 ,color:Colors.white)
                       ),
 
 
@@ -230,13 +226,13 @@ class _MainPageState extends State<MainPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>
-                                  LoginScreen()),
+                                  ProfileScreen()),
                             );
                           },
 
                           color:const Color(0xff5F2829),
                           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
-                          textColor: Color(0xffF9DEE8),
+                          textColor: Colors.white,
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
                       ),
@@ -250,13 +246,13 @@ class _MainPageState extends State<MainPage> {
                   children: <Widget>[
                     TextButton(
                       child: const Text(
-                        'Log in',
+                        'Cancel',
                         style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
                       ),
                       onPressed: () {
                         //signup screen
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
+                            builder: (context) => ProfileScreen()));
                       },)
                   ],
                 ) //CREATE ACC

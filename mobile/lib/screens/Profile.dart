@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/EditProfile.dart';
 import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
@@ -154,43 +155,11 @@ class _MainPageState extends State<MainPage> {
                             child: Text('Edit Profile',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))
                             ),
 
-                            onPressed: () async
-                            {
-                              newMessageText = "";
-                              changeText();
-                              //add username to payload
-                              //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                              //  var data = {"login": loginName ,"password": password};
-                              var userId = -1;
-                              var jsonObject;
-
-                              try
-                              {
-
-                                //CHECK to make sure that username is > 0 and other requirements here!!!!!
-
-
-                                String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                                String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
-                                jsonObject = json.decode(ret);
-                                userId = jsonObject["id"];
-
-                                GlobalData.userId = userId;
-                                // GlobalData.firstName = jsonObject["firstName"];
-                                // GlobalData.lastName = jsonObject["lastName"];
-                                GlobalData.loginName = loginName;
-                                GlobalData.password = password;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                                );
-                              }
-                              catch(e)
-                              {
-                                newMessageText = "Incorrect Email or Password";
-                                changeText();
-                              }
-                            },
+                           onPressed: () {
+                              Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new EditProfileScreen())
+                              );
+                              },
 
                             color:const Color(0xff5F2829),
                             shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),

@@ -153,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                       width: 125,
                       child:
                       MaterialButton(
-                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color:const Color(0xffF9DEE8), )
+                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color: Colors.white, )
                           ),
 
                           onPressed: () async
@@ -196,7 +196,7 @@ class _MainPageState extends State<MainPage> {
 
                           color: const Color(0xff5F2829),
                           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
-                          textColor: Color(0xffF9DEE8),
+                          textColor: Colors.white,
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
                       ),
