@@ -6,6 +6,7 @@ import 'dart:convert';
 import '../main.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
+import 'Profile.dart';
 
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
@@ -91,34 +92,68 @@ class _MainPageState extends State<MainPage> {
 
               children: <Widget>[
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            Container(
+            margin: const EdgeInsets.only(top: 25, left: 10,),
 
-                  children: <Widget>[
+            child:
+            Row(
+              children: <Widget>[
 
-                    Container(
-                        margin: const EdgeInsets.only(right: 50),
-                        color: Color(0xffFCF6EC),
-                        child:
-                        TextButton(
-                          child: const Text(
-                            'HOME',
-                            style: TextStyle(fontSize: 16, color: Color(0xff000000)),
-                          ),
-                          onPressed: () {
-                            //signup screen
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
-                          },)
-                    ),
+                Column(
+                    children:<Widget>[
 
-                    Container(
-                      margin: const EdgeInsets.only(top: 40, left: 20),
-                      width: 150,
+                      const SizedBox(width: 16),
+
+                      FloatingActionButton.small(
+                        backgroundColor: Color(0xff5F2829),
+                        onPressed: () {
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new HomeScreen())
+                          );
+                        },
+                        child: const Icon(Icons.home),
+                      ),
+                    ]
+                ),
+
+                Column(
+                    children:<Widget>[
+
+                      const SizedBox(width: 16),
+
+                      FloatingActionButton.small(
+                        backgroundColor: Color(0xff5F2829),
+                        onPressed: () {
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new ProfileScreen())
+                          );
+                        },
+                        child: const Icon(Icons.person),
+                      ),
+                    ]
+                ),
+
+                Column(
+                    children:<Widget>[
+
+                      const SizedBox(width: 16),
+
+                      FloatingActionButton.small(
+                        backgroundColor: Color(0xff5F2829),
+                        onPressed: () {
+                          // Add your onPressed code here!
+                        },
+                        child: const Icon(Icons.add),
+                      ),
+                    ]
+                ),
+
+                Container(
+                      margin: const EdgeInsets.only(top: 0, left: 50),
+                      width: 125,
                       child:
                       MaterialButton(
-                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
+                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color: Colors.white, )
                           ),
 
                           onPressed: () async
@@ -159,16 +194,32 @@ class _MainPageState extends State<MainPage> {
                             }
                           },
 
-                          color:const Color(0xff5F2829),
+                          color: const Color(0xff5F2829),
                           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
-                          textColor: Color(0xffF9DEE8),
+                          textColor: Colors.white,
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
                       ),
-                    )
+                    ),
 
                   ],
                 ), //buttons
+            ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 Row(
@@ -179,7 +230,7 @@ class _MainPageState extends State<MainPage> {
                       Container(
                         padding: EdgeInsets.all(15), // Border width
                         decoration: BoxDecoration(color: Colors.transparent,),
-                          margin: const EdgeInsets.only(top: 20),
+                          margin: const EdgeInsets.only(top: 5),
                           width: MediaQuery.of(context).size.width - 50,
                           height: 300,
 
