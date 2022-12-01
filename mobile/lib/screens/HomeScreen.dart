@@ -85,61 +85,73 @@ class _MainPageState extends State<MainPage> {
               fit: BoxFit.cover,
             ),
         ),
-        width: 500,
+        width:  MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+
         child:
         Column(
-          mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-          crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
+        //  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          //Center Column contents horizontal
           children: <Widget>[
            // alignment: Alignment.topCenter,
 
 
-            Row(
 
-              children: <Widget>[
+        Container(
+          margin: const EdgeInsets.only(top: 10),
 
-                MaterialButton(
-                    child: Text('Logout',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                    onPressed: ()
-                    {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    color:Colors.brown[50],
-                    textColor: Colors.black,
-                    padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.grey[100]
-                )
-              ],
-            ),
-
+        child:
             Row(
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                    IconButton(
-                      icon: Image.asset("lib/assets/cookbook.png"),
-                      iconSize: 50,
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/profile');
-                        Navigator.push(context, new MaterialPageRoute(
-                            builder: (context) => new ProfileScreen())
-                        );},
-                    ),
 
-                  ]),
+                  Column(
+                      children:<Widget>[
+
+                        const SizedBox(width: 16),
+
+                        FloatingActionButton.small(
+                          backgroundColor: Color(0xff5F2829),
+                          onPressed: () {
+                            Navigator.push(context, new MaterialPageRoute(
+                                builder: (context) => new HomeScreen())
+                            );
+                          },
+                          child: const Icon(Icons.home),
+                        ),
+                      ]
+                  ),
+
+                  Column(
+                      children:<Widget>[
+
+                        const SizedBox(width: 16),
+
+                        FloatingActionButton.small(
+                          backgroundColor: Color(0xff5F2829),
+                          onPressed: () {
+                            Navigator.push(context, new MaterialPageRoute(
+                                builder: (context) => new ProfileScreen())
+                            );
+                          },
+                          child: const Icon(Icons.person),
+                        ),
+                      ]
+                  ),
+
                   Column(
                     children:<Widget>[
 
-                            const SizedBox(width: 16),
+                      const SizedBox(width: 16),
 
-                            FloatingActionButton.small(
-                              backgroundColor: Color(0xff5F2829),
-                              onPressed: () {
-                                // Add your onPressed code here!
-                              },
-                              child: const Icon(Icons.add),
-                            ),
-
+                      FloatingActionButton.small(
+                          backgroundColor: Color(0xff5F2829),
+                          onPressed: () {
+                           // Add your onPressed code here!
+                      },
+                      child: const Icon(Icons.add),
+                      ),
                     ]
                   ),
 
@@ -147,20 +159,22 @@ class _MainPageState extends State<MainPage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text('$searchMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                            Text(searchMessage,style: const TextStyle(fontSize: 14 ,color:Colors.black)),
                           ],
                         ),
 
                         Container(
-                          width: 150,
+                          width: 200,
+                          height: 62,
                           child:
                           TextField (
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(),
                                 labelText: 'Search',
-                                hintText: 'Search for a Card'
+                                hintText: 'Search for a Recipe',
+                              contentPadding: EdgeInsets.fromLTRB(5,0,5,0),
                             ),
                             onChanged: (text)
                             {
@@ -176,7 +190,9 @@ class _MainPageState extends State<MainPage> {
 
 
                   MaterialButton(
-                      child: Text('Search',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                    minWidth: 40,
+
+                      child: Text('Go',style: TextStyle(fontSize: 14 ,color:Colors.white)),
                       onPressed: () async
                       {
                         newSearchMessage = "";
@@ -219,14 +235,14 @@ class _MainPageState extends State<MainPage> {
                         changeSearchText();
                       },
 
-                      color:Colors.brown[50],
-                      textColor: Colors.black,
+                      color:const Color(0xff5F2829),
+                      textColor: Colors.white,
                       padding: EdgeInsets.all(2.0),
                       splashColor: Colors.grey[100]
                   )
 
                 ],
-
+            ),
 
             ),
 

@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child:
-        SingleChildScrollView(
+        SingleChildScrollView(  //????????
             child:
 
             Column(
@@ -90,66 +90,135 @@ class _MainPageState extends State<MainPage> {
 
               children: <Widget>[
 
+                Container(
+                  margin: const EdgeInsets.only(top: 20, left: 10,),
 
-                Row( //BUTTON
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(top: 20, left: 225),
-                      width: 150,
-                      child:
-                      MaterialButton(
-                          child: Text('Edit Profile',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
-                          ),
+                  child:
+                  Row(
+                    children: <Widget>[
 
-                          onPressed: () async
-                          {
-                            newMessageText = "";
-                            changeText();
-                            //add username to payload
-                            //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                            //  var data = {"login": loginName ,"password": password};
-                            var userId = -1;
-                            var jsonObject;
+                      Column(
+                          children:<Widget>[
 
-                            try
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new HomeScreen())
+                                );
+                              },
+                              child: const Icon(Icons.home),
+                            ),
+                          ]
+                      ),
+
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new ProfileScreen())
+                                );
+                              },
+                              child: const Icon(Icons.person),
+                            ),
+                          ]
+                      ),
+
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                // Add your onPressed code here!
+                              },
+                              child: const Icon(Icons.add),
+                            ),
+                          ]
+                      ),
+
+                      Container(
+                        margin: const EdgeInsets.only(top: 0, left: 10),
+                        width: 125,
+                        child:
+                        MaterialButton(
+                            child: Text('Edit Profile',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))
+                            ),
+
+                            onPressed: () async
                             {
-
-                              //CHECK to make sure that username is > 0 and other requirements here!!!!!
-
-
-                              String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
-                              jsonObject = json.decode(ret);
-                              userId = jsonObject["id"];
-
-                              GlobalData.userId = userId;
-                              // GlobalData.firstName = jsonObject["firstName"];
-                              // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HomeScreen()),
-                              );
-                            }
-                            catch(e)
-                            {
-                              newMessageText = "Incorrect Email or Password";
+                              newMessageText = "";
                               changeText();
-                            }
-                          },
+                              //add username to payload
+                              //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
+                              //  var data = {"login": loginName ,"password": password};
+                              var userId = -1;
+                              var jsonObject;
 
+                              try
+                              {
+
+                                //CHECK to make sure that username is > 0 and other requirements here!!!!!
+
+
+                                String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
+                                String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
+                                jsonObject = json.decode(ret);
+                                userId = jsonObject["id"];
+
+                                GlobalData.userId = userId;
+                                // GlobalData.firstName = jsonObject["firstName"];
+                                // GlobalData.lastName = jsonObject["lastName"];
+                                GlobalData.loginName = loginName;
+                                GlobalData.password = password;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                                );
+                              }
+                              catch(e)
+                              {
+                                newMessageText = "Incorrect Email or Password";
+                                changeText();
+                              }
+                            },
+
+                            color:const Color(0xff5F2829),
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
+                            textColor: Color(0xffF9DEE8),
+                            padding: EdgeInsets.all(2.0),
+                            splashColor: Colors.black
+                        ),
+                      ),
+
+                      MaterialButton(
+                          child: Text('Logout',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))),
+                          onPressed: ()
+                          {
+                            Navigator.pushNamed(context, '/login');
+                          },
                           color:const Color(0xff5F2829),
                           shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
                           textColor: Color(0xffF9DEE8),
                           padding: EdgeInsets.all(2.0),
                           splashColor: Colors.black
-                      ),
-                    )
-                  ],
-                ), //BUTTON
+                      )
+
+                    ],
+                  ),
+
+                ),
+
+
 
 
                 Row(
