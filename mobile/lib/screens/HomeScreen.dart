@@ -91,11 +91,13 @@ class _MainPageState extends State<MainPage> {
           mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
           crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
           children: <Widget>[
-
+           // alignment: Alignment.topCenter,
 
 
             Row(
+
               children: <Widget>[
+
                 MaterialButton(
                     child: Text('Logout',style: TextStyle(fontSize: 14 ,color:Colors.black)),
                     onPressed: ()
@@ -111,32 +113,46 @@ class _MainPageState extends State<MainPage> {
             ),
 
             Row(
-              children: <Widget>[
-                MaterialButton(
-                    child: Text('profile',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                    onPressed: ()
-                    {
-                     // Navigator.pushNamed(context, '/profile');
-                      Navigator.push(context, new MaterialPageRoute(
-                          builder: (context) => new ProfileScreen())
-                      );
-                    },
-                    color:Colors.brown[50],
-                    textColor: Colors.black,
-                    padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.grey[100]
-                )
-              ],
-            ),
-
-
-
-            Row(
                 children: <Widget>[
                   Column(
+                    children: <Widget>[
+                    IconButton(
+                      icon: Image.asset("lib/assets/cookbook.png"),
+                      iconSize: 50,
+                      onPressed: () {
+                        // Navigator.pushNamed(context, '/profile');
+                        Navigator.push(context, new MaterialPageRoute(
+                            builder: (context) => new ProfileScreen())
+                        );},
+                    ),
+
+                  ]),
+                  Column(
+                    children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                // Add your onPressed code here!
+                              },
+                              child: const Icon(Icons.add),
+                            ),
+
+                    ]
+                  ),
+
+                  Column(
                       children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text('$searchMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                          ],
+                        ),
+
                         Container(
-                          width: 200,
+                          width: 150,
                           child:
                           TextField (
                             decoration: InputDecoration(
@@ -153,14 +169,11 @@ class _MainPageState extends State<MainPage> {
 
                           ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Text('$searchMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                          ],
-                        ),
+
 
                       ]
                   ),
+
 
                   MaterialButton(
                       child: Text('Search',style: TextStyle(fontSize: 14 ,color:Colors.black)),
@@ -212,22 +225,11 @@ class _MainPageState extends State<MainPage> {
                       splashColor: Colors.grey[100]
                   )
 
-                ]
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                 const SizedBox(width: 16),
+                ],
 
-                FloatingActionButton.small(
-                  backgroundColor: Color(0xff5F2829),
-                   onPressed: () {
-                       // Add your onPressed code here!
-                                },
-                 child: const Icon(Icons.add),
+
             ),
 
-            ]),
             Row(
               children: <Widget>[
                 Text('$message',style: TextStyle(fontSize: 14 ,color:Colors.black)),
