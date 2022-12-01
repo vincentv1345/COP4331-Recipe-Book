@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Profile.dart';
+import 'package:mobile/screens/AddScreen.dart';
 import '../utils/getAPI.dart';
 
 
@@ -136,6 +137,9 @@ class _MainPageState extends State<MainPage> {
                               backgroundColor: Color(0xff5F2829),
                               onPressed: () {
                                 // Add your onPressed code here!
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new AddScreen())
+                                );
                               },
                               child: const Icon(Icons.add),
                             ),

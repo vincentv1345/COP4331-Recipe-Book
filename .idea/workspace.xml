@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="changes to homepage">
-      <change afterPath="$PROJECT_DIR$/mobile/lib/assets/cookbook.png" afterDir="false" />
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/mobile/lib/assets/add.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobile/lib/assets/addIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobile/lib/screens/AddScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/pubspec.yaml" afterDir="false" />
