@@ -7,7 +7,11 @@ import tacos from './assets/tacos.jpg';
 import './assets/Profile.css';
 import Popup from './Popup';
 import docreateRecipe from './CreateRecipe';
-
+import houseIcon from './assets/houseIcon.png';
+import lookup from './assets/lookup.png';
+import postIcon from './assets/postIcon.png';
+import profileIcon from './assets/profileIcon.png'
+import food from './assets/addPictureIcon.jpg'
 
 
 
@@ -35,47 +39,81 @@ import docreateRecipe from './CreateRecipe';
     <title>Cookbook</title>,
     <body>
     <div className="Profile" id = "welcome">
-      <header className="App-header">
-        <div class="circle"></div>
-        <div class="recipes-text"> {numRecipes} recipes</div>
-        <div class="username-text"> {username}</div>
-        <div class="followers-text"> {numFollowers} followers</div>
-        <div class="following-text"> {numFollowing} following</div>
-        <div class="bio-text"> {bio}</div>
-        <hr></hr>
-        <div class="container">
-          <ul class="image-gallery">
-            <li>
+      <header className="App-header-profile">
+      <header className = "App-header-profile-nav-bar">
+                <div className='NavigationBar'>
+                    <h1 className = "Header-link-nav-bar" id="title">
+                        <a>Cookbook</a>
+                        
+
+                    </h1>
+                    <div classname = "App-logoHome-profile">
+                      <a href = "./homepage">
+                      <input type = "image" src={houseIcon} className="App-logoHome-profile" alt="logo" ></input>
+                    </a>
+                    </div>
+                    <div className = 'SearchBar-nav-bar' id = "search">
+                        <input type="text" className = "SearchBar-Textbox-nav-bar" cols ="79" maxlength="79" placeholder="Search" ></input>
+                    </div>
+                    <div className = 'SearchBar-postButton-nav-bar'>
+                        <input type="image" src= {lookup} className = "mag-img-nav-bar"></input> 
+                    </div>
+                    <div className = 'postButton-nav-bar'>
+                        <input type= "image" src ={postIcon} className = "post-img-nav-bar" ></input>
+
+                    </div>
+                    <div className = 'profileButton-nav-bar'>
+                        <input type = "image" src = {profileIcon} className = "profile-img-nav-bar"></input>
+                    </div>
+                    <div id = "horizontal-line-nav-bar"></div>
+
+                    
+
+                </div>
+            </header>
+
+        <div className="main-content-profile">
+          <div class="circle-profile"></div>
+          <div class="recipes-text-profile"> {numRecipes} recipes</div>
+          <div class="username-text-profile"> {username}</div>
+          <div class="followers-text-profile"> {numFollowers} followers</div>
+          <div class="following-text-profile"> {numFollowing} following</div>
+          <div class="bio-text-profile"> {bio}</div>
+          <hr></hr>
+          <div class="container-profile">
+            <ul class="image-gallery-profile">
+             <li>
               <img src={padthai}  alt="" />
               <div class="overlay">
-                <span className='recipe-title'>{recipeNames[0]}</span>
-                <span className='recipe-author'>{recipeUsers[0]}</span>
+                <span className='recipe-title-profile'>{recipeNames[0]}</span>
+                <span className='recipe-author-profile'>{recipeUsers[0]}</span>
               </div>
             </li>
             <li>
               <img src={tacos}  alt="" />
               <div class="overlay">
-                <span className='recipe-title'>{recipeNames[1]}</span>
-                <span className='recipe-author'>{recipeUsers[1]}</span> 
+                <span className='recipe-title-profile'>{recipeNames[1]}</span>
+                <span className='recipe-author-profile'>{recipeUsers[1]}</span> 
               </div>
             </li>
             <li>
               <img src={pasta}  alt="" />
               <div class="overlay">
-                <span className='recipe-title'>{recipeNames[2]}</span>
-                <span className='recipe-author'>{recipeUsers[2]}</span>
+                <span className='recipe-title-profile'>{recipeNames[2]}</span>
+                <span className='recipe-author-profile'>{recipeUsers[2]}</span>
               </div>
             </li>
           </ul>
         </div>
-        <div className = 'postButton'>
-                        <input type= "button"  className = "button" value = "Edit Profile" onClick={togglePopup}></input>
+        </div>
+        <div>
+                        <input type= "button"  className = "button-edit-profile" value = "Edit Profile" onClick={togglePopup}></input>
                         {isOpen && <Popup
       content={<>
   
               <div>
                 <div className = "in-box">
-                  <img src = {pasta} className = "img-holder"></img>
+                  <img src = {food} className = "img-holder"></img>
 
                   <div className="text-area">
                     <ul className="list-create">

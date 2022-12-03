@@ -7,21 +7,21 @@ function Login()
 {
  
   //COMMENT OUT when running locally
-  console.log("In login function");
-    const app_name = 'recipebook5959';
-    function buildPath(route)
-    {
-        if (process.env.NODE_ENV === 'production') 
-        {
-            console.log("CHECK: In Heroku server");
-            return 'https://' + app_name +  '.herokuapp.com/' + route;
-        }
-        else
-        {       
-            console.log("CHECK: In local server"); 
-            return 'http://localhost:5000/' + route;
-        }
-    }
+  // console.log("In login function");
+  //   const app_name = 'recipebook5959';
+  //   function buildPath(route)
+  //   {
+  //       if (process.env.NODE_ENV === 'production') 
+  //       {
+  //           console.log("CHECK: In Heroku server");
+  //           return 'https://' + app_name +  '.herokuapp.com/' + route;
+  //       }
+  //       else
+  //       {       
+  //           console.log("CHECK: In local server"); 
+  //           return 'http://localhost:5000/' + route;
+  //       }
+  //   }
     
 
     var username;
@@ -41,12 +41,12 @@ function Login()
         try
         {    
           //COMMENT OUT when running through HEROKU
-          const response = await fetch(buildPath('api/login'), 
-          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          // const response = await fetch(buildPath('api/login'), 
+          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
           // UNCOMMENT OUT when running locally
-          //response = await fetch('http://localhost:5000/api/login',
-          //{method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          response = await fetch('http://localhost:5000/api/login',
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
         
           console.log("In login try");
           var res;
@@ -83,7 +83,7 @@ function Login()
     };
 
     return (
-      <title>Cookbook</title>,
+      <title>Cookbook | Login</title>,
       <div className="login">
         <header className="App-header">
           <div className='form-container'>
@@ -99,13 +99,15 @@ function Login()
               <li><input type="username" name="username" placeholder="Username" ref={(c) => username = c}></input></li>
               <li><input type="password" name="pass" placeholder="Password" ref={(c) => password = c}></input></li>
               <li><button type="button" name="Submit" className="button" onClick={doLogin} >Login</button></li>
-              
             </ul>
             <div className="small-text">
               Don't have an account?
               <a className="App-link" href="./SignUp">
                 Create one
               </a>
+              <div>
+                <a className="App-link" href="./ForgotPassword">Forgot Password?</a>
+              </div>
             </div>
           </div>
         </header>

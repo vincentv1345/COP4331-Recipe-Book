@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import cookbook from './assets/cookbook.png';
 import './assets/SignUp.css';
+import Popup from './Popup-signup.js';
 
 function SignUp()
 {
@@ -9,9 +10,11 @@ function SignUp()
     var username;
     var password;
     const [message,setMessage] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
     
     const doSignUp = async event => 
     {
+        // setIsOpen(!isOpen);
         event.preventDefault();
         let obj = {Email:email,Username:username,Password:password};
         var js = JSON.stringify(obj);
@@ -31,6 +34,7 @@ function SignUp()
             {id:res.id}
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
+            setIsOpen(!isOpen);
           }
         }
         catch(e)
@@ -42,6 +46,7 @@ function SignUp()
     };
  
     return (
+      <title>Cookbook | SignUp</title>,
       <div className="SignUp">
         <header className="App-header">
           <div className='form-container'>
@@ -54,11 +59,16 @@ function SignUp()
               </div>
             </div>
             <ul className="list">
-              <li><input type="Email" name="Email" placeholder="Email"></input></li>
-              <li><input type="user" name="User" placeholder="User Name"></input></li>
-              <li><input type="password" name="Password" placeholder="Password"></input></li>
+              <li><input type="Email" name="Email" placeholder="Email" ref={(c) => email = c}></input></li>
+              <li><input type="user" name="User" placeholder="User Name" ref={(c) => username = c}></input></li>
+              <li><input type="password" name="Password" placeholder="Password" ref={(c) => password = c}></input></li>
               <li><button type="button" name="Submit" class="button" onClick={doSignUp} >SignUp</button></li>
-              
+              {isOpen && <Popup
+                content={<>
+                  <b>Email Confirmation has been sent.</b>
+                  </>}
+                handleClose={doSignUp}
+              />} 
             </ul>
             <div className="small-text">
               Already have an account?

@@ -82,6 +82,7 @@ ul.list-create li input {
     font-size: 15px;    
     border-radius: 20px;
     padding: 0% 2%;
+    margin-left:88%;
     border: none;
     text-align: center;
     transition-duration: .5s;  

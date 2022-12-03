@@ -2,9 +2,14 @@
 
 body {
     background-color: #ffeecc;
+    
 }
-
-.App-header {
+.App-header-profile-nav-bar{
+  position: fixed;
+  background-color: #ffeecc;
+  overflow:hidden;
+}
+.App-header-profile {
     background-color: #ffeecc;
     min-height:100%;
     width: 100vw; 
@@ -12,10 +17,14 @@ body {
     flex-direction: column;
     font-size: 20px;
     color: black;
+    width:100%;
 
   }
+.main-content-profile{
+  margin-top: 80px;
+}
 
-.button {
+.button-edit-profile {
     background-color:  #5F2829;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font: "Darker Grotesque";
@@ -29,15 +38,15 @@ body {
     color: #ffeecc;
     cursor: pointer;
     position: absolute;
-    left: 1000px;
+    left: 1100px;
     top: 125px;
 }
-.button:hover {
+.button-edit-profile:hover {
     background-color: #ffeecc;
     color:#5F2829;
 }
 
-.circle {
+.circle-profile {
     display: flex;
     width: 300px;
     height: 300px;
@@ -49,7 +58,7 @@ body {
     top: 100px;
   }
 
-  .username-text{
+  .username-text-profile{
     font-size: 30px;
     font: "Darker Grotesque";
     font-weight: bold;
@@ -58,7 +67,7 @@ body {
     top: 120px;
   }
 
-  .followers-text{
+  .followers-text-profile{
     font-size: 20px;
     font: "Darker Grotesque";
     font-weight: regular;
@@ -67,7 +76,7 @@ body {
     top: 190px;
   }
 
-  .following-text{
+  .following-text-profile{
     font-size: 20px;
     font: "Darker Grotesque";
     font-weight: regular;
@@ -76,7 +85,7 @@ body {
     top: 190px;
   }
 
-  .recipes-text{
+  .recipes-text-profile{
     font-size: 20px;
     font: "Darker Grotesque";
     font-weight: regular;
@@ -85,7 +94,7 @@ body {
     top: 190px;
   }
 
-  .bio-text{
+  .bio-text-profile{
     font-size: 20px;
     font: "Darker Grotesque";
     font-weight: regular;
@@ -94,32 +103,34 @@ body {
     top: 300px;
   }
 
-  .image-gallery {
+  .image-gallery-profile {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
   }
+
   
-  .image-gallery > li {
-    top: 300px;
+  .image-gallery-profile > li {
+    top: 400px;
     height: 300px;
     list-style-type: none;
     position: relative;
   }
   
-  .image-gallery li img {
+  .image-gallery-profile li img {
     object-fit: cover;
     cursor: pointer;
     width: 100%;
     height: 100%;
     border-radius: 5px;
   }
-  .image-gallery img:hover{
+  .image-gallery-profile img:hover{
     opacity:.3;
     transition: 1000ms;
  } 
 
- .recipe-title  {
+ .recipe-title-profile  {
     font-size: 20px;
     font: "Darker Grotesque";
     font-weight: bold;
@@ -127,7 +138,7 @@ body {
 
  }
 
- .recipe-author  {
+ .recipe-author-profile  {
     font-size: 15px;
     font: "Darker Grotesque";
     font-weight: regular;
@@ -147,46 +158,133 @@ body {
     background-color:#5F2829;
     border: none;
  }
-/* Popup style */
-.popup-box {
+
+
+
+.Header-link-nav-bar {
+  color: #5F2829;
+  font-family: "Crimson Text", Cambria, Georgia;
+  display: flex;
+  font-size: 40px;
+  min-height:100%;
   position: fixed;
-  background: #00000050;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  left: 0;
+  top: 0px;
+  left: 50px;
 }
- 
-.box {
-  position: relative;
-  width: 70%;
-  margin: 0 auto;
-  height: auto;
-  max-height: 70vh;
-  margin-top: calc(100vh - 85vh - 20px);
-  background: #fff;
-  border-radius: 4px;
-  padding: 20px;
-  border: 1px solid #999;
-  overflow: auto;
+
+
+.SearchBar-nav-bar {
+  position: fixed;
+  top: 10px;
+  left: 40%;
+  padding-left: 0px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
 }
- 
-.close-icon {
-  content: 'x';
+
+.SearchBar-Textbox-nav-bar{
+  font-family: "Imprima", Cambria, Georgia;
+  border-width: 1px;
+  border-radius: 6px;
+  color: black;
+}
+
+.SearchBar-postButton-nav-bar {
+  position: fixed;
+  top: 7px;
+  left: 40%;
+  padding-left: 190px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
+}
+
+.postButton-nav-bar{
+  position: fixed;
+  top: -10px;
+  left: 68%;
+}
+
+.profileButton-nav-bar{
+  position: fixed;
+  top: 23px;
+  right: 75px;
+}
+
+.profile-img-nav-bar{
+  height: 50px;
+}
+
+.mag-img-nav-bar {
+  height: 28px;
+}
+
+.post-img-nav-bar{
+  height: 150px;
+}
+
+input:focus
+{
+ outline: none;
+}
+
+#horizontal-line-nav-bar{
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  width: 2000px;
+  height: 2px;
+  background-color: black;
+}
+
+.App-link {
+  color: #5F2829;
+  font-size: 15px;
+}
+
+.App-logoHome-profile {
   cursor: pointer;
   position: fixed;
-  right: calc(15% - 30px);
-  top: calc(100vh - 85vh - 33px);
-  background: #ededed;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  line-height: 20px;
-  text-align: center;
-  border: 1px solid #999;
-  font-size: 20px;
+  height: 40px;
+  left: 23%;
+  pointer-events: none;
+  top: 25px;
+  padding-left: 200px;
 }
 
-  
+.Header-link {
+  color: #5F2829;
+  font-family: "Crimson Text", Cambria, Georgia;
+  display: flex;
+  font-size: 40px;
+  min-height:100%;
+  position: fixed;
+  top: 0px;
+  left: 50px;
+}
 
+
+.SearchBar {
+  position: fixed;
+  top: 10px;
+  left: 40%;
+  padding-left: 0px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
+}
+
+.SearchBar-Textbox{
+  font-family: "Imprima", Cambria, Georgia;
+  border-width: 1px;
+  border-radius: 6px;
+  color: black;
+}
+
+.SearchBar-postButton {
+  position: fixed;
+  top: 7px;
+  left: 40%;
+  padding-left: 190px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
+}
 
