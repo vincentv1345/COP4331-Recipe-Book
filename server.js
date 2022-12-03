@@ -271,6 +271,93 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
+app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var Username, searchedUsers, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                Username = req.body.Username;
+                console.log(Username);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, User.find({
+                        Username: { $regex: "".concat(Username), $options: 'i' }
+                    })];
+            case 2:
+                searchedUsers = _a.sent();
+                res.json(searchedUsers);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.status(400).json({ message: err_1.message });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var RecipeName, searchedRecipe, err_2, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                RecipeName = req.body.RecipeName;
+                console.log(RecipeName);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.find({
+                        RecipeName: { $regex: "".concat(RecipeName), $options: 'i' }
+                    })];
+            case 2:
+                searchedRecipe = _a.sent();
+                res.json(searchedRecipe);
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _a.sent();
+                res.status(400).json({ message: err_2.message });
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_3 = _a.sent();
+                res.status(400).json({ message: err_3.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var Tags, searchedRecipe, err_4, err_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                Tags = req.body.Tags;
+                console.log(Tags);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.find({
+                        Tags: { $regex: "".concat(Tags), $options: 'i' }
+                    })];
+            case 2:
+                searchedRecipe = _a.sent();
+                res.json(searchedRecipe);
+                return [3 /*break*/, 4];
+            case 3:
+                err_4 = _a.sent();
+                res.status(400).json({ message: err_4.message });
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_5 = _a.sent();
+                res.status(400).json({ message: err_5.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
 app.listen(PORT, function () {
     console.log('Server listening on port ' + PORT);
 });
