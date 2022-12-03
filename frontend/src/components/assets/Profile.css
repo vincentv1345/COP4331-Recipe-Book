@@ -4,11 +4,16 @@ body {
     background-color: #ffeecc;
     
 }
-.App-header-profile-nav-bar{
+.NavigationBar{
   position: fixed;
   background-color: #ffeecc;
-  overflow:hidden;
+  top: 0;
+  width: 100%;
+  z-index: 12;
+  height: 80px;
 }
+
+
 .App-header-profile {
     background-color: #ffeecc;
     min-height:100%;
@@ -22,6 +27,7 @@ body {
   }
 .main-content-profile{
   margin-top: 80px;
+  padding: 16px;
 }
 
 .button-edit-profile {
@@ -180,6 +186,7 @@ body {
   padding-left: 0px;
   font-family: "Imprima", Cambria, Georgia;
   zoom: 2;
+  z-index: 13;
 }
 
 .SearchBar-Textbox-nav-bar{
@@ -241,14 +248,16 @@ input:focus
   font-size: 15px;
 }
 
+.homeButton-profile{
+  position: fixed;
+
+}
+
 .App-logoHome-profile {
-  cursor: pointer;
   position: fixed;
   height: 40px;
-  left: 23%;
-  pointer-events: none;
   top: 25px;
-  padding-left: 200px;
+  left: 550px;
 }
 
 .Header-link {
@@ -263,28 +272,4 @@ input:focus
 }
 
 
-.SearchBar {
-  position: fixed;
-  top: 10px;
-  left: 40%;
-  padding-left: 0px;
-  font-family: "Imprima", Cambria, Georgia;
-  zoom: 2;
-}
-
-.SearchBar-Textbox{
-  font-family: "Imprima", Cambria, Georgia;
-  border-width: 1px;
-  border-radius: 6px;
-  color: black;
-}
-
-.SearchBar-postButton {
-  position: fixed;
-  top: 7px;
-  left: 40%;
-  padding-left: 190px;
-  font-family: "Imprima", Cambria, Georgia;
-  zoom: 2;
-}
 

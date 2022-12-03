@@ -40,6 +40,7 @@ body {
     padding-left: 0px;
     font-family: "Imprima", Cambria, Georgia;
     zoom: 2;
+    z-index: 13;
 }
 
 .SearchBar-Textbox{
@@ -104,7 +105,7 @@ input:focus
   }
   
   .image-gallery > li {
-    top: 100px;
+    top: -75px;
     height: 300px;
     list-style-type: none;
     position: relative;
