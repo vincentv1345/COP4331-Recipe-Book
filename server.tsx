@@ -238,6 +238,36 @@ app.use((req, res, next) =>
   next();
 });
 
+app.post("/api/search_user", async(req,res,next)=>{
+  const {Username} = req.body;
+  console.log(Username); 
+  try{
+    const searchedUsers = await User.find({
+              Username:{$regex: `${Username}`, $options: 'i'}
+      })
+    res.json(searchedUsers)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
+
+app.post("/api/search_recipe", async(req,res,next)=>{
+  try{
+    const {RecipeName} = req.body;
+    console.log(RecipeName); 
+    try{
+      const searchedRecipe = await Recipe.find({
+                RecipeName:{$regex: `${RecipeName}`, $options: 'i'}
+        })
+      res.json(searchedRecipe)
+  }catch(err){
+      res.status(400).json({message: err.message })
+  }
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
+
 app.listen(PORT, () => 
 {
   console.log('Server listening on port ' + PORT);
