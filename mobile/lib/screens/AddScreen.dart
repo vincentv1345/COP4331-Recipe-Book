@@ -6,9 +6,11 @@ import 'dart:convert';
 import '../main.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
+import 'Profile.dart';
 
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
+String recipename = '',ingredients = '', directions = '';
 
 late final List<ListItem> items;
 
@@ -75,7 +77,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(15, 0, 20, 0),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage("lib/assets/add.png"), fit: BoxFit.cover),
         ),
@@ -86,162 +88,218 @@ class _MainPageState extends State<MainPage> {
             child:
 
             Column(
-              mainAxisAlignment: MainAxisAlignment.start, //Center Column contents vertically,
+              mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
               crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
 
               children: <Widget>[
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Container(
+                  margin: const EdgeInsets.only(top: 25, left: 0,),
 
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.topCenter,
+                  child:
+                  Row(
+                    children: <Widget>[
 
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(top:40),
-                      child:
+                      Column(
+                          children:<Widget>[
 
-                    Column(
-                        children:<Widget>[
+                            const SizedBox(width: 16),
 
-                          FloatingActionButton.small(
-                            backgroundColor: Color(0xff5F2829),
-                            onPressed: () {
-                              // Add your onPressed code here!
-                              Navigator.push(context, new MaterialPageRoute(
-                                  builder: (context) => new HomeScreen())
-                              );
-                            },
-                            child: const Icon(Icons.add),
-                          ),
-
-                        ]
-                    )),
-                    Container(
-                        margin: const EdgeInsets.only(top:40),
-                        alignment: Alignment.topLeft,
-                        color: Color(0xffFCF6EC),
-                        child:
-                        IconButton(
-                          icon: Image.asset("lib/assets/cookbook.png"),
-                          iconSize: 40,
-                          onPressed: () {
-                            // Navigator.pushNamed(context, '/profile');
-                            Navigator.push(context, new MaterialPageRoute(
-                                builder: (context) => new HomeScreen())
-                            );},
-                        ),
-                    ),
-
-
-                    Container(
-                      margin: const EdgeInsets.only(top: 40),
-                      width: 150,
-                      child:
-                      MaterialButton(
-                          child: Text('Favorite',style: TextStyle(fontSize: 20 ,color:Color(0xffF9DEE8))
-                          ),
-
-                          onPressed: () async
-                          {
-                            newMessageText = "";
-                            changeText();
-                            //add username to payload
-                            //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                            //  var data = {"login": loginName ,"password": password};
-                            var userId = -1;
-                            var jsonObject;
-
-                            try
-                            {
-
-                              //CHECK to make sure that username is > 0 and other requirements here!!!!!
-
-
-                              String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              String ret = await RecipeData.signup(loginName.trim(), email.trim(), password.trim());
-                              jsonObject = json.decode(ret);
-                              userId = jsonObject["id"];
-
-                              GlobalData.userId = userId;
-                              // GlobalData.firstName = jsonObject["firstName"];
-                              // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => HomeScreen()),
-                              );
-                            }
-                            catch(e)
-                            {
-                              newMessageText = "Incorrect Email or Password";
-                              changeText();
-                            }
-                          },
-
-                          color:const Color(0xff5F2829),
-                          shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
-                          textColor: Color(0xffF9DEE8),
-                          padding: EdgeInsets.all(2.0),
-                          splashColor: Colors.black
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new HomeScreen())
+                                );
+                              },
+                              child: const Icon(Icons.home),
+                            ),
+                          ]
                       ),
-                    )
 
-                  ],
-                ), //buttons
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new ProfileScreen())
+                                );
+                              },
+                              child: const Icon(Icons.add),
+                            ),
+                          ]
+                      ),
+
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                // Add your onPressed code here!
+                              },
+                              child: const Icon(Icons.person),
+                            ),
+                          ]
+                      ),
+                    ],
+                  ), //buttons
+                ),
 
 
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
-
                       Container(
-                          padding: EdgeInsets.all(15), // Border width
+                          padding: EdgeInsets.all(0), // Border width
                           decoration: BoxDecoration(color: Colors.transparent,),
-                          margin: const EdgeInsets.only(top: 10),
-                          width: MediaQuery.of(context).size.width - 220,
-                          height: 200,
-
+                          alignment: Alignment.topLeft,
+                          margin: const EdgeInsets.only(top: 40,right: 15,bottom: 40),
+                          width: MediaQuery.of(context).size.width-300,
+                          height: 100,
 
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
 
                             child: Image.asset(
                               "lib/assets/food.jpg",
-                              width: 150.0,
-                              height: 75.0,
-                              fit: BoxFit.cover,
+                              width: 200.0,
+                              height: 200.0,
+                              fit: BoxFit.fitWidth,
+                              scale: 1,
                             ),
                           )
+                      ),
+                      SizedBox(
+                        width: 200,
+                        height: 50,
+
+                        child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 1,
+                          autofocus: false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: "enter recipe name",
+                            hintStyle: TextStyle(fontStyle: FontStyle.italic),
+                            alignLabelWithHint: true,
+                            border:  OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                )
+                            ),
+
+                            //labelText: 'Ingredients',
+
+                          ),
+                        ),
+                      ),
+
+
+                    ]
+                ),
+                SizedBox(
+                  width: 400,
+
+                  child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 6,
+                    autofocus: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: "enter required ingredients",
+                    hintStyle: TextStyle(fontStyle: FontStyle.italic),
+                      alignLabelWithHint: true,
+                      border:  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                        color: Colors.black,
                       )
-                    ]
-                ), //IMAGE //NAME
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(GlobalData.loginName + 'test',style: TextStyle(fontSize: 60 ,color:Colors.black)),
-                  ],
-                ), //NAME
-
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.only(top: 10, right: 200, bottom: 5),
-                        child:
-                        Text('Ingredients',
-                            style: TextStyle(fontSize: 25 ,color:Colors.black))
                     ),
+
+                    //labelText: 'Ingredients',
+
+                  ),
+                ),
+                ),
+                SizedBox(height:40),
+
+                SizedBox(
+                  width: 400,
+                  child: TextFormField(
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 6,
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "enter recipe directions",
+                      hintStyle: TextStyle(fontStyle: FontStyle.italic),
+                      alignLabelWithHint: true,
+                      border:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          )
+                      ),
+
+                      //labelText: 'Ingredients',
+
+                    ),
+                  ),
+                ),
+
+
+
+                Container(
+                  margin: const EdgeInsets.only(top: 10, left: 10),
+                  width: 125,
+                  child:
+                  MaterialButton(
+                      child: Text('Create',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))
+                      ),
+
+                      onPressed: () {
+                        Navigator.push(context, new MaterialPageRoute(
+                            builder: (context) => new ProfileScreen())
+                        );
+                      },
+
+                      color:const Color(0xff5F2829),
+                      shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
+                      textColor: Color(0xffF9DEE8),
+                      padding: EdgeInsets.all(2.0),
+                      splashColor: Colors.black
+                  ),
+                ),
+
+
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+
+                ),
+
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
                   ],
                 ),
 
@@ -249,66 +307,8 @@ class _MainPageState extends State<MainPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[]
 
-                    children: <Widget>[
-                      Container(
-
-                        // color: Colors.white,
-                        child: const Expanded(
-                          flex: 1,
-
-
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-
-                            child: Text(
-                              "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
-                              style: TextStyle(
-                                fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ]
-                ),
-
-
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.only(top: 20, right: 200, bottom: 5),
-                        child:
-                        const Text('Directions',
-                            style: TextStyle(fontSize: 25 ,color:Colors.black))
-                    ),
-                  ],
-                ),
-
-
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        // color: Colors.white,
-                        child: const Expanded(
-                          flex: 1,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Text(
-                              "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
-                              style: TextStyle(
-                                fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ]
                 ),
 
 

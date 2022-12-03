@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   http: ^0.13.5
   web_socket_channel: ^2.1.0
+  outline_search_bar: ^2.3.0
 
 
 
@@ -68,7 +69,7 @@ flutter:
     - lib/assets/loginbg.PNG
     - lib/assets/signupbg.PNG
     - lib/assets/profilebg.PNG
-    - lib/assets/homescreen.PNG
+    - lib/assets/homescreen.png
     - lib/assets/profilepicture.png
     - lib/assets/recipebg.PNG
     - lib/assets/food.jpg

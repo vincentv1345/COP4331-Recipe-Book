@@ -1,13 +1,19 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/Profile.dart';
-import 'package:mobile/screens/AddScreen.dart';
-import '../utils/getAPI.dart';
+import 'package:mobile/screens/LoginScreen.dart';
+import 'package:mobile/utils/getAPI.dart';
+import 'dart:convert';
 
+import '../main.dart';
+import 'CreateAccount.dart';
+import 'HomeScreen.dart';
+import 'Profile.dart';
+import 'AddScreen.dart';
 
-String message = '', newMessageText = '';
-String addMessage = '', newAddMessage = '';
-String searchMessage = '', newSearchMessage = '';
+String message = "help", newMessageText = ''; //error messages
+String loginName = '', email = '', password = '';
+String recipename = '',ingredients = '', directions = '';
+
+late final List<ListItem> items;
 
 
 class GlobalData
@@ -17,10 +23,12 @@ class GlobalData
   static String lastName = '';
   static String loginName = '';
   static String password = '';
+
+  static int recipesCount = 0;
+  static int followers = 0;
+  static int following = 0;
+  static String bio = ''; //50 CHAR LIMIT
 }
-
-var card, search;
-
 
 
 class HomeScreen extends StatefulWidget {
@@ -34,10 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      //   backgroundColor: Colors.blue,
       body: MainPage(),
     );
   }
@@ -48,88 +58,85 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
+
 class _MainPageState extends State<MainPage> {
+
+  // late final List<ListItem> items;
+
+
+  changeText() {
+    setState(() {
+      message = newMessageText;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
-    void changeText() {
-      setState(() {
-        message = newMessageText;
-      });
-    }
-
-    void changeAddText() {
-      setState(() {
-        addMessage = newAddMessage;
-      });
-    }
-
-    void changeSearchText() {
-      setState(() {
-        searchMessage = newSearchMessage;
-      });
-    }
-
-
     return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("lib/assets/homescreen.PNG"),
-              fit: BoxFit.cover,
-            ),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage("lib/assets/homescreen.png"), fit: BoxFit.cover),
         ),
-        width: 500,
+        width:  MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child:
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-          crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
-          children: <Widget>[
-           // alignment: Alignment.topCenter,
+        SingleChildScrollView(
+            child:
 
-
-            Row(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+              crossAxisAlignment: CrossAxisAlignment.center, //Center Column contents horizontal
 
               children: <Widget>[
 
-                MaterialButton(
-                    child: Text('Logout',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                    onPressed: ()
-                    {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    color:Colors.brown[50],
-                    textColor: Colors.black,
-                    padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.grey[100]
-                )
-              ],
-            ),
+                Container(
+                  margin: const EdgeInsets.only(top: 25, left: 0,),
 
-            Row(
-                children: <Widget>[
-                  Column(
+                  child:
+                  Row(
                     children: <Widget>[
-                    IconButton(
-                      icon: Image.asset("lib/assets/cookbook.png"),
-                      iconSize: 50,
-                      onPressed: () {
-                        // Navigator.pushNamed(context, '/profile');
-                        Navigator.push(context, new MaterialPageRoute(
-                            builder: (context) => new ProfileScreen())
-                        );},
-                    ),
 
-                  ]),
-                  Column(
-                    children:<Widget>[
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new HomeScreen())
+                                );
+                              },
+                              child: const Icon(Icons.home),
+                            ),
+                          ]
+                      ),
+
+                      Column(
+                          children:<Widget>[
+
+                            const SizedBox(width: 16),
+
+                            FloatingActionButton.small(
+                              backgroundColor: Color(0xff5F2829),
+                              onPressed: () {
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new AddScreen())
+                                );
+                              },
+                              child: const Icon(Icons.add),
+                            ),
+                          ]
+                      ),
+
+                      Column(
+                          children:<Widget>[
 
                             const SizedBox(width: 16),
 
@@ -137,112 +144,66 @@ class _MainPageState extends State<MainPage> {
                               backgroundColor: Color(0xff5F2829),
                               onPressed: () {
                                 // Add your onPressed code here!
-                                Navigator.push(context, new MaterialPageRoute(
-                                    builder: (context) => new AddScreen())
-                                );
                               },
-                              child: const Icon(Icons.add),
+                              child: const Icon(Icons.person),
                             ),
-
-                    ]
-                  ),
-
-                  Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text('$searchMessage',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                          ],
-                        ),
-
-                        Container(
-                          width: 150,
-                          child:
-                          TextField (
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(),
-                                labelText: 'Search',
-                                hintText: 'Search for a Card'
-                            ),
-                            onChanged: (text)
-                            {
-                              search = text;
-                            },
-
-                          ),
-                        ),
-
-
-                      ]
-                  ),
-
-
-                  MaterialButton(
-                      child: Text('Search',style: TextStyle(fontSize: 14 ,color:Colors.black)),
-                      onPressed: () async
-                      {
-                        newSearchMessage = "";
-                        changeSearchText();
-
-                       String payload = '{"userId":"' + GlobalData.userId.toString() + '","search":"' + search.trim() + '"}';
-                        var data = {"userId": GlobalData.userId ,"search": search};
-
-
-                        var jsonObject;
-                        try
-                        {
-                          String url = 'https://cop4331-10.herokuapp.com/api/searchcards';
-                          String ret = await RecipeData.login(url, payload); //not correct
-                          jsonObject = json.decode(ret);
-                        }
-                        catch(e)
-                        {
-                         // newSearchMessage = e.message;
-                          changeSearchText();
-                          return;
-                        }
-
-                        var results = jsonObject["results"];
-                        var i = 0;
-                        while( true )
-                        {
-                          try
-                          {
-                            newSearchMessage += results[i];
-                            newSearchMessage += "\n";
-                            i++;
-                          }
-                          catch(e)
-                          {
-                            break;
-                          }
-                        }
-
-                        changeSearchText();
-                      },
-
-                      color:Colors.brown[50],
-                      textColor: Colors.black,
-                      padding: EdgeInsets.all(2.0),
-                      splashColor: Colors.grey[100]
-                  )
-
-                ],
-
-
-            ),
-
-            Row(
-              children: <Widget>[
-                Text('$message',style: TextStyle(fontSize: 14 ,color:Colors.black)),
+                          ]
+                      ),
+                    ],
+                  ), //buttons
+                ),
               ],
             )
-          ],
         )
     );
   }
 
 
+
+
+
+}
+
+
+//use these???????
+
+/// The base class for the different types of items the list can contain.
+abstract class ListItem {
+  /// The title line to show in a list item.
+  Widget buildTitle(BuildContext context);
+
+  /// The subtitle line, if any, to show in a list item.
+  Widget buildSubtitle(BuildContext context);
+}
+
+/// A ListItem that contains data to display a heading.
+class HeadingItem implements ListItem {
+  final String heading;
+
+  HeadingItem(this.heading);
+
+  @override
+  Widget buildTitle(BuildContext context) {
+    return Text(
+      heading,
+      style: Theme.of(context).textTheme.headline5,
+    );
+  }
+
+  @override
+  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
+}
+
+/// A ListItem that contains data to display a message.
+class MessageItem implements ListItem {
+  final String sender;
+  final String body;
+
+  MessageItem(this.sender, this.body);
+
+  @override
+  Widget buildTitle(BuildContext context) => Text(sender);
+
+  @override
+  Widget buildSubtitle(BuildContext context) => Text(body);
 }
