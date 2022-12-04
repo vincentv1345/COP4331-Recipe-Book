@@ -13,7 +13,7 @@ function SignUp()
     const doSignUp = async event => 
     {
         event.preventDefault();
-        let obj = {Email:email,Username:username,Password:password};
+        let obj = {Email:email.value ,Username:username.value ,Password:password.value };
         var js = JSON.stringify(obj);
         try
         {    
