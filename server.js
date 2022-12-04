@@ -43,6 +43,7 @@ var Recipe = require("./models/Recipes");
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
+var nodemailer = require("nodemailer");
 var PORT = process.env.PORT || 5000;
 var testFlag = 0;
 var ObjectID = require('bson').ObjectID;
@@ -56,7 +57,6 @@ db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
-//app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
 /*
 const root = express.Router();
 
@@ -68,22 +68,6 @@ root.get('(/*)?', async (req, res, next) => {
 app.use(root);
 */
 var path1;
-//Comment out when local
-/*
-if(process.env.NODE_ENV === 'aeiou')
-{
-  console.log("Im a production server")
-  // Set static folder
-  app.use(express.static('frontend/build'));
-  
-  path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
-  console.log("path: " + path1);
-  app.get('*', (req, res,) =>  //app.use((req, res, next)
-  {
-      res.sendFile(path1);
-  });
-}
-*/
 //COMMENT OUT when running locally
 if (process.env.NODE_ENV === 'production') {
     console.log("Im a local server");
@@ -92,8 +76,9 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
-app.get("/api", function (req, res) {
-    res.json({ message: "Hello from server!" });
+app.get("/api/", function (req, res) {
+    console.log("Test from API");
+    res.status(200).json({ message: "Hello from server!" });
 });
 app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, ret, e_1, error;
@@ -131,16 +116,19 @@ app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); });
+// Creates user and send verification email
 app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var Bio, Favorites, Following, _a, Username, Password, Email, newUser, result, id, ret, e_2, error;
+    var Bio, Verified, Favorites, Following, EmailCode, _a, Username, Password, Email, newUser, result, id, ret, transport, mainInfo, host, link, e_2, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 Bio = "";
+                Verified = false;
                 Favorites = [];
                 Following = [];
+                EmailCode = Math.floor((Math.random() * 100000));
                 _a = req.body, Username = _a.Username, Password = _a.Password, Email = _a.Email;
-                newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following };
+                newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following, Verified: Verified, EmailCode: EmailCode };
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
@@ -148,7 +136,37 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
             case 2:
                 result = _b.sent();
                 id = result._id;
+                console.log("id" + id);
                 ret = { id: id };
+                transport = nodemailer.createTransport({
+                    host: 'smtp.zoho.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.ZOHO_USER,
+                        pass: process.env.ZOHO_PASS
+                    }
+                });
+                host = req.get('host');
+                link = "http://".concat(host, "/api/verify/").concat(EmailCode);
+                // 
+                mainInfo = {
+                    from: process.env.ZOHO_USER,
+                    to: Email,
+                    subject: "Please confirm your Email account",
+                    html: "Please click this email to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
+                };
+                console.log(mainInfo);
+                transport.sendMail(mainInfo, function (error, response) {
+                    if (error) {
+                        console.log(error);
+                        res.end("error");
+                    }
+                    else {
+                        console.log("Message sent: " + response.message);
+                        res.end("sent");
+                    }
+                });
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
@@ -160,8 +178,38 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+// Attempts to verify user using link
+app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var EmailCode, user, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                EmailCode = req.params.EmailCode;
+                return [4 /*yield*/, User.findOne({ EmailCode: EmailCode })];
+            case 1:
+                user = _a.sent();
+                if (!user) return [3 /*break*/, 3];
+                user.Verified = true;
+                return [4 /*yield*/, user.save()];
+            case 2:
+                _a.sent();
+                res.redirect('http://www.flavordaddy.xyz/');
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400).json('Invalid link');
+                _a.label = 4;
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                e_3 = _a.sent();
+                res.status(400).send(e_3.toString());
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, newRecipe, result, id, ret, e_3, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -189,8 +237,8 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
-                e_3 = _b.sent();
-                error = e_3.toString();
+                e_4 = _b.sent();
+                error = e_4.toString();
                 res.status(400).json(error);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
@@ -243,7 +291,7 @@ app.patch("/api/update_recipe", function (req, res) { return __awaiter(void 0, v
     });
 }); });
 app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeID, result, e_4;
+    var RecipeID, result, e_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -258,8 +306,8 @@ app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 
                 res.status(200).send("Deleted recipe"); //.json(reportInfo)
                 return [3 /*break*/, 4];
             case 3:
-                e_4 = _a.sent();
-                res.status(400).json(e_4.toString());
+                e_5 = _a.sent();
+                res.status(400).json(e_5.toString());
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
@@ -271,6 +319,93 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
+app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var Username, searchedUsers, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                Username = req.body.Username;
+                console.log(Username);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, User.find({
+                        Username: { $regex: "".concat(Username), $options: 'i' }
+                    })];
+            case 2:
+                searchedUsers = _a.sent();
+                res.json(searchedUsers);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.status(400).json({ message: err_1.message });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var RecipeName, searchedRecipe, err_2, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                RecipeName = req.body.RecipeName;
+                console.log(RecipeName);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.find({
+                        RecipeName: { $regex: "".concat(RecipeName), $options: 'i' }
+                    })];
+            case 2:
+                searchedRecipe = _a.sent();
+                res.json(searchedRecipe);
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _a.sent();
+                res.status(400).json({ message: err_2.message });
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_3 = _a.sent();
+                res.status(400).json({ message: err_3.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var Tags, searchedRecipe, err_4, err_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                Tags = req.body.Tags;
+                console.log(Tags);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.find({
+                        Tags: { $regex: "".concat(Tags), $options: 'i' }
+                    })];
+            case 2:
+                searchedRecipe = _a.sent();
+                res.json(searchedRecipe);
+                return [3 /*break*/, 4];
+            case 3:
+                err_4 = _a.sent();
+                res.status(400).json({ message: err_4.message });
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_5 = _a.sent();
+                res.status(400).json({ message: err_5.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
 app.listen(PORT, function () {
     console.log('Server listening on port ' + PORT);
 });
