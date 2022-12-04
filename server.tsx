@@ -7,6 +7,7 @@ const Recipe = require("./models/Recipes");
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
+const nodemailer = require("nodemailer");
 
 const PORT = process.env.PORT || 5000;
 const testFlag = 0;
@@ -26,7 +27,6 @@ app.use(bodyParser.json());
 app.set( 'port', ( process.env.PORT || 5000 ));
 app.use(cors());
 
-//app.get('/', (req, res) => res.send('Hell World!')); // Testing, DELETE later
 
 /*
 const root = express.Router();
@@ -38,24 +38,8 @@ root.get('(/*)?', async (req, res, next) => {
 
 app.use(root);
 */
-let path1;
 
-//Comment out when local
-/*
-if(process.env.NODE_ENV === 'aeiou')
-{
-  console.log("Im a production server")
-  // Set static folder
-  app.use(express.static('frontend/build'));
-  
-  path1 = path.resolve(__dirname, 'frontend', 'build', 'index.html'); //path.resolve
-  console.log("path: " + path1);
-  app.get('*', (req, res,) =>  //app.use((req, res, next)
-  {
-      res.sendFile(path1);
-  });
-}
-*/
+let path1;
 
 //COMMENT OUT when running locally
 if(process.env.NODE_ENV === 'production')
@@ -70,9 +54,9 @@ if(process.env.NODE_ENV === 'production')
   });
 }
 
-
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
+app.get("/api/", (req, res) => {
+  console.log("Test from API");
+  res.status(200).json({ message: "Hello from server!" });
 });
 
 app.post('/api/login', async (req, res) => 
@@ -108,18 +92,17 @@ app.post('/api/login', async (req, res) =>
     }
 });
 
+// Creates user and send verification email
 app.post('/api/create_user',async (req, res) => {
-  
-    //var objectid = new ObjectID();
     var Bio = "";
+    let Verified = false;
     const Favorites = [];
     const Following = [];
+    let EmailCode = Math.floor((Math.random() * 10000000));
 
-    //console.log("objectID: " + objectid);
-  
     const { Username, Password, Email } = req.body;
   
-    const newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following};
+    const newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following, Verified: Verified, EmailCode: EmailCode};
 
     try{
         //const result = db.collection('Users').insertOne(newUser);
@@ -127,14 +110,72 @@ app.post('/api/create_user',async (req, res) => {
         //console.log(result);
 
         let id = result._id;
-        //console.log("id" + id);
+        console.log("id" + id);
         var ret = { id:id };
+
+        // log in to email account to sent mail from
+        var transport = nodemailer.createTransport({
+          host: 'smtp.zoho.com',
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.ZOHO_USER,
+            pass: process.env.ZOHO_PASS
+          }
+        });
+      
+        var mainInfo,host,link;
+        host = req.get('host');
+        link=`http://${host}/api/verify/${EmailCode}`;
+
+        // 
+        mainInfo={
+            from : process.env.ZOHO_USER,
+            to : Email,
+            subject : "Please confirm your Email account",
+            html : `Please click this link to confirm your email: <a href="${link}">${link}</a>`,
+        }
+        console.log(mainInfo);
+
+        transport.sendMail(mainInfo, function(error, response){
+         if(error){
+                console.log(error);
+            res.end("error");
+         }else{
+                console.log("Message sent: " + response.message);
+            res.end("sent");
+             }
+      });
 
       res.status(200).json(ret);
     }catch(e){
         let error = e.toString();
         res.status(400).json(error);
     }
+});
+
+// Attempts to verify user using link
+app.get('/api/verify/:EmailCode', async (req, res) => {
+  try {
+    console.log("Attempting to verify user");
+    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
+    const { EmailCode } = req.params;
+
+    //console.log("req: " + EmailCode); // Sanity check
+    const user = await User.findOne({ EmailCode : EmailCode})
+
+    if (user) {
+      console.log("User verified!");
+      user.Verified = true;
+      await user.save();
+      res.redirect('http://www.flavordaddy.xyz/');
+    }
+    else {
+      res.status(400).json('Invalid link');
+    }
+  } catch (e) {
+    res.status(400).send(e.toString());
+  }
 });
 
 app.post("/api/create_recipe",async (req, res) => {

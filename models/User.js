@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         unique: true 
     },
+    Verified : {
+        type : Boolean,
+        default : false
+    },
+    EmailCode : {
+        type : Number,
+        unique: true
+    },
     Favorites : [mongoose.SchemaTypes.ObjectId],
     Following : [mongoose.SchemaTypes.ObjectId]
 }, { collection: 'Users' } );
