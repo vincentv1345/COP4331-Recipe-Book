@@ -127,8 +127,8 @@ app.post('/api/create_user',async (req, res) => {
         var mainInfo,host,link;
         host = req.get('host');
         link=`http://${host}/api/verify/${EmailCode}`;
+        console.log("link: " + link);
 
-        // 
         mainInfo={
             from : process.env.ZOHO_USER,
             to : Email,

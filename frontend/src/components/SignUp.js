@@ -54,9 +54,9 @@ function SignUp()
               </div>
             </div>
             <ul className="list">
-              <li><input type="Email" name="Email" placeholder="Email"></input></li>
-              <li><input type="user" name="User" placeholder="User Name"></input></li>
-              <li><input type="password" name="Password" placeholder="Password"></input></li>
+              <li><input type="Email" name="Email" placeholder="Email" ref={(c) => email = c}></input></li>
+              <li><input type="user" name="User" placeholder="User Name" ref={(c) => username = c}></input></li>
+              <li><input type="password" name="Password" placeholder="Password" ref={(c) => password = c}></input></li>
               <li><button type="button" name="Submit" class="button" onClick={doSignUp} >SignUp</button></li>
               
             </ul>
