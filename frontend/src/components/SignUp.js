@@ -5,6 +5,23 @@ import './assets/SignUp.css';
 
 function SignUp()
 {
+    //COMMENT OUT when running locally
+    console.log("In SignUp function");
+    const app_name = 'recipebook5959';
+    function buildPath(route)
+    {
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:5000/' + route;
+        }
+    }
+
     var email;
     var username;
     var password;
