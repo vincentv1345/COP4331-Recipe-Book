@@ -37,6 +37,6 @@ const userSchema = new mongoose.Schema({
     },
     Favorites : [mongoose.SchemaTypes.ObjectId],
     Following : [mongoose.SchemaTypes.ObjectId]
-}, { collection: 'Users' } );
+}, { collection: 'Users'});
 
 module.exports = mongoose.model("User", userSchema);
