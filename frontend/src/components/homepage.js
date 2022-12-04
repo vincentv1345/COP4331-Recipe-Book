@@ -14,6 +14,7 @@ import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
+import { useCookies } from "react-cookie";
 
 function HomePage() {
   /*profileButton = document.createElement("button");
@@ -22,12 +23,11 @@ function HomePage() {
       //CHANGE THE LOCATION TO ACTUAL PAGE
       location.href = "www.flavordaddy.xyz";
   }
-
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
-
-
+  
+  const [cookies, setCookie] = useCookies(["user"]);
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {
@@ -66,6 +66,48 @@ function HomePage() {
     setError("");
   }
 
+  var name, ingredients, directions, tag;
+
+  const create = async event =>
+  {
+    event.preventDefault();
+
+    var obj = {
+      UserID: cookies.id, 
+      RecipeName: name.value, 
+      RecipeIngredients: ingredients.value, 
+      RecipeDirections: directions.value, 
+      }
+
+    var js = JSON.stringify(obj);
+    let response;
+
+    try
+    {
+      //COMMENT OUT when running through HEROKU
+      // const response = await fetch(buildPath('api/create_recipe'), 
+      // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+      // UNCOMMENT OUT when running locally
+      response = await fetch('http://localhost:5000/api/create_recipe',
+      {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+      var res;
+      try {
+        res = JSON.parse(await response.text());
+      }
+      catch(e)
+      {
+        console.log(e);
+      }
+    }
+    catch(e)
+    {
+      alert(e.toString());
+      console.log("Failed to get API call. response" + response);
+      return;
+    }
+};
 
   return (
     <body>
@@ -82,9 +124,6 @@ function HomePage() {
             <input type="image" src={lookup} className="mag-img"></input>
           </div>
 
-
-
-
           <div className='postButton'>
           <input type="image" src={postIcon} className="post-img" onClick={togglePopup}></input>
           {isOpen && <Popup
@@ -96,9 +135,9 @@ function HomePage() {
 
                   <div className="text-area">
                     <ul className="list-create">
-                      <li><div className="name-text">Name<input type="name" name="name" cols="79" maxlength="79" placeholder="Like 'Delicious Recipe'" ></input></div></li>
-                      <li><textarea type="ingredients" name="ingredients" className="large-box" rows="3" cols="79" placeholder="Write your ingredients here." ></textarea></li>
-                      <li><textarea type="description" name="description" className="large-box" rows="3" cols="79" placeholder="Write your directions here." ></textarea></li>
+                      <li><div className="name-text">Name<input id="name" type="name" name="name" cols="79" maxlength="79" placeholder="Like 'Delicious Recipe'" ></input></div></li>
+                      <li><textarea id="ingredients" type="ingredients" name="ingredients" className="large-box" rows="3" cols="79" placeholder="Write your ingredients here." ></textarea></li>
+                      <li><textarea id="directions" type="directions" name="directions" className="large-box" rows="3" cols="79" placeholder="Write your directions here." ></textarea></li>
                     </ul>
 
                     <div className="bottom-container">
@@ -130,7 +169,7 @@ function HomePage() {
                   </div>
                 </div>
                 <div className="button-container">
-                  <button className="button-create" onClick={docreateRecipe} >Create</button>
+                  <button className="button-create" onClick={create} >Create</button>
                 </div>
               </div>
 
