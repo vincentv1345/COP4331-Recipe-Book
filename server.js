@@ -126,7 +126,7 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 Verified = false;
                 Favorites = [];
                 Following = [];
-                EmailCode = Math.floor((Math.random() * 100000));
+                EmailCode = Math.floor((Math.random() * 10000000));
                 _a = req.body, Username = _a.Username, Password = _a.Password, Email = _a.Email;
                 newUser = { Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, Follwing: Following, Verified: Verified, EmailCode: EmailCode };
                 _b.label = 1;
@@ -149,12 +149,12 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 });
                 host = req.get('host');
                 link = "http://".concat(host, "/api/verify/").concat(EmailCode);
-                // 
+                console.log("link: " + link);
                 mainInfo = {
                     from: process.env.ZOHO_USER,
                     to: Email,
                     subject: "Please confirm your Email account",
-                    html: "Please click this email to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
+                    html: "Please click this link to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
                 };
                 console.log(mainInfo);
                 transport.sendMail(mainInfo, function (error, response) {
@@ -185,11 +185,13 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
+                console.log("Attempting to verify user");
                 EmailCode = req.params.EmailCode;
                 return [4 /*yield*/, User.findOne({ EmailCode: EmailCode })];
             case 1:
                 user = _a.sent();
                 if (!user) return [3 /*break*/, 3];
+                console.log("User verified!");
                 user.Verified = true;
                 return [4 /*yield*/, user.save()];
             case 2:

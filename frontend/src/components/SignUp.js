@@ -17,18 +17,18 @@ function SignUp()
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user', { mode: 'cors' },
+            const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var stringified = JSON.stringify(await response.text()); 
-            var res = JSON.parse(stringified);
+            //var stringified = JSON.stringify(await response.text()); 
+            var res = JSON.parse(await response.text());
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
           } 
           else
           {
-            var user = 
-            {id:res.id}
+            var user = {id:res.id}
+            console.log("user id: " + res.id);
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
           }
