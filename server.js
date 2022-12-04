@@ -43,14 +43,53 @@ var Recipe = require("./models/Recipes");
 var bodyParser = require('body-parser');
 var path = require('path');
 var cors = require('cors');
+var multer = require('multer');
 var PORT = process.env.PORT || 5000;
 var testFlag = 0;
+var ImageModel = require("./models/Image");
 var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
+//store images
+var Storage = multer.diskStorage({
+    destination: 'uploads',
+    filename: function (req, file, cb) {
+        cb(null, file.originalnam);
+    }
+});
+var upload = multer({
+    storage: Storage
+}).single('testImage');
+app.get('/api/get_image', function (req, res) {
+    ImageModel.find({}, function (err, items) {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('imagesPage', { items: items });
+        }
+    });
+});
+app.post('/api/upload_image', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var newImage = new ImageModel({
+                name: req.body.name,
+                data: req.file.filename,
+                contentType: 'image/png'
+            });
+            newImage.save()
+                .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
+        }
+    });
+});
 db.on('error', function (error) { return console.error(error); });
 db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
@@ -195,6 +234,20 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
+    });
+}); });
+app.get("/api/get_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var RecipeID, result;
+    return __generator(this, function (_a) {
+        RecipeID = req.body.RecipeID;
+        try {
+            result = Recipe.findById({ _id: new ObjectId(RecipeID) });
+            res.json(result); //.json(reportInfo)
+        }
+        catch (e) {
+            res.status(400).json(e.toString());
+        }
+        return [2 /*return*/];
     });
 }); });
 app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {

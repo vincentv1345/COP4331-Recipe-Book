@@ -7,9 +7,11 @@ const Recipe = require("./models/Recipes");
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-
+const multer = require('multer');
 const PORT = process.env.PORT || 5000;
 const testFlag = 0;
+
+const ImageModel = require("./models/Image");
 
 const { ObjectID } = require('bson');
 const express = require('express');
@@ -18,7 +20,44 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
+//store images
+const Storage = multer.diskStorage({
+  destination:'uploads',
+  filename:(req,file,cb)=>{
+    cb(null,file.originalnam)
+  }
+});
 
+const upload = multer({
+  storage: Storage
+}).single('testImage')
+
+app.get('/api/get_image', (req, res) => {
+  ImageModel.find({}, (err, items) => {
+      if (err) {
+          console.log(err);
+          res.status(500).send('An error occurred', err);
+      }
+      else {
+          res.render('imagesPage', { items: items });
+      }
+  });
+});
+app.post('/api/upload_image',(req,res)=>{
+  upload(req,res,(err)=>{
+    if(err){
+      console.log(err)
+    }else{
+      const newImage = new ImageModel({
+        name:req.body.name,
+        data:req.file.filename,
+        contentType:'image/png'
+      })
+      newImage.save()
+      .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))
+    }
+  })
+})
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.error('Connected to Database'));
 
@@ -69,7 +108,6 @@ if(process.env.NODE_ENV === 'production')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
-
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
@@ -165,6 +203,17 @@ app.post("/api/create_recipe",async (req, res) => {
   }catch(e){
     let error = e.toString();
     res.status(400).json(error);
+  }
+});
+
+app.get("/api/get_recipe",async (req, res) => {
+  const { RecipeID } = req.body;
+
+  try{
+    const result = Recipe.findById({_id: new ObjectId(RecipeID)});
+    res.json(result); //.json(reportInfo)
+  }catch(e){
+    res.status(400).json(e.toString());
   }
 });
 
