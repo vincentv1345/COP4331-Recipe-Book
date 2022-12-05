@@ -173,7 +173,7 @@ class _MainPageState extends State<MainPage> {
                             borderRadius: BorderRadius.circular(8.0),
 
                             child: Image.asset(
-                              "lib/assets/food.jpg",
+                              'lib/assets/.png',
                               width: 200.0,
                               height: 200.0,
                               fit: BoxFit.fitWidth,
@@ -330,6 +330,7 @@ class _MainPageState extends State<MainPage> {
                       onPressed: () async {
                         try{
                           bool isPublic = isChecked;
+                          print(isPublic);
 
                           newMessageText = "";
                           changeText();

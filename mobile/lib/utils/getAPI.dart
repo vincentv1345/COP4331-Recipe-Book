@@ -59,7 +59,8 @@ class RecipeData {
       throw Exception('Failed to CREATE USER');
     }
   }
-  static Future<dynamic> create(String recipeName, String recipeIngredients, String directions, bool isPublic) async
+  static Future<dynamic> create(String recipeName, String recipeIngredients,
+      String directions, bool isPublic) async
   {
     final response = await http.post(
       Uri.parse('https://recipebook5959.herokuapp.com/api/create_recipe'),
