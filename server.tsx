@@ -7,12 +7,9 @@ const Recipe = require("./models/Recipes");
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-<<<<<<< HEAD
 const multer = require('multer');
-=======
 const nodemailer = require("nodemailer");
 
->>>>>>> 72ac96e75fffd903433f70747dedfaacbc0820c5
 const PORT = process.env.PORT || 5000;
 const testFlag = 0;
 
@@ -97,14 +94,9 @@ if(process.env.NODE_ENV === 'production')
   });
 }
 
-<<<<<<< HEAD
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-=======
 app.get("/api/", (req, res) => {
   console.log("Test from API");
   res.status(200).json({ message: "Hello from server!" });
->>>>>>> 72ac96e75fffd903433f70747dedfaacbc0820c5
 });
 
 app.post('/api/login', async (req, res) => 
