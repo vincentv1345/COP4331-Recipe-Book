@@ -279,8 +279,8 @@ class _MainPageState extends State<MainPage> {
 
                           newMessageText = "";
                           changeText();
-                          var userId = 'car';
-                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim(),userId.trim());
+                          //var userId = 'car';
+                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim());
                           Navigator.push(context, new MaterialPageRoute(
                               builder: (context) => new ProfileScreen())
                           );
