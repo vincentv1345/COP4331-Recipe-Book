@@ -35,6 +35,11 @@ const userSchema = new mongoose.Schema({
         type : Number,
         unique: true
     },
+    RecipeList:{
+        type: Array,
+        Object: Recipes,
+        default: true
+    },
     Favorites : [mongoose.SchemaTypes.ObjectId],
     Following : [mongoose.SchemaTypes.ObjectId]
 }, { collection: 'Users'});
