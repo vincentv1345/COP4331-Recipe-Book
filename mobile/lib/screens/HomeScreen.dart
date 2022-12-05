@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
+import 'package:outline_search_bar/outline_search_bar.dart';
 
 import '../main.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
 import 'Profile.dart';
 import 'AddScreen.dart';
+import 'Profile.dart';
 
-String message = "help", newMessageText = ''; //error messages
+String message = '', newMessageText = '';
+String addMessage = '', newAddMessage = '';
+String searchMessage = '', newSearchMessage = '';
+
+
+
+//String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 String recipename = '',ingredients = '', directions = '';
 
@@ -43,6 +51,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
+  void changeText() {
+    setState(() {
+      message = newMessageText;
+    });
+  }
+
+  void changeAddText() {
+    setState(() {
+      addMessage = newAddMessage;
+    });
+  }
+
+  void changeSearchText() {
+    setState(() {
+      searchMessage = newSearchMessage;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,12 +169,39 @@ class _MainPageState extends State<MainPage> {
                               backgroundColor: Color(0xff5F2829),
                               onPressed: () {
                                 // Add your onPressed code here!
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new ProfileScreen())
+                                );
                               },
                               child: const Icon(Icons.person),
                             ),
                           ]
                       ),
-                    ],
+                      Column(
+                       children: <Widget>[
+                           Container(
+                             width: 200,
+                             child:
+                            TextField (
+                                 decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Search',
+                                 hintText: 'Search for a Card',
+                                   suffixIcon: IconButton(
+                                     onPressed: (){},
+                                     icon: Icon(Icons.search),
+                                   ),
+                                 ),
+                            )
+                           )]
+                           )
+                        ]
+
+
+
+
                   ), //buttons
                 ),
               ],

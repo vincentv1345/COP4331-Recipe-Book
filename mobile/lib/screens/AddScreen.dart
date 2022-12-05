@@ -143,6 +143,9 @@ class _MainPageState extends State<MainPage> {
                               backgroundColor: Color(0xff5F2829),
                               onPressed: () {
                                 // Add your onPressed code here!
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new ProfileScreen())
+                                );
                               },
                               child: const Icon(Icons.person),
                             ),
