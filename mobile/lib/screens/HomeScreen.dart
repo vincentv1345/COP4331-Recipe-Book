@@ -129,6 +129,7 @@ class _MainPageState extends State<MainPage> {
                       Column(
                           children:<Widget>[
 
+
                             const SizedBox(width: 16),
 
                             FloatingActionButton.small(
@@ -180,8 +181,10 @@ class _MainPageState extends State<MainPage> {
                       Column(
                        children: <Widget>[
                            Container(
-                             width: 200,
-                             child:
+                               margin: const EdgeInsets.only(top: 5, left: 20,),
+                               height:50,
+                               width: 200,
+                               child:
                             TextField (
                                  decoration: InputDecoration(
                                   filled: true,
