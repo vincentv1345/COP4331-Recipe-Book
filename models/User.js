@@ -35,10 +35,6 @@ const userSchema = new mongoose.Schema({
         type : Number,
         unique: true
     },
-    Recipe:{
-        type: Array,
-        default: true
-    },
     RecipeList:[{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     Favorites : [{type: mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     Following : [{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}]
