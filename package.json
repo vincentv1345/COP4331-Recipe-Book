@@ -19,11 +19,8 @@
     "express": "^4.18.2",
     "mongodb": "^4.11.0",
     "mongoose": "^6.7.0",
-<<<<<<< HEAD
-    "multer": "^1.4.5-lts.1"
-=======
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.8.0"
->>>>>>> 72ac96e75fffd903433f70747dedfaacbc0820c5
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
