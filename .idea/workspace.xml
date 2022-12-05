@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Updated homepage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/AddScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/AddScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +50,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -196,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670095676411</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Updated homepage">
+      <created>1670206136537</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1670206136537</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
