@@ -7,6 +7,9 @@
     <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Updated API connections">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/AddScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/AddScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/EditProfile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/EditProfile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/Profile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -225,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670262125270</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Updated API connections">
+      <created>1670266356460</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1670266356460</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -283,5 +293,16 @@
     <MESSAGE value="Updated homepage" />
     <MESSAGE value="Updated API connections" />
     <option name="LAST_COMMIT_MESSAGE" value="Updated API connections" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/mobile/lib/utils/getAPI.dart</url>
+          <line>71</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

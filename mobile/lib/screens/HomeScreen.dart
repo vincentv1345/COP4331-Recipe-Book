@@ -191,7 +191,7 @@ class _MainPageState extends State<MainPage> {
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(),
                                   labelText: 'Search',
-                                 hintText: 'Search for a Card',
+                                 hintText: 'User or recipe',
                                    suffixIcon: IconButton(
                                      onPressed: (){},
                                      icon: Icon(Icons.search),

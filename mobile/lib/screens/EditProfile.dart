@@ -9,16 +9,21 @@ import 'HomeScreen.dart';
 String message = "", newMessageText = ''; //error messages
 
 String loginName = '', email = '', password = '';
-
+//var bio = '';
 
 
 class GlobalData
 {
-  static String userId = '';
+  static int userId = 0;
   static String firstName = '';
   static String lastName = '';
   static String loginName = '';
   static String password = '';
+
+  static int recipesCount = 0;
+  static int followers = 0;
+  static int following = 0;
+  static String bio = ''; //50 CHAR LIMIT
 }
 
 
@@ -67,7 +72,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage("lib/assets/homescreen.PNG"), fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("lib/assets/homescreen.png"), fit: BoxFit.cover),
         ),
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -151,7 +156,7 @@ class _MainPageState extends State<MainPage> {
 
                           ),
                           onChanged: (text) {
-                            email = text;
+                            password = text;
                           },
                         ),
                       ),
@@ -205,29 +210,24 @@ class _MainPageState extends State<MainPage> {
                           {
                             newMessageText = "";
                             changeText();
-                            //add username to payload
-                        //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                          //  var data = {"login": loginName ,"password": password};
+
                             var userId = '';
                             var jsonObject;
+                           String bio = GlobalData.bio;
+                            try {
+                              //String url = 'https://cop4331-10.herokuapp.com/api/update_user';
+                              await RecipeData.edit(bio.trim(), password.trim());
+                              GlobalData.bio = bio;
 
-                              String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              var ret = await RecipeData.signup(email.trim(),
-                                  loginName.trim(), password.trim());
-                              jsonObject = json.decode(ret);
-                              userId = jsonObject["id"];
 
-                              GlobalData.userId = userId;
-                              // GlobalData.firstName = jsonObject["firstName"];
-                              // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>
+                                    ProfileScreen()),
+                              );
+                            }catch(e){
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) =>
-                                  ProfileScreen()),
-                            );
+                            }
                           },
 
                           color:const Color(0xff5F2829),

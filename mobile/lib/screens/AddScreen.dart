@@ -11,6 +11,7 @@ import 'Profile.dart';
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 String recipeName = '',recipeingredients = '', directions = '';
+bool isChecked = false;
 
 late final List<ListItem> items;
 
@@ -37,11 +38,10 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   @override
+
   void initState() {
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage("lib/assets/add.png"), fit: BoxFit.cover),
         ),
@@ -181,11 +181,14 @@ class _MainPageState extends State<MainPage> {
                             ),
                           )
                       ),
+                      Row(
+                        children: <Widget>[
                       SizedBox(
                         width: 200,
                         height: 50,
 
-                        child: TextFormField(
+                        child:
+                        TextFormField(
                           keyboardType: TextInputType.multiline,
                           maxLines: 1,
                           autofocus: false,
@@ -207,10 +210,13 @@ class _MainPageState extends State<MainPage> {
 
                         ),
                       ),
+                      ]),
+
 
 
                     ]
                 ),
+                SizedBox(height:0),
                 SizedBox(
                   width: 400,
 
@@ -236,7 +242,7 @@ class _MainPageState extends State<MainPage> {
                     },
                 ),
                 ),
-                SizedBox(height:40),
+                SizedBox(height:10),
 
                 SizedBox(
                   width: 400,
@@ -263,11 +269,58 @@ class _MainPageState extends State<MainPage> {
 
                   ),
                 ),
+                SizedBox(height:10),
+
+                SizedBox(
+                  width: 400,
+                  child: TextFormField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 1,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "enter descriptive hashtags",
+                          hintStyle: TextStyle(fontStyle: FontStyle.italic),
+                          alignLabelWithHint: true,
+                          border:  OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
+                      onChanged:(text){
+                        directions = text;
+                        print(directions);
+                      }
+
+
+                  ),
+                ),
+
+
+            Row(
+              children: <Widget>[
+                Text(
+                  'Check for public',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+
+              Checkbox(
+              value: isChecked,
+              onChanged: (bool? value) { // This is where we update the state when the checkbox is tapped
+                setState(() {
+                  isChecked = value!;
+                });
+              },
+            ),
+
 
 
 
                 Container(
-                  margin: const EdgeInsets.only(top: 10, left: 10),
+                  margin: const EdgeInsets.only(top: 10, left: 50),
                   width: 125,
                   child:
                   MaterialButton(
@@ -276,11 +329,12 @@ class _MainPageState extends State<MainPage> {
 
                       onPressed: () async {
                         try{
+                          bool isPublic = isChecked;
 
                           newMessageText = "";
                           changeText();
                           //var userId = 'car';
-                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim());
+                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim(),isPublic);
                           Navigator.push(context, new MaterialPageRoute(
                               builder: (context) => new ProfileScreen())
                           );
@@ -298,6 +352,7 @@ class _MainPageState extends State<MainPage> {
                       splashColor: Colors.black
                   ),
                 ),
+            ]),
 
 
 

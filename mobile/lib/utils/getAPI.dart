@@ -59,7 +59,7 @@ class RecipeData {
       throw Exception('Failed to CREATE USER');
     }
   }
-  static Future<dynamic> create(String recipeName, String recipeIngredients, String directions) async
+  static Future<dynamic> create(String recipeName, String recipeIngredients, String directions, bool isPublic) async
   {
     final response = await http.post(
       Uri.parse('https://recipebook5959.herokuapp.com/api/create_recipe'),
@@ -71,7 +71,7 @@ class RecipeData {
         'RecipeName' : recipeName,
         'RecipeIngredients' : recipeIngredients,
         'RecipeDirections' : directions,
-        'IsPublic' : true,
+        'IsPublic' : isPublic,
 
       }),
     );
@@ -79,7 +79,7 @@ class RecipeData {
     if (response.statusCode == 200 || response.statusCode == 201) {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
-      print("Recipe ${response.statusCode}! ${response.body}");
+      print("Recipe created ${response.statusCode}! ${response.body}");
       return (jsonDecode(response.body));
     } else {
       print("Error creating recipe ${response.statusCode}! ${response.body}");
@@ -88,5 +88,30 @@ class RecipeData {
       throw Exception('Failed to CREATE Recipe');
     }
 
+  }
+  static Future<dynamic> edit(String bio, String password) async {
+
+    final response = await http.patch(
+      Uri.parse('https://recipebook5959.herokuapp.com/api/update_user'),
+      headers:<String,String> {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "Bio": bio,
+        "Password": password,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print("User updated ${response.statusCode}");
+      return (jsonDecode(response.body));
+    } else {
+      print("Error updating user ${response.statusCode}! ${response.body}");
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to update user');
+    }
   }
 }
