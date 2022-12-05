@@ -59,4 +59,34 @@ class RecipeData {
       throw Exception('Failed to CREATE USER');
     }
   }
+  static Future<dynamic> create(String recipeName, String recipeIngredients, String directions,String userID) async
+  {
+    final response = await http.post(
+      Uri.parse('https://recipebook5959.herokuapp.com/api/create_recipe'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+
+      },
+      body: jsonEncode({
+        'RecipeName' : recipeName,
+        'RecipeIngredients' : recipeIngredients,
+        'RecipeDirections' : directions,
+        'IsPublic' : true,
+
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print("Recipe ${response.statusCode}! ${response.body}");
+      return (jsonDecode(response.body));
+    } else {
+      print("Error creating recipe ${response.statusCode}! ${response.body}");
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to CREATE Recipe');
+    }
+
+  }
 }

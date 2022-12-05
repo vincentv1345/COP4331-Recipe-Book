@@ -10,14 +10,14 @@ import 'Profile.dart';
 
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
-String recipename = '',ingredients = '', directions = '';
+String recipeName = '',recipeingredients = '', directions = '';
 
 late final List<ListItem> items;
 
 
 class GlobalData
 {
-  static int userId = 0;
+  static String userId = '';
   static String firstName = '';
   static String lastName = '';
   static String loginName = '';
@@ -199,12 +199,12 @@ class _MainPageState extends State<MainPage> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide: BorderSide(
                                   color: Colors.black,
-                                )
-                            ),
+                                ))),
+                          onChanged:(text){
+                            recipename = text;
+                            print(recipename);
+                          }
 
-                            //labelText: 'Ingredients',
-
-                          ),
                         ),
                       ),
 
@@ -228,12 +228,12 @@ class _MainPageState extends State<MainPage> {
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide(
                         color: Colors.black,
-                      )
-                    ),
-
-                    //labelText: 'Ingredients',
-
-                  ),
+                      ))),
+                    onChanged: (text){
+                      recipeingredients = text;
+                      print(recipeingredients);
+                      print(GlobalData.userId);
+                    },
                 ),
                 ),
                 SizedBox(height:40),
@@ -254,12 +254,13 @@ class _MainPageState extends State<MainPage> {
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                             color: Colors.black,
-                          )
-                      ),
+                          ))),
+                      onChanged:(text){
+                        directions = text;
+                        print(directions);
+                      }
 
-                      //labelText: 'Ingredients',
 
-                    ),
                   ),
                 ),
 
@@ -273,10 +274,21 @@ class _MainPageState extends State<MainPage> {
                       child: Text('Create',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))
                       ),
 
-                      onPressed: () {
-                        Navigator.push(context, new MaterialPageRoute(
-                            builder: (context) => new ProfileScreen())
-                        );
+                      onPressed: () async {
+                        try{
+
+                          newMessageText = "";
+                          changeText();
+                          var userId = 'car';
+                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim(),userId.trim());
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new ProfileScreen())
+                          );
+
+
+                        }catch(e){
+
+                        }
                       },
 
                       color:const Color(0xff5F2829),

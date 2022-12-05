@@ -26,7 +26,7 @@ late final List<ListItem> items;
 
 class GlobalData
 {
-  static int userId = 0;
+  static String userId = '';
   static String firstName = '';
   static String lastName = '';
   static String loginName = '';
