@@ -343,6 +343,7 @@ app.get("/api/get_recipeList", async(req,res,next)=>{
 });
 
 app.get("/api/search_user", async(req,res,next)=>{
+  try{
   const {Username} = req.body;
   console.log(Username); 
   try{
@@ -350,8 +351,11 @@ app.get("/api/search_user", async(req,res,next)=>{
               Username:{$regex: `${Username}`, $options: 'i'}
       })
     res.json(searchedUsers)
-}catch(err){
+  }catch(err){
     res.status(400).json({message: err.message })
+  }
+}catch(err){
+  res.status(400).json({message:err.message})
 }
 });
 

@@ -395,10 +395,11 @@ app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void
     });
 }); });
 app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Username, searchedUsers, err_3;
+    var Username, searchedUsers, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 5, , 6]);
                 Username = req.body.Username;
                 console.log(Username);
                 _a.label = 1;
@@ -415,12 +416,17 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
                 err_3 = _a.sent();
                 res.status(400).json({ message: err_3.message });
                 return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_4 = _a.sent();
+                res.status(400).json({ message: err_4.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
 app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeName, searchedRecipe, err_4, err_5;
+    var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -438,20 +444,20 @@ app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_4 = _a.sent();
-                res.status(400).json({ message: err_4.message });
+                err_5 = _a.sent();
+                res.status(400).json({ message: err_5.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_5 = _a.sent();
-                res.status(400).json({ message: err_5.message });
+                err_6 = _a.sent();
+                res.status(400).json({ message: err_6.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Tags, searchedRecipe, err_6, err_7;
+    var Tags, searchedRecipe, err_7, err_8;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -469,13 +475,13 @@ app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_6 = _a.sent();
-                res.status(400).json({ message: err_6.message });
+                err_7 = _a.sent();
+                res.status(400).json({ message: err_7.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_7 = _a.sent();
-                res.status(400).json({ message: err_7.message });
+                err_8 = _a.sent();
+                res.status(400).json({ message: err_8.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
