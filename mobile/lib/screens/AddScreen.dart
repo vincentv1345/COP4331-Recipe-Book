@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/LoginScreen.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
+import 'dart:async';
+import 'dart:io';
+import 'image.dart';
 
 import '../main.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
 import 'Profile.dart';
 
+
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
-String recipeName = '',recipeingredients = '', directions = '';
+String recipeName = '',recipeingredients = '', directions = '', imageInput='';
 bool isChecked = false;
 
 
@@ -21,6 +26,31 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   @override
+  File? image;
+
+  Future selectImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        return;
+      }
+      final imageTemp = File(image.path);
+      List<int> imageBytes = await image.readAsBytes();
+      final len = imageBytes.length;
+      final kb = len / 1024;
+      final mb = kb / 1024;
+      if (mb > 8) {
+        throw ("Image Too Big");
+      }
+      String imageBase64Temp = base64Encode(imageBytes);
+      setState(() {
+        this.image = imageTemp;
+        imageInput = imageBase64Temp;
+      });
+    } on Exception catch (error) {
+      debugPrint("Failed to select image: $error");
+    }
+  }
 
   void initState() {
     super.initState();
@@ -144,7 +174,18 @@ class _MainPageState extends State<MainPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
-                      Container(
+                      const SizedBox(height: 20.0),
+                      MaterialButton(
+                        color: Colors.blue,
+                        child: const Text(
+                          "Select Image from Gallery",
+                        ),
+                        onPressed: () {
+                          selectImage();
+                        },
+                      ),
+
+                      /*Container(
                           padding: EdgeInsets.all(0), // Border width
                           decoration: BoxDecoration(color: Colors.transparent,),
                           alignment: Alignment.topLeft,
@@ -163,7 +204,7 @@ class _MainPageState extends State<MainPage> {
                               scale: 1,
                             ),
                           )
-                      ),
+                      ),*/
                       Row(
                         children: <Widget>[
                       SizedBox(

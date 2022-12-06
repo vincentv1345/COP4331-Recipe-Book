@@ -99,7 +99,7 @@ class RecipeData {
     }
 
   }
-  static Future<dynamic> edit(String bio, String password) async {
+  static Future<dynamic> edit(String bio, String newID,String id) async {
 
     final response = await http.patch(
       Uri.parse('https://recipebook5959.herokuapp.com/api/update_user'),
@@ -107,8 +107,9 @@ class RecipeData {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
+        "id" : id,
         "Bio": bio,
-        "Password": password,
+        "Username": newID,
       }),
     );
 

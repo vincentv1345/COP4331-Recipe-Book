@@ -202,17 +202,13 @@ class _MainPageState extends State<MainPage> {
                           {
                             newMessageText = "";
                             changeText();
-                            //add username to payload
-                        //   String payload = '{"login":"' + loginName.trim() + '","password":"' + password.trim() + '"}';
-                          //  var data = {"login": loginName ,"password": password};
+
                             var userId = '';
                             var jsonObject;
 
-                              String url = 'https://cop4331-10.herokuapp.com/api/create_user'; //http://www.flavordaddy.xyz/
-                              var ret = await RecipeData.signup(email.trim(),
+                              await RecipeData.signup(email.trim(),
                                   loginName.trim(), password.trim());
-                              jsonObject = json.decode(ret);
-                              userId = jsonObject["id"];
+
 
                               //GlobalData.userId = userId;
                               // GlobalData.firstName = jsonObject["firstName"];

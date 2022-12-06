@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/CreateAccount.dart';
+import 'package:mobile/screens/EditProfile.dart';
 import 'package:mobile/screens/HomeScreen.dart';
 import 'package:mobile/screens/ViewRecipe.dart';
 import 'package:mobile/utils/getAPI.dart';
@@ -15,9 +16,10 @@ String loginName = '', password = '';
 class GlobalData
 {
   static String userId = '';
+  static String userName = '';
   static String firstName = '';
   static String lastName = '';
-  static String loginName = '';
+  //static String loginName = '';
   static String password = '';
 
   static int recipesCount = 0;
@@ -137,7 +139,7 @@ class _MainPageState extends State<MainPage> {
 
                             ),
                             onChanged: (text) {
-                              loginName = text;
+                              userName = text;
                             },
                           ),
                         ),
@@ -193,16 +195,11 @@ class _MainPageState extends State<MainPage> {
                             try
                             {
 
-                              var jsonObject = await RecipeData.login(loginName.trim(), password.trim());
-
-                              //test later
-                              print("RESULTS" + jsonObject.toString());
+                              var jsonObject = await RecipeData.login(userName.trim(), password.trim());
                               userId = jsonObject["id"];
-                              print("ndfkns" + userId);
-                              print(userId);
-                              GlobalData.userId = userId; //do these work?
-                              GlobalData.loginName = loginName;
-
+                              GlobalData.userId = userId;
+                              print(GlobalData.userId);//do these work?
+                              GlobalData.userName = userName;
                               GlobalData.password = password;
                               Navigator.push(
                                 context,

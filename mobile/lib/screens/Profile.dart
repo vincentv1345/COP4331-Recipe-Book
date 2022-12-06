@@ -234,7 +234,7 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(GlobalData.loginName,style: const TextStyle(fontSize: 60 ,color:Colors.black)),
+                    Text(GlobalData.userName,style: const TextStyle(fontSize: 60 ,color:Colors.black)),
                   ],
                 ), //NAME
 
@@ -318,7 +318,7 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ),
 
-                Container(
+              /*  Container(
 
 
                   height: MediaQuery.of(context).size.height,
@@ -363,7 +363,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-                ),
+                ),*/
 
               ],
             )

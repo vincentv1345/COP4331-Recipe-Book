@@ -8,7 +8,7 @@ import 'HomeScreen.dart';
 
 String message = "", newMessageText = ''; //error messages
 
-String bioText = '';
+String bioText = '', userName = '';
 
 
 
@@ -120,6 +120,27 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ]
                 ),
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  width: 350,
+                  child:
+                  TextField (
+                    style: TextStyle(fontSize: 18, color: Colors.black.withOpacity(1.0)),
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(),
+                      //border: InputBorder.none,
+                      labelText: 'userName',
+                      hintText: 'Enter a new userName',
+                      labelStyle: TextStyle(color: Colors.black),
+
+                    ),
+                    onChanged: (text) {
+                      userName = text;
+                    },
+                  ),
+                ),
 
 
                 Row( //BUTTON
@@ -142,15 +163,15 @@ class _MainPageState extends State<MainPage> {
                             newMessageText = "";
                             changeText();
 
-                            var userId = '';
-                            var jsonObject;
-                           String bio = GlobalData.bio;
+
+
                             try {
-                              //String url = 'https://cop4331-10.herokuapp.com/api/update_user';
-                              //await RecipeData.edit(bio.trim(), password.trim());
-
-
                               GlobalData.bio = bioText;
+                              GlobalData.userName = userName;
+                              await RecipeData.edit(GlobalData.bio.trim(),GlobalData.userName.trim(), GlobalData.userId.trim() );
+
+
+
 
                               Navigator.push(
                                 context,
