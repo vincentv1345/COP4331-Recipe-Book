@@ -197,8 +197,8 @@ class RecipeData {
     if (response.statusCode == 200 || response.statusCode == 201) {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
-      print("Recipe Search: ${response.statusCode} ");
-      print("Recipe Search: ${response.body} ");
+      print("User Search: ${response.statusCode} ");
+      print("User Search: ${response.body} ");
 
       return (jsonDecode(response.body));
     } else {

@@ -17,16 +17,19 @@ List<dynamic> myRecipes = List.empty(growable: true);
 
 void populateProfile() async {
 
-  var user = await RecipeData.getUser("Ducky");
-
+  //Get User Information
   try {
-    var user = await RecipeData.getUser("Ducky");
+    var user = await RecipeData.getUser(GlobalData.userName);
+      GlobalData.bio = user[0]["Bio"];
+      GlobalData.email = user[0]["Email"];
+      GlobalData.following = user[0]["Following"].length;
+
   }catch(e){
-    print("PROFILE ERRORRRRR GETTING USER" + e.toString());
+    print("Profile Error Getting User Information" + e.toString());
   }
 
   try {
-  myRecipes = await RecipeData.search(GlobalData.userId);
+  myRecipes = await RecipeData.getUserRecipes(GlobalData.userId);
   }catch(e){
     print("PROFILE ERRORRRRR GETTING RECIPES" + e.toString());
   }
@@ -68,9 +71,6 @@ class MainPage extends StatefulWidget {
 
 
 class _MainPageState extends State<MainPage> {
-
- // late final List<ListItem> items;
-
 
   changeText() {
     setState(() {
