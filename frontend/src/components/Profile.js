@@ -12,8 +12,6 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
-import { useCookies } from "react-cookie";
-
 
 
 function Profile() {
@@ -26,7 +24,6 @@ function Profile() {
   const recipeNames = ["Pad Thai", "Pasta", "Tacos"];
   const recipeUsers = ["user1", "user2", "user3"];
   const [isOpen, setIsOpen] = useState(false);
-  const [cookies, setCookie] = useCookies(["user"]);
   const [error, setError] = React.useState("");
 
   const togglePopup = () => {
@@ -39,8 +36,9 @@ function Profile() {
     let username = document.getElementById("username").value;
     let bio = document.getElementById("bio").value;
 
+    // fix
     var obj = {
-      UserID: cookies.id, 
+      //UserID: cookies.id, 
       Username: username, 
       Bio: bio, 
     }
@@ -48,7 +46,7 @@ function Profile() {
     var js = JSON.stringify(obj);
     try
       {    
-        const response = await fetch('https://recipebook5959.herokuapp.com/api/update_user', { mode: 'cors' },
+        const response = await fetch('http://localhost:5000/api/update_user', { mode: 'cors' },
             {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
         var stringified = JSON.stringify(await response.text()); 
         var res = JSON.parse(stringified);

@@ -16,14 +16,31 @@ function SignUp()
     {
         // setIsOpen(!isOpen);
         event.preventDefault();
-        let obj = {Email:email,Username:username,Password:password};
+        let obj = {Email:email.value ,Username:username.value ,Password:password.value};
         var js = JSON.stringify(obj);
+
+        let response;
+        
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user', { mode: 'cors' },
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var stringified = JSON.stringify(await response.text()); 
-            var res = JSON.parse(stringified);
+          // const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
+          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          
+          // UNCOMMENT OUT when running locally
+          response = await fetch('http://localhost:5000/api/create_user',
+          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          
+          var res;
+          
+          try {
+            res = JSON.parse(await response.text());
+          }
+          catch(e) {
+            console.log(e);
+          }
+
+          console.log("res " + res);
+
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
@@ -33,6 +50,7 @@ function SignUp()
             var user = 
             {id:res.id}
             localStorage.setItem('user_data', JSON.stringify(user));
+            localStorage.setItem('email-info', JSON.stringify(email.value));
             setMessage('');
             setIsOpen(!isOpen);
           }
@@ -40,7 +58,7 @@ function SignUp()
         catch(e)
         {
           alert(e.toString());
-          
+          console.log("Failed to get API call. response: " + response);
           return;
         }    
     };

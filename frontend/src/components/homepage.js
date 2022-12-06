@@ -14,7 +14,6 @@ import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
-import { useCookies } from "react-cookie";
 
 function HomePage() {
   /*profileButton = document.createElement("button");
@@ -27,7 +26,6 @@ function HomePage() {
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
   
-  const [cookies, setCookie] = useCookies(["user"]);
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {
@@ -72,8 +70,9 @@ function HomePage() {
     let username = document.getElementById("username").value;
     let bio = document.getElementById("bio").value;
 
+    // fix
     var obj = {
-      UserID: cookies.id, 
+      //UserID: cookies.id, 
       Username: username, 
       Bio: bio, 
     }
@@ -81,11 +80,12 @@ function HomePage() {
     var js = JSON.stringify(obj);
     try
       {    
-        const response = await fetch('https://recipebook5959.herokuapp.com/api/search_recipe', { mode: 'cors' },
+        const response = await fetch('http://localhost:5000/api/search_recipe', { mode: 'cors' },
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
         var stringified = JSON.stringify(await response.text()); 
         var res = JSON.parse(stringified);
 
+        console.log("Create recipe try");
         var res;
         try {
           res = JSON.parse(await response.text());
@@ -112,8 +112,9 @@ function HomePage() {
     let directions = document.getElementById("directions").value;
     let tag;
 
+    // fix
     var obj = {
-      UserID: cookies.id, 
+      //UserID: cookies.id, 
       RecipeName: name, 
       RecipeIngredients: ingredients, 
       RecipeDirections: directions, 

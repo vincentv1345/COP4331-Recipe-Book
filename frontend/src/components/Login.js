@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import cookbook from './assets/cookbook.png';
 import './assets/Login.css';
-import { useCookies } from 'react-cookie';
 
 function Login()
 {
@@ -28,7 +27,7 @@ function Login()
     var username;
     var password;
     const [message,setMessage] = useState('');
-    const [cookies, setCookie] = useCookies(["user"]);
+    //const [cookies, setCookie] = useCookies(["user"]);
     
     const doLogin = async event => 
     {
@@ -39,7 +38,6 @@ function Login()
         console.log("js: " + js);
 
         let response;
-        const data = new FormData(event.currentTarget);
 
         try
         {    
@@ -74,22 +72,9 @@ function Login()
             setMessage('');
             console.log("Found user");
             
-            setCookie("id", response.data.id, {path: "/"});
-            setCookie("username", response.data.user.Username, {path: "/"});
-            setCookie("email", response.data.user.Email, {path: "/"});
-            setCookie("favorites", response.data.user.Favorites, {path: "/"});
-            setCookie("following", response.data.user.Following, {path: "/"});
-            setCookie("verified", response.data.user.Verified, {path: "/"})
-
-            if(data.get("verified") === "false")
-            {
-              setMessage('User is not verified');
-            }
-            
-            if(data.get("verified" === "true"))
-            {
-              window.location.href = '/HomePage';
-            }
+            localStorage.setItem('username-info', JSON.stringify(username.value));
+            localStorage.setItem('pass-info', JSON.stringify(password.value));
+            window.location.href = '/homepage';
           }
         }
         catch(e)
