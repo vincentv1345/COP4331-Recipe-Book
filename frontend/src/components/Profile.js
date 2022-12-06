@@ -12,7 +12,7 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
-
+import popuprecipe from './popup-recipe';
 
 
 

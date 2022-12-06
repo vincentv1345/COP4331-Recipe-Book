@@ -1,3 +1,4 @@
 node_modules
 .env
 frontend/src/components/Login.js
+frontend/package.json
