@@ -115,11 +115,23 @@ app.post('/api/login', async (req, res) =>
         if(result.length == 1)
         {
             console.log("Found User!");
+            console.log("user: " + result[0]);
 
             let id = result[0]._id;
+            let DateCreated = result[0].DateCreated;
+            let DateLastLoggedIn = result[0].DateLastLoggedIn;
+            let Username = result[0].Username;
+            let Bio = result[0].Bio;
+            let Email = result[0].Email;
+            let Verified = result[0].Verified;
+            let EmailCode = result[0].EmailCode;
+            let RecipeList = result[0].RecipeList;
+            let Favorites = result[0].Favorites;
+            let Following = result[0].Following;
             //console.log("id: " + id);
 
-            var ret = { id:id };
+
+            var ret = { id:id, DateCreated: DateCreated, DateLastLoggedIn: DateLastLoggedIn, Username: Username, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, RecipeList: RecipeList, Follwing: Following, Verified: Verified, EmailCode: EmailCode };
             res.status(200).json(ret);
         }
         else if(result.length == 0)
@@ -209,7 +221,7 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
       console.log("User verified!");
       user.Verified = true;
       await user.save();
-      res.redirect('http://www.flavordaddy.xyz/');
+      res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
     }
     else {
       res.status(400).json('Invalid link');

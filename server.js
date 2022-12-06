@@ -121,7 +121,7 @@ app.get("/api/", function (req, res) {
     res.status(200).json({ message: "Hello from server!" });
 });
 app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, Username, Password, user, result, id, ret, e_1, error;
+    var _a, Username, Password, user, result, id, DateCreated, DateLastLoggedIn, Username_1, Bio, Email, Verified, EmailCode, RecipeList, Favorites, Following, ret, e_1, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -138,8 +138,19 @@ app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, vo
                 result = _b.sent();
                 if (result.length == 1) {
                     console.log("Found User!");
+                    console.log("user: " + result[0]);
                     id = result[0]._id;
-                    ret = { id: id };
+                    DateCreated = result[0].DateCreated;
+                    DateLastLoggedIn = result[0].DateLastLoggedIn;
+                    Username_1 = result[0].Username;
+                    Bio = result[0].Bio;
+                    Email = result[0].Email;
+                    Verified = result[0].Verified;
+                    EmailCode = result[0].EmailCode;
+                    RecipeList = result[0].RecipeList;
+                    Favorites = result[0].Favorites;
+                    Following = result[0].Following;
+                    ret = { id: id, DateCreated: DateCreated, DateLastLoggedIn: DateLastLoggedIn, Username: Username_1, Password: Password, Bio: Bio, Email: Email, Favorites: Favorites, RecipeList: RecipeList, Follwing: Following, Verified: Verified, EmailCode: EmailCode };
                     res.status(200).json(ret);
                 }
                 else if (result.length == 0)
@@ -236,7 +247,7 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
                 return [4 /*yield*/, user.save()];
             case 2:
                 _a.sent();
-                res.redirect('http://www.flavordaddy.xyz/');
+                res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
                 return [3 /*break*/, 4];
             case 3:
                 res.status(400).json('Invalid link');
