@@ -364,23 +364,21 @@ app.use(function (req, res, next) {
     next();
 });
 app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var UserID, User1, RecipeList, searchedList, err_1;
+    var UserID, searchedUsers, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 UserID = req.body.UserID;
-                User1 = User.findById({ _id: new ObjectId(UserID) }).User1;
-                RecipeList = User1.RecipeList.RecipeList;
                 console.log(UserID);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, User.find({
-                        RecipeList: { $regex: "".concat(RecipeList), $options: 'i' }
+                        UserID: { $regex: "".concat(UserID), $options: 'i' }
                     })];
             case 2:
-                searchedList = _a.sent();
-                res.json(searchedList);
+                searchedUsers = _a.sent();
+                res.json(searchedUsers);
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();
