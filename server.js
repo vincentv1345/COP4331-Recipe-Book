@@ -301,27 +301,22 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var updatedUser, retVal, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, User.updateOne({ _id: req.body._id }, { $set: { Username: req.body,
-                            Bio: req.body
-                        } })];
-            case 1:
-                updatedUser = _a.sent();
-                return [4 /*yield*/, User.findOne({ _id: req.body._id })];
-            case 2:
-                retVal = _a.sent();
-                res.json(retVal);
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                res.status(400).json({ message: err_1.message });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+    var _a, UserID, Username, Bio, updateUser, resultUser, id, ret, error;
+    return __generator(this, function (_b) {
+        _a = req.body, UserID = _a.UserID, Username = _a.Username, Bio = _a.Bio;
+        updateUser = { UserID: UserID, Username: Username, Bio: Bio };
+        try {
+            resultUser = User.findById({ _id: new ObjectId(UserID) });
+            id = resultUser._id;
+            ret = { id: id };
+            resultUser.update({ _id: resultUser._id }, { Bio: Bio }, { Username: Username });
+            res.status(200).json(ret);
         }
+        catch (e) {
+            error = e.toString();
+            res.status(400).json(error);
+        }
+        return [2 /*return*/];
     });
 }); });
 app.patch("/api/update_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -377,7 +372,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var UserID, searchedRecipe, err_2, err_3;
+    var UserID, searchedRecipe, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -395,20 +390,20 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_2 = _a.sent();
-                res.status(400).json({ message: err_2.message });
+                err_1 = _a.sent();
+                res.status(400).json({ message: err_1.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_3 = _a.sent();
-                res.status(400).json({ message: err_3.message });
+                err_2 = _a.sent();
+                res.status(400).json({ message: err_2.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Username, searchedUsers, err_4, err_5;
+    var Username, searchedUsers, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -426,20 +421,20 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
                 res.json(searchedUsers);
                 return [3 /*break*/, 4];
             case 3:
-                err_4 = _a.sent();
-                res.status(400).json({ message: err_4.message });
+                err_3 = _a.sent();
+                res.status(400).json({ message: err_3.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_5 = _a.sent();
-                res.status(400).json({ message: err_5.message });
+                err_4 = _a.sent();
+                res.status(400).json({ message: err_4.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeName, searchedRecipe, err_6, err_7;
+    var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -457,20 +452,20 @@ app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_6 = _a.sent();
-                res.status(400).json({ message: err_6.message });
+                err_5 = _a.sent();
+                res.status(400).json({ message: err_5.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_7 = _a.sent();
-                res.status(400).json({ message: err_7.message });
+                err_6 = _a.sent();
+                res.status(400).json({ message: err_6.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Tags, searchedRecipe, err_8, err_9;
+    var Tags, searchedRecipe, err_7, err_8;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -488,13 +483,13 @@ app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_8 = _a.sent();
-                res.status(400).json({ message: err_8.message });
+                err_7 = _a.sent();
+                res.status(400).json({ message: err_7.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_9 = _a.sent();
-                res.status(400).json({ message: err_9.message });
+                err_8 = _a.sent();
+                res.status(400).json({ message: err_8.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
