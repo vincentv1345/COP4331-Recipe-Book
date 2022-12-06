@@ -305,6 +305,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         UserID = req.body.UserID;
         try {
+            // parameters(id, new info, options (for this it retuns the new updated instance), callback)
             User.findByIdAndUpdate(UserID, { $set: req.body }, { "new": true }, function (err, user) {
                 if (err) {
                     console.log(err);
@@ -312,7 +313,8 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-                    res.status(200).json(user);
+                    db.collection.update({ _id: UserID }, { $set: User });
+                    res.status(200).json(User);
                 }
             });
         }

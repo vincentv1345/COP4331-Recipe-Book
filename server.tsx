@@ -1,4 +1,5 @@
 import { createCipheriv } from "crypto";
+import { dnsCache } from "nodemailer/lib/shared";
 
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
@@ -268,9 +269,10 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-  const { UserID} = req.body;
-  
+  const { UserID } = req.body;
+
   try{
+    // parameters(id, new info, options (for this it retuns the new updated instance), callback)
     User.findByIdAndUpdate(UserID, {$set: req.body}, {new:true}, (err, user) => {
       if(err)
       {
@@ -280,7 +282,8 @@ app.patch("/api/update_user", async(req, res)=>{
       else
       {
         console.log(user);
-        res.status(200).json(user);
+        db.collection.update(  { _id:UserID} , { $set: User });
+        res.status(200).json(User);
       }
     });
   }catch(e){
