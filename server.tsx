@@ -255,13 +255,13 @@ app.post("/api/create_recipe",async (req, res) => {
   }
 });
 
-app.get("/api/get_recipeList",async (req, res) => {
+app.post("/api/get_recipeList",async (req, res) => {
   const { UserId } = req.body;
-
+  console.log("working")
   try{
     const result = User.findById({_id: new ObjectId(UserId)});
     const resArray = result.Recipes;
-    
+    console.log("working 2")
     res.json(resArray); //.json(reportInfo)
   }catch(e){
     res.status(400).json(e.toString());
@@ -338,7 +338,7 @@ app.use((req, res, next) =>
   next();
 });
 
-app.get("/api/get_recipeList", async(req,res,next)=>{
+app.post("/api/get_recipeList", async(req,res,next)=>{
   const {UserID} = req.body;
   console.log(UserID); 
   try{
