@@ -82,6 +82,16 @@ function Profile() {
         }    
   }
 
+  const logout = () => {
+    localStorage.removeItem('username_data');
+    localStorage.removeItem('bio_data');
+    localStorage.removeItem('email_data');
+    localStorage.removeItem('following_data');
+    localStorage.removeItem('email_data');
+
+    window.location.href = '/';
+  }
+
   // profile pic, username, num recipes, num followers, num following, bio
   // edit profile button
   return (
@@ -145,7 +155,7 @@ function Profile() {
             <input type="button" className="button-edit-profile" value="Edit Profile" onClick={togglePopup}></input>
                 <div>
                 <a href = './'>
-                 <button className = 'logoutButton' type = "button" onClick={('./')}>Logout</button>
+                 <button className = 'logoutButton' type = "button" onClick={logout}>Logout</button>
                 </a>
               </div>
             {isOpen && <Popup

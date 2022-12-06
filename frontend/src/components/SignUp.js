@@ -20,7 +20,7 @@ function SignUp()
         var js = JSON.stringify(obj);
 
         let response;
-        
+
         try
         {    
           // const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
@@ -47,10 +47,9 @@ function SignUp()
           } 
           else
           {
-            var user = 
-            {id:res.id}
+            var user = {id:res.id}
             localStorage.setItem('user_data', JSON.stringify(user));
-            localStorage.setItem('email-info', JSON.stringify(email.value));
+            
             setMessage('');
             setIsOpen(!isOpen);
           }
