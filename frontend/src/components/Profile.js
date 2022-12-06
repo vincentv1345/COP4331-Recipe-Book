@@ -13,7 +13,7 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
-import Popuprecipe from './popup-recipe';
+//import Popuprecipe from './popup-recipe';
 
 
 
@@ -26,6 +26,7 @@ function Profile() {
   const numFollowing = 10;
   var bio = "This is a bio. It is very cool and says words";
   var email = "email-example@gmail.com";
+  var currentID = 0;
 
   // recipe items
   var recipe_id = [0, 1, 2]
@@ -44,6 +45,11 @@ function Profile() {
   }
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
+  }
+  
+  const handlerecipeClick = (ID) => {
+    currentID = ID;
+    return(togglerecipePopup)
   }
 
   const doEditProfile = async event => {
@@ -121,30 +127,14 @@ function Profile() {
             <hr></hr>
             <div class="container-profile">
               <ul class="image-gallery-profile">
-                <li>
-                  <img src={padthai} alt="" onClick={togglerecipePopup} />
+                {recipe_id.map( ID => <li><img src={pasta} alt="" onClick={handlerecipeClick(ID)}/>{
+                    
+                    <div class="overlay">
+                      <span className='recipe-title-profile'>{recipeNames[ID]}</span>
+                      <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
+                    </div>
                   
-                  <div class="overlay">
-                    <span className='recipe-title-profile'>{recipeNames[0]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[0]}</span>
-                  </div>
-                  
-                </li>
-               
-                <li>
-                  <img src={tacos} alt="" />
-                  <div class="overlay">
-                    <span className='recipe-title-profile'>{recipeNames[1]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[1]}</span>
-                  </div>
-                </li>
-                <li>
-                  <img src={pasta} alt="" />
-                  <div class="overlay">
-                    <span className='recipe-title-profile'>{recipeNames[2]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[2]}</span>
-                  </div>
-                </li>
+              }</li>)}
               </ul>
 
             </div>
@@ -183,29 +173,12 @@ function Profile() {
               </>}
               handleClose={togglePopup}
             />}
-            {isRecipePopUP && <Popuprecipe
-              content={<>
-                <div>
-                  <div className="in-box-recipe">
-                    <img src={padthai} className="img-holder"></img>
-                    <div className="text-area-recipe">
-                      <ul className="list-view-recipe">
-                        <li><div className="recipe-popup-title">{recipeNames[0]}</div></li>
-                        <li><div className="recipe-element-title">Ingredients:</div></li>
-                         <li><div classname= "name-text-recipe" cols="20" maxlength="20">{ingredients[0]}</div></li>
-                        <li><div className="recipe-element-title">Directions:</div> </li>
-                        <li><div classname= "name-text-recipe" cols="79" maxlength="79">{ingredients[0]}</div></li>
-                        <div className = "bottom-container-recipe">
-                        <div className="button-container-recipe">
-                            <button className="button-recipe-delete"  onClick={null} >Delete</button>
-                            <button className="button-recipe-delete"  onClick={null} >Edit</button>
-                          </div>
-                        </div>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </>}
+            {isRecipePopUP && <Popuprecipe 
+              recipeName = {recipeNames[currentID]} 
+              recipeUser = {recipeUsers[currentID]} 
+              ingredients = {ingredients[currentID]}
+              directions = {directions[currentID]}
+              image = {padthai}
               handleClose={togglerecipePopup}
             />}
           </div>
@@ -216,3 +189,34 @@ function Profile() {
 }
 
 export default Profile;
+
+const Popuprecipe = (props) => {
+  return (
+    <div className="popup-recipe">
+      <div className="popup-recipe-box">
+        <span className="close-icon-recipe" onClick={props.handleClose}>x</span>
+        <div>
+                  <div className="in-box-recipe">
+                    <img src={props.image} className="img-holder"></img>
+                    <div className="text-area-recipe">
+                      <ul className="list-view-recipe">
+                        <li><div className="recipe-popup-title">{props.recipeName}</div></li>
+                        <li><div className="recipe-element-title">Ingredients:</div></li>
+                         <li><div classname= "name-text-recipe" cols="20" maxlength="20">{props.ingredients}</div></li>
+                        <li><div className="recipe-element-title">Directions:</div> </li>
+                        <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
+                        <div className = "bottom-container-recipe">
+                        <div className="button-container-recipe">
+                            <button className="button-recipe-delete"  onClick={null} >Delete</button>
+                            <button className="button-recipe-delete"  onClick={null} >Edit</button>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+      </div>
+    </div>
+  );
+};
+ 
