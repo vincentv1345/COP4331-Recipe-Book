@@ -89,9 +89,6 @@ function Profile() {
               <input type="image" src={profileIcon} className="profile-img-nav-bar"></input>
             </div>
             <div id="horizontal-line-nav-bar"></div>
-
-
-
           </div>
 
 
@@ -131,6 +128,11 @@ function Profile() {
           </div>
           <div>
             <input type="button" className="button-edit-profile" value="Edit Profile" onClick={togglePopup}></input>
+                <div>
+                <a href = './'>
+                 <button className = 'logoutButton' type = "button" onClick={('./')}>Logout</button>
+                </a>
+              </div>
             {isOpen && <Popup
               content={<>
 
@@ -144,20 +146,15 @@ function Profile() {
                         <li><div className="name-text">Email<input type="email" name="Email" cols="79" maxlength="79" placeholder={email}></input></div></li>
                         <li><div className="name-text">Bio<textarea type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio}></textarea></div></li>
 
-                      </ul>
-
-                      <div className="bottom-container">
-
-
-                        <div className="button-container">
-                          <button className="button-create" href="./profile" onClick={null} >Save</button>
+                        <div className="bottom-container">
+                          <div className="button-container">
+                            <button className="button-save" href="./profile" onClick={null} >Save</button>
+                          </div>
                         </div>
-                      </div>
-
+                      </ul>
                     </div>
                   </div>
                 </div>
-
               </>}
               handleClose={togglePopup}
             />}
