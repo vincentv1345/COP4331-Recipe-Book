@@ -244,7 +244,7 @@ class _MainPageState extends State<MainPage> {
                         height: 30,
                         margin: const EdgeInsets.only(top: 15),
                         child: Text(GlobalData.bio.toString(),
-                            style: TextStyle(fontSize: 15 ,color:Colors.black))
+                            style: TextStyle(fontSize: 17 ,color:Colors.black))
                     ),
                   ],
                 ), //bio

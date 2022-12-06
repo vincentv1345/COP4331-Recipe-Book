@@ -8,8 +8,7 @@ import 'HomeScreen.dart';
 
 String message = "", newMessageText = ''; //error messages
 
-String loginName = '', email = '', password = '';
-//var bio = '';
+String bioText = '';
 
 
 
@@ -115,7 +114,7 @@ class _MainPageState extends State<MainPage> {
 
                           ),
                           onChanged: (text) {
-                            loginName = text;
+                            bioText = text;
                           },
                         ),
                       ),
@@ -148,9 +147,10 @@ class _MainPageState extends State<MainPage> {
                            String bio = GlobalData.bio;
                             try {
                               //String url = 'https://cop4331-10.herokuapp.com/api/update_user';
-                              await RecipeData.edit(bio.trim(), password.trim());
-                              GlobalData.bio = bio;
+                              //await RecipeData.edit(bio.trim(), password.trim());
 
+
+                              GlobalData.bio = bioText;
 
                               Navigator.push(
                                 context,
@@ -182,6 +182,7 @@ class _MainPageState extends State<MainPage> {
                         style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
                       ),
                       onPressed: () {
+                        bioText = '';
                         //signup screen
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ProfileScreen()));
