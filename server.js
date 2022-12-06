@@ -52,13 +52,14 @@ var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 //store images
 var Storage = multer.diskStorage({
     destination: 'uploads',
     filename: function (req, file, cb) {
-        cb(null, file.originalnam);
+        cb(null, file.originalname);
     }
 });
 var upload = multer({

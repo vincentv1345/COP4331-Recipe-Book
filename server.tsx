@@ -20,13 +20,14 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', true)
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
 //store images
 const Storage = multer.diskStorage({
   destination:'uploads',
   filename:(req,file,cb)=>{
-    cb(null,file.originalnam)
+    cb(null,file.originalname)
   }
 });
 
@@ -331,7 +332,7 @@ app.use((req, res, next) =>
 });
 
 
-app.post("/api/search_user", async(req,res,next)=>{
+app.get("/api/search_user", async(req,res,next)=>{
   const {Username} = req.body;
   console.log(Username); 
   try{
