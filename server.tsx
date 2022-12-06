@@ -255,12 +255,14 @@ app.post("/api/create_recipe",async (req, res) => {
   }
 });
 
-app.get("/api/get_recipe",async (req, res) => {
-  const { RecipeID } = req.body;
+app.get("/api/get_recipeList",async (req, res) => {
+  const { UserId } = req.body;
 
   try{
-    const result = Recipe.findById({_id: new ObjectId(RecipeID)});
-    res.json(result); //.json(reportInfo)
+    const result = User.findById({_id: new ObjectId(UserId)});
+    const resArray = result.Recipes;
+    
+    res.json(resArray); //.json(reportInfo)
   }catch(e){
     res.status(400).json(e.toString());
   }
@@ -336,6 +338,16 @@ app.use((req, res, next) =>
   next();
 });
 
+app.get("/api/search_recipe", async(req,res,next)=>{
+  const {UserID} = req.body;
+  console.log(UserID); 
+  try{
+    const {ans}=User.RecipeList;
+    res.json(ans)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+});
 
 app.get("/api/search_user", async(req,res,next)=>{
   const {Username} = req.body;
