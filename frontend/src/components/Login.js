@@ -82,17 +82,26 @@ function Login()
             localStorage.setItem('following_data', JSON.stringify(following));
             localStorage.setItem('email_data', JSON.stringify(email));
 
-            if(verified = true)
+            let data = (localStorage.getItem('username_data'));
+
+            data = data.slice(13);
+            data = data.slice(0, -2);
+            //{"Username":"Username"}
+            console.log(data);
+
+            if(res.Verified == true)
             {
               window.location.href = '/homepage';
             }
-            else if(verified = false)
+            else if(res.Verified == false)
             {
               console.log("User is not verified");
+              window.location.href = '/';
             }
             else
             {
               console.log("You should not be here");
+              window.location.href = '/';
             }
             
           }
