@@ -385,7 +385,7 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, Recipe.findById({
+                return [4 /*yield*/, Recipe.find({
                         UserID: { $regex: "".concat(UserID), $options: 'i' }
                     })];
             case 2:
