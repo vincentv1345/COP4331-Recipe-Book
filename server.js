@@ -315,7 +315,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                     console.log(user);
                     var ans = User.findById(UserID).ans;
                     ans.save();
-                    res.send(ans);
+                    res.send({ User: ans });
                     res.status(200).json(ans);
                 }
             });
