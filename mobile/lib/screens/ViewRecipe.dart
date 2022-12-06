@@ -78,7 +78,7 @@ class _MainPageState extends State<MainPage> {
     return Container(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage("lib/assets/homescreen.PNG"), fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("lib/assets/homescreen.png"), fit: BoxFit.cover),
         ),
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -93,7 +93,7 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
 
             Container(
-            margin: const EdgeInsets.only(top: 25, left: 10,),
+            margin: const EdgeInsets.only(top: 50, left: 10,),
 
             child:
             Row(

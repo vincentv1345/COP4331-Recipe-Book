@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
 
                 Container(
-                  margin: const EdgeInsets.only(top: 20, left: 10,),
+                  margin: const EdgeInsets.only(top: 50, left: 10,),
 
                   child:
                   Row(
