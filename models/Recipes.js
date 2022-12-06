@@ -30,7 +30,8 @@ const recipeSchema = new mongoose.Schema({
     type:mongoose.SchemaTypes.ObjectId, ref:'Image'
     },
     UserID: {
-        type : mongoose.SchemaTypes.ObjectID, ref:'User'
+        type : String,
+        required: true
     }
 }, { collection: 'Recipes' } );
 

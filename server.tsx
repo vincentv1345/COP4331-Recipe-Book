@@ -342,7 +342,7 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
     const {UserID} = req.body;
     console.log(UserID); 
     try{
-      const searchedRecipe = await Recipe.findById({
+      const searchedRecipe = await Recipe.find({
                 UserID:{$regex: `${UserID}`, $options: 'i'}
         })
       res.json(searchedRecipe)
