@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/AddScreen.dart';
 import 'package:mobile/screens/EditProfile.dart';
 import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
@@ -79,7 +80,7 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
 
                 Container(
-                  margin: const EdgeInsets.only(top: 50, left: 10,),
+                  margin: const EdgeInsets.only(top: 50, left: 20),
 
                   child:
                   Row(
@@ -111,10 +112,10 @@ class _MainPageState extends State<MainPage> {
                               backgroundColor: Color(0xff5F2829),
                               onPressed: () {
                                 Navigator.push(context, new MaterialPageRoute(
-                                    builder: (context) => new ProfileScreen())
+                                    builder: (context) => new AddScreen())
                                 );
                               },
-                              child: const Icon(Icons.person),
+                              child: const Icon(Icons.add),
                             ),
                           ]
                       ),
@@ -131,7 +132,7 @@ class _MainPageState extends State<MainPage> {
                                     builder: (context) => new ProfileScreen())
                                 );
                               },
-                              child: const Icon(Icons.add),
+                              child: const Icon(Icons.person),
                             ),
                           ]
                       ),

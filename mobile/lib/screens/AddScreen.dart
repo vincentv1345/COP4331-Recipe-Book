@@ -16,21 +16,6 @@ bool isChecked = false;
 late final List<ListItem> items;
 
 
-class GlobalData
-{
-  static String userId = '';
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-
-  static int recipesCount = 0;
-  static int followers = 0;
-  static int following = 0;
-  static String bio = ''; //50 CHAR LIMIT
-}
-
-
 class AddScreen extends StatefulWidget {
   @override
   _AddScreenState createState() => _AddScreenState();
@@ -94,7 +79,7 @@ class _MainPageState extends State<MainPage> {
               children: <Widget>[
 
                 Container(
-                  margin: const EdgeInsets.only(top: 25, left: 0,),
+                  margin: const EdgeInsets.only(top: 60, left: 0,),
 
                   child:
                   Row(

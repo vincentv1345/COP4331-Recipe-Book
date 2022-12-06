@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                          margin: const EdgeInsets.only(top: 255),
+                          margin: const EdgeInsets.only(top: 350),
                         child: Text('Welcome to',style: TextStyle(fontSize: 30 ,color:Colors.black))
                       ),
                     ],

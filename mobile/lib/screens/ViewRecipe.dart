@@ -4,6 +4,7 @@ import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
 import '../main.dart';
+import 'AddScreen.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
 import 'Profile.dart';
@@ -141,7 +142,9 @@ class _MainPageState extends State<MainPage> {
                       FloatingActionButton.small(
                         backgroundColor: Color(0xff5F2829),
                         onPressed: () {
-                          // Add your onPressed code here!
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new AddScreen())
+                          );
                         },
                         child: const Icon(Icons.add),
                       ),
