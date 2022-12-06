@@ -14,19 +14,6 @@ String loginName = '', email = '', password = '';
 late final List<ListItem> items;
 
 
-class GlobalData
-{
-  static String userId = '';
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-
-  static int recipesCount = 0;
-  static int followers = 0;
-  static int following = 0;
-  static String bio = ''; //50 CHAR LIMIT
-}
 
 
 class ProfileScreen extends StatefulWidget {
@@ -227,7 +214,7 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(GlobalData.loginName + 'test',style: TextStyle(fontSize: 60 ,color:Colors.black)),
+                    Text(GlobalData.loginName,style: const TextStyle(fontSize: 60 ,color:Colors.black)),
                   ],
 
                 ), //NAME
@@ -240,7 +227,7 @@ class _MainPageState extends State<MainPage> {
                     Container(
                         margin: const EdgeInsets.only(top: 10),
                         child:
-                        Text( GlobalData.recipesCount.toString() + ' Recipes   ' + GlobalData.followers.toString() + ' Follwers   ' +  GlobalData.following.toString() + ' Following',
+                        Text( GlobalData.recipesCount.toString() + ' Recipes   ' + GlobalData.followers.toString() + ' Followers   ' +  GlobalData.following.toString() + ' Following',
                             style: TextStyle(fontSize: 20 ,color:Colors.black))
                     ),
                   ],
@@ -254,7 +241,7 @@ class _MainPageState extends State<MainPage> {
                     Container(
                         height: 30,
                         margin: const EdgeInsets.only(top: 15),
-                        child: Text(GlobalData.bio.toString() + 'oooooooooo',
+                        child: Text(GlobalData.bio.toString(),
                             style: TextStyle(fontSize: 15 ,color:Colors.black))
                     ),
                   ],

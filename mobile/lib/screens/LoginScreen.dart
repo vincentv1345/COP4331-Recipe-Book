@@ -14,11 +14,16 @@ String loginName = '', password = '';
 
 class GlobalData
 {
-static String userId = '';
-static String firstName = '';
-static String lastName = '';
-static String loginName = '';
-static String password = '';
+  static String userId = '';
+  static String firstName = '';
+  static String lastName = '';
+  static String loginName = '';
+  static String password = '';
+
+  static int recipesCount = 0;
+  static int followers = 0;
+  static int following = 0;
+  static String bio = ''; //50 CHAR LIMIT
 }
 
 
@@ -193,11 +198,11 @@ class _MainPageState extends State<MainPage> {
                               //test later
                               print("RESULTS" + jsonObject.toString());
                               userId = jsonObject["id"];
+                              print("ndfkns" + userId);
                               print(userId);
                               GlobalData.userId = userId; //do these work?
-                              GlobalData.firstName = jsonObject["firstName"];
-                              GlobalData.lastName = jsonObject["lastName"];
                               GlobalData.loginName = loginName;
+
                               GlobalData.password = password;
                               Navigator.push(
                                 context,
