@@ -280,7 +280,7 @@ app.patch("/api/update_user", async(req, res)=>{
       { Bio:Bio },
       {Username:Username}
   );
-    res.status(200).json(ret);
+    res.status(200).json(resultUser);
   }catch(e){
     let error = e.toString();
     res.status(400).json(error);
