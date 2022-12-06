@@ -20,7 +20,9 @@ const userSchema = new mongoose.Schema({
         type : String,
         required: true
     },
-    Bio : String,
+    Bio : {
+        type: String
+    },
     Email : {
         type : String,
         required: true,
