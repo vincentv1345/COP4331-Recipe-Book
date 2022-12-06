@@ -390,6 +390,7 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
                     })];
             case 2:
                 searchedRecipe = _a.sent();
+                console.log("searchRecipe: " + searchedRecipe);
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
