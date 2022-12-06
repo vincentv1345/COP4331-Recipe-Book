@@ -282,6 +282,10 @@ app.patch("/api/update_user", async(req, res)=>{
       else
       {
         console.log(user);
+<<<<<<< HEAD
+=======
+        //db.collection.update(  { _id:UserID} , { $set: User });
+>>>>>>> 0840d5f67fb8240e572a00993b7b15bab496aaf8
         res.status(200).json(User);
       }
     });
@@ -347,6 +351,7 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
       const searchedRecipe = await Recipe.find({
                 UserID:{$regex: `${UserID}`, $options: 'i'}
         })
+      console.log("searchRecipe: " + searchedRecipe);
       res.json(searchedRecipe)
   }catch(err){
       res.status(400).json({message: err.message })

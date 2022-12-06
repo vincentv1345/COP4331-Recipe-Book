@@ -313,6 +313,10 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
+<<<<<<< HEAD
+=======
+                    //db.collection.update(  { _id:UserID} , { $set: User });
+>>>>>>> 0840d5f67fb8240e572a00993b7b15bab496aaf8
                     res.status(200).json(User);
                 }
             });
@@ -391,6 +395,7 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
                     })];
             case 2:
                 searchedRecipe = _a.sent();
+                console.log("searchRecipe: " + searchedRecipe);
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
