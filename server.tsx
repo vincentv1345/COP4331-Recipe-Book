@@ -343,7 +343,7 @@ app.get("/api/get_recipeList", async(req,res,next)=>{
     console.log(UserID); 
     try{
       const searchedRecipe = await Recipe.find({
-                RecipeName:{$regex: `${UserID}`, $options: 'i'}
+                UserID:{$regex: `${UserID}`, $options: 'i'}
         })
       res.json(searchedRecipe)
   }catch(err){
