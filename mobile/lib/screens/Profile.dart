@@ -17,10 +17,22 @@ List<dynamic> myRecipes = List.empty(growable: true);
 
 void populateProfile() async {
 
-  recipes = await RecipeData.getUserRecipes(GlobalData.userId);
+  var user = await RecipeData.getUser("Ducky");
 
-  for (var data in recipes) {
-    print("\n MY RECIPE: " + data["RecipeName"]);
+  try {
+    var user = await RecipeData.getUser("Ducky");
+  }catch(e){
+    print("PROFILE ERRORRRRR GETTING USER" + e.toString());
+  }
+
+  try {
+  myRecipes = await RecipeData.search(GlobalData.userId);
+  }catch(e){
+    print("PROFILE ERRORRRRR GETTING RECIPES" + e.toString());
+  }
+
+  for (var data in myRecipes) {
+    print("\n MY RECIPE: " + data["RecipeName"] + data["UserID"]);
   }
 }
 
@@ -41,6 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    populateProfile();
     return Scaffold(
       //   backgroundColor: Colors.blue,
       body: MainPage(),
@@ -79,7 +92,7 @@ class _MainPageState extends State<MainPage> {
         width:  MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child:
-        SingleChildScrollView(  //????????
+        SingleChildScrollView(
             child:
 
             Column(
@@ -186,9 +199,6 @@ class _MainPageState extends State<MainPage> {
 
                 ),
 
-
-
-
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -220,19 +230,15 @@ class _MainPageState extends State<MainPage> {
                     ]
                 ), //IMAGE
 
-
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(GlobalData.loginName,style: const TextStyle(fontSize: 60 ,color:Colors.black)),
                   ],
-
                 ), //NAME
 
                 Row(
-
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -243,10 +249,9 @@ class _MainPageState extends State<MainPage> {
                             style: TextStyle(fontSize: 20 ,color:Colors.black))
                     ),
                   ],
-                ), //rep folling er
+                ),
 
                 Row(
-
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -300,7 +305,6 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ), */   //buttons not used
 
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -326,8 +330,8 @@ class _MainPageState extends State<MainPage> {
                     // Provide a builder function. This is where the magic happens.
                     // Convert each item into a widget based on the type of item it is.
                     itemBuilder: (context, index) {
-                      final recipe = recipes[index];
-                      print("PRINTING " + recipe["RecipeName"]);
+                      final recipe = myRecipes[index];
+                      print("PROFILE PRINTING " + recipe["RecipeName"]);
 
                       return
                         TextButton(

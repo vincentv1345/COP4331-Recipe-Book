@@ -13,8 +13,6 @@ String loginName = '', email = '', password = '';
 String recipeName = '',recipeingredients = '', directions = '';
 bool isChecked = false;
 
-late final List<ListItem> items;
-
 
 class AddScreen extends StatefulWidget {
   @override
@@ -256,7 +254,7 @@ class _MainPageState extends State<MainPage> {
                 ),
                 SizedBox(height:10),
 
-                SizedBox(
+              /*  SizedBox(
                   width: 400,
 
                   child: TextFormField(
@@ -284,11 +282,13 @@ class _MainPageState extends State<MainPage> {
 
 
                   ),
-                ),
+                ), */
 
 
             Row(
               children: <Widget>[
+
+                /*
                 Padding(
                   padding: EdgeInsets.only(left:35, bottom: 10, right: 0, top:10), //apply padding to some sides only
                   child:
@@ -310,17 +310,15 @@ class _MainPageState extends State<MainPage> {
                   isChecked = value!;
                 });
               },
-            ),
-
-
+            ), */
 
 
                 Container(
-                  margin: const EdgeInsets.only(top: 10, left: 5,right:5),
-                  width: 125,
+                //  margin: const EdgeInsets.only(top: 10, left: 250,right:5),
+                  width: MediaQuery.of(context).size.width - 20,
                   child:
                   MaterialButton(
-                      child: Text('Create',style: TextStyle(fontSize: 18 ,color:Color(0xffF9DEE8))
+                      child: Text('Create',style: TextStyle(fontSize: 18 ,color:Color(0xffffffff))
                       ),
 
                       onPressed: () async {
@@ -331,7 +329,7 @@ class _MainPageState extends State<MainPage> {
                           newMessageText = "";
                           changeText();
                           //var userId = 'car';
-                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim(),isPublic);
+                          await RecipeData.create(recipename.trim(), recipeingredients.trim(),directions.trim(),isPublic,GlobalData.userId);
                           Navigator.push(context, new MaterialPageRoute(
                               builder: (context) => new ProfileScreen())
                           );
@@ -353,48 +351,13 @@ class _MainPageState extends State<MainPage> {
 
 
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-
-
-                ),
-
-
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-
-                  ],
-                ),
-
-
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[]
-
-                ),
 
 
 
 
 
-                Row(
 
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 30,
-                      margin: const EdgeInsets.only(top: 15),
-                      //   child: Text(GlobalData.bio.toString() + 'oooooooooo oooooooooo oooooooooo oooooooooo',
-                      //     style: TextStyle(fontSize: 15 ,color:Colors.black))
-                    ),
-                  ],
-                ), //bio
+
 
 
 
@@ -414,45 +377,3 @@ class _MainPageState extends State<MainPage> {
 }
 
 
-//use these???????
-
-/// The base class for the different types of items the list can contain.
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-
-  @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      heading,
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
-
-  @override
-  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
-
-  @override
-  Widget buildTitle(BuildContext context) => Text(sender);
-
-  @override
-  Widget buildSubtitle(BuildContext context) => Text(body);
-}

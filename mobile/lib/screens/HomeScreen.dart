@@ -26,18 +26,16 @@ class currentRecipe
   static String recipeIngredients = '';
   static String recipeDirections = '';
 
-  static bool isPublic = true;
+  //static bool isPublic = true;
   //static int Tags[10] = 0; no
-  static int DateCreated = 0; //not an int
+  //static int DateCreated = 0; //not an int
 }
 
 
-
+//function to run search when page loads
 void populateHomepage() async {
-  if(recipes.isEmpty )
-  recipes = await RecipeData.search('');
-  for (var data in recipes) {
-    print("\n NAME: " + data["RecipeName"]);
+  if(recipes.isEmpty) {
+    recipes = await RecipeData.search('');
   }
 }
 
@@ -56,7 +54,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    print("jfdsklfj dklfdslk fjkds fjsklf dklsjfldks fldkjl dfskjds fkjl dsfsdf jlsdf kjldf kj");
     super.initState();
   }
 
@@ -96,9 +93,6 @@ class MainPage extends StatefulWidget {
 
 
 class _MainPageState extends State<MainPage> {
-
-  // late final List<ListItem> items;
-
 
   changeText() {
     setState(() {
@@ -240,20 +234,17 @@ class _MainPageState extends State<MainPage> {
                   ), //buttons
                 ),
 
-
                 Container(
 
                   height: MediaQuery.of(context).size.height,
 
                   child: ListView.builder(
 
-                    // Let the ListView know how many items it needs to build.
                     itemCount: recipes.length,
-                    // Provide a builder function. This is where the magic happens.
-                    // Convert each item into a widget based on the type of item it is.
+
                     itemBuilder: (context, index) {
                       final recipe = recipes[index];
-                      print("PRINTING " + recipe["RecipeName"]);
+                      print("PRINTING " + recipe["RecipeName"] + " " + recipe["UserID"].toString()); //make sure all of them have UserID
 
                       return
                         TextButton(
@@ -261,8 +252,12 @@ class _MainPageState extends State<MainPage> {
                           onPressed: () {
                             print(recipe);
 
+                            currentRecipe.id = recipe["_id"];
+
                             if(recipe["RecipeName"] != null)
                               currentRecipe.recipeName = recipe["RecipeName"];
+                            else
+                              currentRecipe.recipeDirections = "No Name";
 
                             if(recipe["RecipeDirections"] != null)
                               currentRecipe.recipeDirections = recipe["RecipeDirections"];
@@ -282,12 +277,7 @@ class _MainPageState extends State<MainPage> {
                         //Text(recipe["RecipeName"] + "\n",style: TextStyle(fontSize: 20 ,color:Colors.black));
                     },
                   ),
-
-
-
                 ),
-
-
               ],
             )
         )

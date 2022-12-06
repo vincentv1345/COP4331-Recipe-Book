@@ -68,7 +68,7 @@ class RecipeData {
     }
   }
   static Future<dynamic> create(String recipeName, String recipeIngredients,
-      String directions, bool isPublic) async
+      String directions, bool isPublic, String UserID) async
   {
     final response = await http.post(
       Uri.parse('https://recipebook5959.herokuapp.com/api/create_recipe'),
@@ -81,6 +81,7 @@ class RecipeData {
         'RecipeIngredients' : recipeIngredients,
         'RecipeDirections' : directions,
         'IsPublic' : isPublic,
+        'UserID': UserID,
 
       }),
     );
@@ -153,14 +154,15 @@ class RecipeData {
 
 
   static Future<List> getUserRecipes(String UserID) async {
+    print("trying " + UserID);
 
     final response = await http.post(
-      Uri.parse('https://recipebook5959.herokuapp.com/api/search_recipe'), //or whatever he makes it
+      Uri.parse('https://recipebook5959.herokuapp.com/api/get_recipeList'),
       headers:<String,String> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
-        "UserId": UserID,  //or whatever he makes it
+        "UserID": UserID,  //or whatever he makes it
       }),
     );
 
@@ -169,6 +171,33 @@ class RecipeData {
       // then parse the JSON.
       print("My Recipes: ${response.statusCode} ");
       print("My Recipes: ${response.body} ");
+
+      return (jsonDecode(response.body));
+    } else {
+      print("Error getting my recipes ${response.statusCode}! ${response.body}");
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to get my recipes');
+    }
+  }
+
+  static Future<List> getUser(String user) async {
+
+    final response = await http.post(
+      Uri.parse('https://recipebook5959.herokuapp.com/api/search_user'),
+      headers:<String,String> {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "Username": user,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print("Recipe Search: ${response.statusCode} ");
+      print("Recipe Search: ${response.body} ");
 
       return (jsonDecode(response.body));
     } else {
