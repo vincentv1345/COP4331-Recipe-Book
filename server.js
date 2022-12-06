@@ -364,11 +364,12 @@ app.use(function (req, res, next) {
     next();
 });
 app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var UserID, searchedRecipe, err_1;
+    var UserID, searchedRecipeList, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 UserID = req.body.UserID;
+                console.log(UserID);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -376,8 +377,8 @@ app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void
                         UserID: { $regex: "".concat(UserID), $options: 'i' }
                     })];
             case 2:
-                searchedRecipe = _a.sent();
-                res.json(searchedRecipe);
+                searchedRecipeList = _a.sent();
+                res.json(searchedRecipeList);
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();
