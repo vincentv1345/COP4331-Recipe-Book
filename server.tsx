@@ -338,7 +338,7 @@ app.use((req, res, next) =>
   next();
 });
 
-app.get("/api/search_recipe", async(req,res,next)=>{
+app.get("/api/get_recipeList", async(req,res,next)=>{
   const {UserID} = req.body;
   console.log(UserID); 
   try{
