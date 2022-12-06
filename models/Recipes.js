@@ -29,10 +29,8 @@ const recipeSchema = new mongoose.Schema({
     RecipeImage: {
     type:mongoose.SchemaTypes.ObjectId, ref:'Image'
     },
-    //UserID : mongoose.SchemaTypes.ObjectId
     UserID: {
-        type:String,
-        required: true,
+        type : mongoose.SchemaTypes.ObjectID, ref:'User'
     }
 }, { collection: 'Recipes' } );
 
