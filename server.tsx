@@ -224,13 +224,18 @@ app.post("/api/create_recipe",async (req, res) => {
   var RecipeDirections ="";
   const RecipeIngredients = [];
   const tags = [];*/
-  const { UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags } = req.body;
-  const newRecipe = {RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags:Tags, UserID:UserID};
+  const { UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags,RecipeImage } = req.body;
+  const newRecipe = {RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags:Tags, UserID:UserID,RecipeImage:RecipeImage};
+  
   try{
     const result = await Recipe.create(newRecipe);
+    const resultUser = User.findById({_id: new ObjectId(UserID)});
     let id = result._id;
     var ret = { id:id };
-
+    resultUser.update(
+      { _id: resultUser._id }, 
+      { $push: { RecipeList: newRecipe } }
+  );
     /*
     try{
       db.students.updateOne(
@@ -332,7 +337,7 @@ app.use((req, res, next) =>
 });
 
 
-app.post("/api/search_user", async(req,res,next)=>{
+app.get("/api/search_user", async(req,res,next)=>{
   const {Username} = req.body;
   console.log(Username); 
   try{
@@ -345,7 +350,7 @@ app.post("/api/search_user", async(req,res,next)=>{
 }
 });
 
-app.post("/api/search_recipe", async(req,res,next)=>{
+app.get("/api/search_recipe", async(req,res,next)=>{
   try{
     const {RecipeName} = req.body;
     console.log(RecipeName); 

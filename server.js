@@ -375,7 +375,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
-app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var Username, searchedUsers, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -400,7 +400,7 @@ app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0
         }
     });
 }); });
-app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeName, searchedRecipe, err_2, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
