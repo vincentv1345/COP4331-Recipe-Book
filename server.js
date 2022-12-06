@@ -310,7 +310,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
             id = resultUser._id;
             ret = { id: id };
             resultUser.update({ _id: resultUser._id }, { Bio: Bio }, { Username: Username });
-            res.status(200).json(ret);
+            res.status(200).json(resultUser);
         }
         catch (e) {
             error = e.toString();
