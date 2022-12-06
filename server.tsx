@@ -268,24 +268,18 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-  const { UserID} = req.body;
-  
   try{
-    User.findByIdAndUpdate(UserID, {$set: req.body}, {new:true}, (err, user) => {
-      if(err)
-      {
-        console.log(err);
-        res.status(400).json(err);
-      }
-      else
-      {
-        console.log(user);
-        res.status(200).json(user);
-      }
-    });
-  }catch(e){
-    res.status(400).json(e.toString());
-  }
+    const updatedUser = await User.updateOne(
+        {_id: req.body._id},
+        { $set: {   Username: req.body,
+                    Bio: req.body,
+                } }
+        )
+    const retVal = await User.findOne({_id:req.body._id})
+    res.json(retVal)
+}catch(err){
+    res.status(400).json({message: err.message})
+}
 });
 
 app.patch("/api/update_recipe",async(req,res)=>{
