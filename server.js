@@ -374,7 +374,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
-app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var UserID, searchedRecipe, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
