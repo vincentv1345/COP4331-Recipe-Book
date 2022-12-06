@@ -255,7 +255,7 @@ app.post("/api/create_recipe",async (req, res) => {
   }
 });
 
-app.post("/api/get_recipeList",async (req, res) => {
+app.post("/api/get_recipelist",async (req, res) => {
   const { UserId } = req.body;
   console.log("working")
   try{
@@ -340,10 +340,12 @@ app.use((req, res, next) =>
 
 app.post("/api/get_recipeList", async(req,res,next)=>{
   const {UserID} = req.body;
+  const{User1} = User.findById({_id: new ObjectId(UserID)});
+  const{RecipeList} = User1.RecipeList;
   console.log(UserID); 
   try{
     const searchedList = await User.find({
-      RecipeList:{$regex: `${UserID}`, $options: 'i'}
+      RecipeList:{$regex: `${RecipeList}`, $options: 'i'}
 })
     res.json(searchedList)
 }catch(err){
