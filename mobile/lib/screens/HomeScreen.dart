@@ -24,21 +24,6 @@ String recipename = '',ingredients = '', directions = '';
 late final List<ListItem> items;
 
 
-class GlobalData
-{
-  static String userId = '';
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-
-  static int recipesCount = 0;
-  static int followers = 0;
-  static int following = 0;
-  static String bio = ''; //50 CHAR LIMIT
-}
-
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();

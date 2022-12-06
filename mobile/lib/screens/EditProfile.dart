@@ -12,20 +12,6 @@ String loginName = '', email = '', password = '';
 //var bio = '';
 
 
-class GlobalData
-{
-  static int userId = 0;
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-
-  static int recipesCount = 0;
-  static int followers = 0;
-  static int following = 0;
-  static String bio = ''; //50 CHAR LIMIT
-}
-
 
 class EditProfileScreen extends StatefulWidget {
   @override

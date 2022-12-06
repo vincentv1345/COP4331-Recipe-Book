@@ -11,14 +11,7 @@ String loginName = '', email = '', password = '';
 
 
 
-class GlobalData
-{
-  static String userId = '';
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-}
+
 
 
 class CreateScreen extends StatefulWidget {
@@ -221,11 +214,11 @@ class _MainPageState extends State<MainPage> {
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
 
-                              GlobalData.userId = userId;
+                              //GlobalData.userId = userId;
                               // GlobalData.firstName = jsonObject["firstName"];
                               // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
+                              //GlobalData.loginName = loginName;
+                              //GlobalData.password = password;
 
                             Navigator.push(
                               context,
