@@ -313,10 +313,8 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-                    var ans = User.findById(UserID).ans;
-                    ans.save();
-                    db.collection.update({ _id: UserID }, { $set: ans });
-                    res.status(200).json(ans);
+                    db.collection.update({ _id: UserID }, { $set: User });
+                    res.status(200).json(User);
                 }
             });
         }
