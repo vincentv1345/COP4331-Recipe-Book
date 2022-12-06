@@ -345,7 +345,7 @@ app.get("/api/search_user", async(req,res,next)=>{
 }
 });
 
-app.post("/api/search_recipe", async(req,res,next)=>{
+app.get("/api/search_recipe", async(req,res,next)=>{
   try{
     const {RecipeName} = req.body;
     console.log(RecipeName); 
