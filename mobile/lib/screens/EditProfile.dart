@@ -135,62 +135,8 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ]
                 ),
-                Row( //EMAIL
-                    mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 15),
-                        width: 350,
-                        child:
-                        TextField (
-                          obscureText: true,
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                          decoration: const InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(),
-                            fillColor: Colors.white,
-                            labelText: 'New Password',
-                            hintText: 'Enter a valid password',
-                            labelStyle: TextStyle(color: Colors.black),
 
-                          ),
-                          onChanged: (text) {
-                            password = text;
-                          },
-                        ),
-                      ),
-                    ]
-                ), //EMAIL
-                Row( //PASS
-                    mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        width: 350,
-                        child:
-                        TextField (
-                          obscureText: true,
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(),
-                           // border: InputBorder.none,
-                            labelText: 'Re-Enter Password',
-                            hintText: 'Re-Enter password',
-                            labelStyle: TextStyle(color: Colors.black),
 
-                          ),
-                          onChanged: (text) {
-                            password = text;
-                          },
-
-                        ),
-                      ),
-                    ]
-                ), //PASSWORD
                 Row( //BUTTON
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,

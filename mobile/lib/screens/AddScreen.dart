@@ -273,9 +273,11 @@ class _MainPageState extends State<MainPage> {
 
                 SizedBox(
                   width: 400,
+
                   child: TextFormField(
                       keyboardType: TextInputType.multiline,
                       maxLines: 1,
+
                       autofocus: false,
                       decoration: InputDecoration(
                           filled: true,
@@ -283,10 +285,12 @@ class _MainPageState extends State<MainPage> {
                           hintText: "enter descriptive hashtags",
                           hintStyle: TextStyle(fontStyle: FontStyle.italic),
                           alignLabelWithHint: true,
+
                           border:  OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: BorderSide(
                                 color: Colors.black,
+
                               ))),
                       onChanged:(text){
                         directions = text;
@@ -300,14 +304,21 @@ class _MainPageState extends State<MainPage> {
 
             Row(
               children: <Widget>[
-                Text(
-                  'Check for public',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: EdgeInsets.only(left:35, bottom: 10, right: 0, top:10), //apply padding to some sides only
+                  child:
+                  Text(
+                    'Check for public:',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+
+                  ),
                 ),
 
+
               Checkbox(
+
               value: isChecked,
               onChanged: (bool? value) { // This is where we update the state when the checkbox is tapped
                 setState(() {
@@ -320,7 +331,7 @@ class _MainPageState extends State<MainPage> {
 
 
                 Container(
-                  margin: const EdgeInsets.only(top: 10, left: 50),
+                  margin: const EdgeInsets.only(top: 10, left: 5,right:5),
                   width: 125,
                   child:
                   MaterialButton(
