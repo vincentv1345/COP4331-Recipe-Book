@@ -27,8 +27,17 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         unique: true 
     },
-    Favorites : [mongoose.SchemaTypes.ObjectId],
-    Following : [mongoose.SchemaTypes.ObjectId]
-}, { collection: 'Users' } );
+    Verified : {
+        type : Boolean,
+        default : false
+    },
+    EmailCode : {
+        type : Number,
+        unique: true
+    },
+    RecipeList:[{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
+    Favorites : [{type: mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
+    Following : [{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}]
+}, { collection: 'Users'});
 
 module.exports = mongoose.model("User", userSchema);
