@@ -327,12 +327,11 @@ app.use((req, res, next) =>
 
 app.get("/api/get_recipeList", async(req,res,next)=>{
   const {UserID} = req.body;
-  console.log(UserID); 
   try{
-    const searchedUsers = await User.find({
-              UserID:{$regex: `${UserID}`, $options: 'i'}
-      })
-    res.json(searchedUsers)
+    const searchedRecipe = await Recipe.find({
+      UserID:{$regex: `${UserID}`, $options: 'i'}
+})
+res.json(searchedRecipe)
 }catch(err){
     res.status(400).json({message: err.message })
 }
