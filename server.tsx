@@ -337,7 +337,7 @@ app.use((req, res, next) =>
   next();
 });
 
-app.get("/api/get_recipeList", async(req,res,next)=>{
+app.post("/api/get_recipeList", async(req,res,next)=>{
   try{
     const {UserID} = req.body;
     console.log(UserID); 
