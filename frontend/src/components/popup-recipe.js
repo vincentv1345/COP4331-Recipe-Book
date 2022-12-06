@@ -1,6 +1,6 @@
 import React from "react";
  
-const Popuprecipe = props => {
+const Popuprecipe = (props) => {
   return (
     <div className="popup-recipe">
       <div className="popup-recipe-box">

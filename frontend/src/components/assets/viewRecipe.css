@@ -39,33 +39,39 @@
     height: 70%;
     width: 80%;
     padding: 2% 1%;
-    background-color: white;
+    background-color: #ffeecc;
     border-radius: 10px;
     box-shadow: 0 0 3px 0 #000;
     margin: auto;
 }
 
-ul.list-create-recipe {
+ul.list-view-recipe {
     display: flex;
     flex-direction: column;
     list-style-type: none;
+    
+    
 }
 
-ul.list-create-recipe li {
+ul.list-view-recipe li {
     margin-right: 10%;
     margin-bottom: 1%;
+    overflow-wrap: break-word;
+    overflow:clip ;
+    
 }
 
 .name-text-recipe {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
+    
+
 }
 
-ul.list-create-recipe li input {
+
+ul.list-view-recipe li input {
     display: flex;
     background-color: #D3D3D3;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 20px;
     width: 100%;
     padding: 4% 0%;
     text-align: left;
@@ -74,12 +80,30 @@ ul.list-create-recipe li input {
     border-width: 1px;
     border-radius: 15px;
     color: black;
+    
+    
 }
 
-.button-create-recipe {
+.recipe-popup-title{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    font-size: 25px;
+    color: #5F2829;
+
+  }
+
+.recipe-element-title{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    font-size: 25px;
+    color: #5F2829;
+}
+
+.button-view-recipe {
     background-color:  #D3D3D3;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 15px;    
+ 
     border-radius: 20px;
     padding: 0% 2%;
     margin-left:88%;
@@ -109,7 +133,25 @@ ul.list-create-recipe li input {
     border: 1px black;
     color: black;
 }
-
+.button-recipe-delete{
+    background-color:  #5F2829;
+    color: #ffeecc;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font: "Darker Grotesque";
+    font-weight: normal;
+    font-size: 16px;
+    padding: 8% 10%;
+    width: fit-content;
+    border-radius: 20px;
+    transition-duration: .5s;
+    text-align: center;
+    cursor: pointer;
+    margin: 20%;
+}
+.button-recipe-delete:hover {
+    background-color: #ffeecc;
+    color:#5F2829;
+}
 .button-cancel-recipe:hover {
     background-color: darkred;
 }
@@ -200,15 +242,20 @@ ul.list-create-recipe li input {
 .bottom-container-recipe {
     display: flex;
     flex-direction: row;
+    gap: 30px;
+    justify-content: center;
 }
 
 .text-area-recipe {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+
 }
 
 .in-box-recipe {
     display: flex;
+    
 }
 
 /* Popup style */
@@ -252,11 +299,7 @@ ul.list-create-recipe li input {
     font-size: 20px;
     z-index: 15;
   }
-  .recipe-popup-title{
-    font: "Darker Grotesque";
-    font-weight: normal;
-    font-size: 16px;
-  }
+
   
   
   

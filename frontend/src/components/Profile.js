@@ -26,10 +26,15 @@ function Profile() {
   const numFollowing = 10;
   var bio = "This is a bio. It is very cool and says words";
   var email = "email-example@gmail.com";
-  var ingredients = "2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about 1 ounce)";
-  var directions = "Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda."
-  const recipeNames = ["Pad Thai", "Pasta", "Tacos"];
-  const recipeUsers = ["user1", "user2", "user3"];
+
+  // recipe items
+  var recipe_id = [0, 1, 2]
+  var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
+  var recipeUsers = ["user1", "user2", "user3"];
+  var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+  var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+  
+  
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = React.useState("");
   const[isRecipePopUP, setIsRecipePopUP] = useState(false);
@@ -184,11 +189,18 @@ function Profile() {
                   <div className="in-box-recipe">
                     <img src={padthai} className="img-holder"></img>
                     <div className="text-area-recipe">
-                      <ul className="list-create-recipe">
+                      <ul className="list-view-recipe">
                         <li><div className="recipe-popup-title">{recipeNames[0]}</div></li>
-                        <li><div className="name-text-recipe">Ingredients <div>{ingredients}</div></div></li>
-                        <li><div className="name-text-recipe">Directions <div>{ingredients}</div></div></li>
-
+                        <li><div className="recipe-element-title">Ingredients:</div></li>
+                         <li><div classname= "name-text-recipe" cols="20" maxlength="20">{ingredients[0]}</div></li>
+                        <li><div className="recipe-element-title">Directions:</div> </li>
+                        <li><div classname= "name-text-recipe" cols="79" maxlength="79">{ingredients[0]}</div></li>
+                        <div className = "bottom-container-recipe">
+                        <div className="button-container-recipe">
+                            <button className="button-recipe-delete"  onClick={null} >Delete</button>
+                            <button className="button-recipe-delete"  onClick={null} >Edit</button>
+                          </div>
+                        </div>
                       </ul>
                     </div>
                   </div>
