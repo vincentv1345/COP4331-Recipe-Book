@@ -29,7 +29,11 @@ const recipeSchema = new mongoose.Schema({
     RecipeImage: {
     type:mongoose.SchemaTypes.ObjectId, ref:'Image'
     },
-    UserID : mongoose.SchemaTypes.ObjectId
+    //UserID : mongoose.SchemaTypes.ObjectId
+    UserID: {
+        type:String,
+        required: true,
+    }
 }, { collection: 'Recipes' } );
 
 module.exports = mongoose.model("Recipe", recipeSchema);
