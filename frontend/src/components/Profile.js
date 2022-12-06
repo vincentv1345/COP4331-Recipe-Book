@@ -6,69 +6,63 @@ import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/Profile.css';
 import Popup from './Popup';
+import './assets/viewRecipe.css';
 import docreateRecipe from './CreateRecipe';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
-import { useCookies } from "react-cookie";
+import Popuprecipe from './popup-recipe';
 
 
 
 function Profile() {
-  // var username = cookies.Username;
-  var username = "example-username";
+
+
+  var username = "username-example";
   const numRecipes = 3;
   const numFollowers = 5;
   const numFollowing = 10;
-  var bio = "";
+  var bio = "This is a bio. It is very cool and says words";
+  var email = "email-example@gmail.com";
+  var ingredients = "2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about 1 ounce)";
+  var directions = "Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda."
   const recipeNames = ["Pad Thai", "Pasta", "Tacos"];
   const recipeUsers = ["user1", "user2", "user3"];
   const [isOpen, setIsOpen] = useState(false);
-  const [cookies, setCookie] = useCookies(["user"]);
-  const [error, setError] = React.useState("");
+  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
+  const togglerecipePopup = () => {
+    setIsRecipePopUP(!isRecipePopUP);
+  }
 
   const doEditProfile = async event => {
     event.preventDefault();
-    
-    let username = document.getElementById("username").value;
-    let bio = document.getElementById("bio").value;
-
-    var obj = {
-      UserID: cookies.id, 
-      Username: username, 
-      Bio: bio, 
-    }
-
+    let obj = {Email:email, Username:username, Bio:bio}
     var js = JSON.stringify(obj);
     try
-      {    
-        const response = await fetch('https://recipebook5959.herokuapp.com/api/update_user', { mode: 'cors' },
-            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
-        var stringified = JSON.stringify(await response.text()); 
-        var res = JSON.parse(stringified);
+        {    
+            const response = await fetch('https://recipebook5959.herokuapp.com/api/update_user', { mode: 'cors' },
+                {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+            var stringified = JSON.stringify(await response.text()); 
+            var res = JSON.parse(stringified);
+          if( res.id <= 0 )
+          {
+            //setMessage('Error');
+          } 
 
-        var res;
-        try {
-          res = JSON.parse(await response.text());
         }
         catch(e)
         {
-          console.log(e);
-        }
-      }
-      catch(e)
-      {
-        alert(e.toString());
-        console.log("Failed to get API call. response" + res);
-        return;
-      }
-  };
+          alert(e.toString());
+          
+          return;
+        }    
+  }
 
   // profile pic, username, num recipes, num followers, num following, bio
   // edit profile button
@@ -116,27 +110,36 @@ function Profile() {
             <div class="container-profile">
               <ul class="image-gallery-profile">
                 <li>
-                  <img src={padthai} alt="" />
+                  <img src={padthai} alt="" onClick={togglerecipePopup} />
+                  
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[0]}</span>
+                    <span className='recipe-author-profile'>{recipeUsers[0]}</span>
                   </div>
+                  
                 </li>
+               
                 <li>
                   <img src={tacos} alt="" />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[1]}</span>
+                    <span className='recipe-author-profile'>{recipeUsers[1]}</span>
                   </div>
                 </li>
                 <li>
                   <img src={pasta} alt="" />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[2]}</span>
+                    <span className='recipe-author-profile'>{recipeUsers[2]}</span>
                   </div>
                 </li>
               </ul>
+
             </div>
+            
           </div>
           <div>
+          
             <input type="button" className="button-edit-profile" value="Edit Profile" onClick={togglePopup}></input>
                 <div>
                 <a href = './'>
@@ -152,12 +155,13 @@ function Profile() {
 
                     <div className="text-area">
                       <ul className="list-create">
-                        <li><div className="name-text">Username<input id="username" type="name" name="Username" cols="79" maxlength="79" placeholder={username} ref={(c) => username = c}></input></div></li>
-                        <li><div className="name-text">Bio<textarea id="bio" type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio} ref={(c) => bio = c}></textarea></div></li>
+                        <li><div className="name-text">Username<input type="name" name="Username" cols="79" maxlength="79" placeholder={username} ></input></div></li>
+                        <li><div className="name-text">Email<input type="email" name="Email" cols="79" maxlength="79" placeholder={email}></input></div></li>
+                        <li><div className="name-text">Bio<textarea type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio}></textarea></div></li>
 
                         <div className="bottom-container">
                           <div className="button-container">
-                            <button className="button-save" href="./profile" onClick={doEditProfile} >Save</button>
+                            <button className="button-save" href="./profile" onClick={null} >Save</button>
                           </div>
                         </div>
                       </ul>
@@ -167,11 +171,29 @@ function Profile() {
               </>}
               handleClose={togglePopup}
             />}
+            {isRecipePopUP && <Popuprecipe
+              content={<>
+                <div>
+                  <div className="in-box-recipe">
+                    <img src={padthai} className="img-holder"></img>
+                    <div className="text-area-recipe">
+                      <ul className="list-create-recipe">
+                        <li><div className="recipe-popup-title">{recipeNames[0]}</div></li>
+                        <li><div className="name-text-recipe">Ingredients <div>{ingredients}</div></div></li>
+                        <li><div className="name-text-recipe">Directions <div>{ingredients}</div></div></li>
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </>}
+              handleClose={togglerecipePopup}
+            />}
           </div>
         </header>
       </div>
     </body>
   )
-};
+}
 
 export default Profile;
