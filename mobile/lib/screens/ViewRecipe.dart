@@ -12,23 +12,6 @@ import 'Profile.dart';
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 
-late final List<ListItem> items;
-
-
-class GlobalData
-{
-  static int userId = 0;
-  static String firstName = '';
-  static String lastName = '';
-  static String loginName = '';
-  static String password = '';
-
-  static int recipesCount = 0;
-  static int followers = 0;
-  static int following = 0;
-  static String bio = ''; //50 CHAR LIMIT
-}
-
 
 class RecipeScreen extends StatefulWidget {
   @override
@@ -117,22 +100,7 @@ class _MainPageState extends State<MainPage> {
                     ]
                 ),
 
-                Column(
-                    children:<Widget>[
 
-                      const SizedBox(width: 16),
-
-                      FloatingActionButton.small(
-                        backgroundColor: Color(0xff5F2829),
-                        onPressed: () {
-                          Navigator.push(context, new MaterialPageRoute(
-                              builder: (context) => new ProfileScreen())
-                          );
-                        },
-                        child: const Icon(Icons.person),
-                      ),
-                    ]
-                ),
 
                 Column(
                     children:<Widget>[
@@ -151,7 +119,25 @@ class _MainPageState extends State<MainPage> {
                     ]
                 ),
 
-                Container(
+
+                Column(
+                    children:<Widget>[
+
+                      const SizedBox(width: 16),
+
+                      FloatingActionButton.small(
+                        backgroundColor: Color(0xff5F2829),
+                        onPressed: () {
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new ProfileScreen())
+                          );
+                        },
+                        child: const Icon(Icons.person),
+                      ),
+                    ]
+                ),
+
+             /*   Container(
                       margin: const EdgeInsets.only(top: 0, left: 50),
                       width: 125,
                       child:
@@ -180,11 +166,6 @@ class _MainPageState extends State<MainPage> {
                               jsonObject = json.decode(ret);
                               userId = jsonObject["id"];
 
-                              GlobalData.userId = userId;
-                              // GlobalData.firstName = jsonObject["firstName"];
-                              // GlobalData.lastName = jsonObject["lastName"];
-                              GlobalData.loginName = loginName;
-                              GlobalData.password = password;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -204,21 +185,10 @@ class _MainPageState extends State<MainPage> {
                           splashColor: Colors.black
                       ),
                     ),
-
+*/
                   ],
                 ), //buttons
             ),
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -255,7 +225,7 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(GlobalData.loginName + 'test',style: TextStyle(fontSize: 60 ,color:Colors.black)),
+                    Text(currentRecipe.recipeName,style: TextStyle(fontSize: 60 ,color:Colors.black)),
                   ],
                 ), //NAME
 
@@ -265,7 +235,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 10, right: 200, bottom: 5),
+                        margin: const EdgeInsets.only(top: 35, right: 200, bottom: 5),
                         child:
                         Text('Ingredients',
                             style: TextStyle(fontSize: 25 ,color:Colors.black))
@@ -282,7 +252,7 @@ class _MainPageState extends State<MainPage> {
                       Container(
 
                        // color: Colors.white,
-                        child: const Expanded(
+                        child: Expanded(
                         flex: 1,
 
 
@@ -290,10 +260,9 @@ class _MainPageState extends State<MainPage> {
                           scrollDirection: Axis.vertical,
 
                           child: Text(
-                            "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
-                            style: TextStyle(
-                              fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
-                            ),
+                            currentRecipe.recipeIngredients,
+                            style: const TextStyle(
+                              fontSize: 16.0, color: Colors.black),
                           ),
                         ),
                       ),
@@ -308,7 +277,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 20, right: 200, bottom: 5),
+                        margin: const EdgeInsets.only(top: 35, right: 200, bottom: 5),
                         child:
                         const Text('Directions',
                             style: TextStyle(fontSize: 25 ,color:Colors.black))
@@ -323,13 +292,13 @@ class _MainPageState extends State<MainPage> {
                     children: <Widget>[
                       Container(
                         // color: Colors.white,
-                        child: const Expanded(
+                        child: Expanded(
                           flex: 1,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Text(
-                              "1 Description that is too long in text format(Here Data is coming from API) jdlksaf j klkjjflkdsjfkddfdfsdfds 2 Description that is too long in text format(Here Data is coming from API) d fsdfdsfsdfd dfdsfdsf sdfdsfsd d 3 Description that is too long in text format(Here Data is coming from API)  adfsfdsfdfsdfdsf   dsf dfd fds fs4 Description that is too long in text format(Here Data is coming from API) dsaf dsafdfdfsd dfdsfsda fdas dsad5 Description that is too long in text format(Here Data is coming from API) dsfdsfd fdsfds fds fdsf dsfds fds 6 Description that is too long in text format(Here Data is coming from API) asdfsdfdsf fsdf sdfsdfdsf sd dfdsf7 Description that is too long in text format(Here Data is coming from API) df dsfdsfdsfdsfds df dsfds fds fsd8 Description that is too long in text format(Here Data is coming from API)9 Description that is too long in text format(Here Data is coming from API)10 Description that is too long in text format(Here Data is coming from API)",
-                              style: TextStyle(
+                              currentRecipe.recipeDirections,
+                              style: const TextStyle(
                                 fontSize: 16.0, color: Colors.black, //backgroundColor: Colors.white,
                               ),
                             ),
@@ -341,21 +310,6 @@ class _MainPageState extends State<MainPage> {
 
 
 
-
-
-                Row(
-
-                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                        height: 30,
-                        margin: const EdgeInsets.only(top: 15),
-                     //   child: Text(GlobalData.bio.toString() + 'oooooooooo oooooooooo oooooooooo oooooooooo',
-                       //     style: TextStyle(fontSize: 15 ,color:Colors.black))
-                    ),
-                  ],
-                ), //bio
 
 
 
@@ -374,46 +328,3 @@ class _MainPageState extends State<MainPage> {
 
 }
 
-
-//use these???????
-
-/// The base class for the different types of items the list can contain.
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-
-  @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      heading,
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
-
-  @override
-  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
-
-  @override
-  Widget buildTitle(BuildContext context) => Text(sender);
-
-  @override
-  Widget buildSubtitle(BuildContext context) => Text(body);
-}

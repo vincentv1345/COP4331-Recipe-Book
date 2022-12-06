@@ -5,6 +5,14 @@ import 'dart:async';
 
 class RecipeData {
 
+  int userId;
+  String RecipeName = '';
+
+  RecipeData({
+    required this.RecipeName,
+    required this.userId,
+  });
+
 
   //complete API request for login
   static Future<dynamic> login(String username, String password) async {
@@ -115,4 +123,62 @@ class RecipeData {
       throw Exception('Failed to update user');
     }
   }
+
+  static Future<List> search(String RecipeName) async {
+
+    final response = await http.post(
+      Uri.parse('https://recipebook5959.herokuapp.com/api/search_recipe'),
+      headers:<String,String> {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "RecipeName": RecipeName,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print("Recipe Search: ${response.statusCode} ");
+      print("Recipe Search: ${response.body} ");
+
+      return (jsonDecode(response.body));
+    } else {
+      print("Error searching ${response.statusCode}! ${response.body}");
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to search');
+    }
+  }
+
+
+  static Future<List> getUserRecipes(String UserID) async {
+
+    final response = await http.post(
+      Uri.parse('https://recipebook5959.herokuapp.com/api/search_recipe'), //or whatever he makes it
+      headers:<String,String> {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        "UserId": UserID,  //or whatever he makes it
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      print("My Recipes: ${response.statusCode} ");
+      print("My Recipes: ${response.body} ");
+
+      return (jsonDecode(response.body));
+    } else {
+      print("Error searching ${response.statusCode}! ${response.body}");
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to search');
+    }
+  }
+
+
 }
+

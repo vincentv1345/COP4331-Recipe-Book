@@ -3,6 +3,7 @@ import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 import 'package:outline_search_bar/outline_search_bar.dart';
+import 'package:mobile/screens/ViewRecipe.dart';
 
 import '../main.dart';
 import 'CreateAccount.dart';
@@ -14,14 +15,37 @@ import 'Profile.dart';
 String message = '', newMessageText = '';
 String addMessage = '', newAddMessage = '';
 String searchMessage = '', newSearchMessage = '';
+String searchInput = '';
+
+List<dynamic> recipes = List.empty(growable: true);
+
+class currentRecipe
+{
+  static String id = '';
+  static String recipeName = '';
+  static String recipeIngredients = '';
+  static String recipeDirections = '';
+
+  static bool isPublic = true;
+  //static int Tags[10] = 0; no
+  static int DateCreated = 0; //not an int
+}
+
+
+
+void populateHomepage() async {
+  if(recipes.isEmpty )
+  recipes = await RecipeData.search('');
+  for (var data in recipes) {
+    print("\n NAME: " + data["RecipeName"]);
+  }
+}
 
 
 
 //String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 String recipename = '',ingredients = '', directions = '';
-
-late final List<ListItem> items;
 
 
 class HomeScreen extends StatefulWidget {
@@ -32,6 +56,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    print("jfdsklfj dklfdslk fjkds fjsklf dklsjfldks fldkjl dfskjds fkjl dsfsdf jlsdf kjldf kj");
     super.initState();
   }
 
@@ -55,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    populateHomepage();
     return Scaffold(
       //   backgroundColor: Colors.blue,
       body: MainPage(),
@@ -87,6 +113,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    var ret;
+
     return Container(
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         decoration: const BoxDecoration(
@@ -171,14 +199,37 @@ class _MainPageState extends State<MainPage> {
                                width: 200,
                                child:
                             TextField (
+                              onChanged: (text) {
+                                searchInput = text;
+                              },
                                  decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(),
                                   labelText: 'Search',
-                                 hintText: 'User or recipe',
+                                 hintText: 'Search for Recipe Name',
+
                                    suffixIcon: IconButton(
-                                     onPressed: (){},
+
+                                     onPressed: () async
+                                     {
+                                       newMessageText = "";
+                                       changeText();
+
+                                       ret = await RecipeData.search(searchInput);
+                                       recipes = ret;
+                                       for (var data in ret) {
+                                              print("\n HERE NAME: " + data["RecipeName"]);
+                                             }
+
+                                       //Refresh homepage
+                                       Navigator.push(context, new MaterialPageRoute(
+                                           builder: (context) => new HomeScreen())
+                                       );
+                                       searchInput = '';
+                                     },
+
+
                                      icon: Icon(Icons.search),
                                    ),
                                  ),
@@ -186,12 +237,57 @@ class _MainPageState extends State<MainPage> {
                            )]
                            )
                         ]
-
-
-
-
                   ), //buttons
                 ),
+
+
+                Container(
+
+                  height: MediaQuery.of(context).size.height,
+
+                  child: ListView.builder(
+
+                    // Let the ListView know how many items it needs to build.
+                    itemCount: recipes.length,
+                    // Provide a builder function. This is where the magic happens.
+                    // Convert each item into a widget based on the type of item it is.
+                    itemBuilder: (context, index) {
+                      final recipe = recipes[index];
+                      print("PRINTING " + recipe["RecipeName"]);
+
+                      return
+                        TextButton(
+                          child: Text(recipe["RecipeName"] + "\n",style: TextStyle(fontSize: 20 ,color:Colors.black)),
+                          onPressed: () {
+                            print(recipe);
+
+                            if(recipe["RecipeName"] != null)
+                              currentRecipe.recipeName = recipe["RecipeName"];
+
+                            if(recipe["RecipeDirections"] != null)
+                              currentRecipe.recipeDirections = recipe["RecipeDirections"];
+                            else
+                              currentRecipe.recipeDirections = "No Directions";
+
+                            if(recipe["RecipeIngredients"] != null)
+                              currentRecipe.recipeIngredients = recipe["RecipeIngredients"];
+                            else
+                              currentRecipe.recipeIngredients = "No Ingredients";
+
+                            print("VIEWING " + currentRecipe.id + currentRecipe.recipeName + currentRecipe.recipeDirections + currentRecipe.recipeIngredients);
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RecipeScreen()));
+                          },);
+                        //Text(recipe["RecipeName"] + "\n",style: TextStyle(fontSize: 20 ,color:Colors.black));
+                    },
+                  ),
+
+
+
+                ),
+
+
               ],
             )
         )
@@ -204,46 +300,3 @@ class _MainPageState extends State<MainPage> {
 
 }
 
-
-//use these???????
-
-/// The base class for the different types of items the list can contain.
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-
-  @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      heading,
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
-
-  @override
-  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
-
-  @override
-  Widget buildTitle(BuildContext context) => Text(sender);
-
-  @override
-  Widget buildSubtitle(BuildContext context) => Text(body);
-}

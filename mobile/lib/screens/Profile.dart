@@ -8,12 +8,21 @@ import 'dart:convert';
 import '../main.dart';
 import 'CreateAccount.dart';
 import 'HomeScreen.dart';
+import 'ViewRecipe.dart';
 
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 
-late final List<ListItem> items;
+List<dynamic> myRecipes = List.empty(growable: true);
 
+void populateProfile() async {
+
+  recipes = await RecipeData.getUserRecipes(GlobalData.userId);
+
+  for (var data in recipes) {
+    print("\n MY RECIPE: " + data["RecipeName"]);
+  }
+}
 
 
 
@@ -250,7 +259,7 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ), //bio
 
-                Row(
+                /* Row(
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
 
@@ -289,109 +298,73 @@ class _MainPageState extends State<MainPage> {
                     ),
 
                   ],
-                ), //buttons
-
+                ), */   //buttons not used
 
 
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 15),
-                        width: 350,
-                       /*  child: ListView.builder(
-                          // Let the ListView know how many items it needs to build.
-                          itemCount: items.length,
-                          // Provide a builder function. This is where the magic happens.
-                          // Convert each item into a widget based on the type of item it is.
-                          itemBuilder: (context, index) {
-                            final item = items[index];
+                  mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        margin: const EdgeInsets.only(top: 20, right: 200, bottom: 0),
+                        child:
+                        const Text('My Recipes',
+                            style: TextStyle(fontSize: 25 ,color:Colors.black))
+                    ),
+                  ],
+                ),
 
-                            return Row(
+                Container(
 
-                                children: <Widget>[
 
-                                  const CircleAvatar(
-                                    backgroundImage: AssetImage('assets/images/cat3.png'), //set image //item.image
-                                    radius: 100,
-                                  ),
+                  height: MediaQuery.of(context).size.height,
 
-                                  TextButton(
-                                    child: const Text(
-                                      'item.name',
-                                      style: TextStyle(fontSize: 20, color: Color(0xff5F2829)),
-                                    ),
-                                    onPressed: () {
-                                      //open recipe info pageeeeee
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
-                                    },
-                                  )
+                  child: ListView.builder(
 
-                                  ]
+                    // Let the ListView know how many items it needs to build.
+                    itemCount: recipes.length,
+                    // Provide a builder function. This is where the magic happens.
+                    // Convert each item into a widget based on the type of item it is.
+                    itemBuilder: (context, index) {
+                      final recipe = recipes[index];
+                      print("PRINTING " + recipe["RecipeName"]);
 
-                            );
-                          },
-                        ), */
+                      return
+                        TextButton(
+                          child: Text(recipe["RecipeName"] + "\n",style: TextStyle(fontSize: 20 ,color:Colors.black)),
+                          onPressed: () {
+                            print(recipe);
 
-                        )
+                            if(recipe["RecipeName"] != null)
+                              currentRecipe.recipeName = recipe["RecipeName"];
 
-                    ]
-                )
+                            if(recipe["RecipeDirections"] != null)
+                              currentRecipe.recipeDirections = recipe["RecipeDirections"];
+                            else
+                              currentRecipe.recipeDirections = "No Directions";
+
+                            if(recipe["RecipeIngredients"] != null)
+                              currentRecipe.recipeIngredients = recipe["RecipeIngredients"];
+                            else
+                              currentRecipe.recipeIngredients = "No Ingredients";
+
+                            print("VIEWING " + currentRecipe.id + currentRecipe.recipeName + currentRecipe.recipeDirections + currentRecipe.recipeIngredients);
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => RecipeScreen()));
+                          },);
+                      //Text(recipe["RecipeName"] + "\n",style: TextStyle(fontSize: 20 ,color:Colors.black));
+                    },
+                  ),
+
+
+
+                ),
 
               ],
             )
         )
     );
   }
-
-
-
-
-
 }
 
-
-//use these???????
-
-/// The base class for the different types of items the list can contain.
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a heading.
-class HeadingItem implements ListItem {
-  final String heading;
-
-  HeadingItem(this.heading);
-
-  @override
-  Widget buildTitle(BuildContext context) {
-    return Text(
-      heading,
-      style: Theme.of(context).textTheme.headline5,
-    );
-  }
-
-  @override
-  Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String sender;
-  final String body;
-
-  MessageItem(this.sender, this.body);
-
-  @override
-  Widget buildTitle(BuildContext context) => Text(sender);
-
-  @override
-  Widget buildSubtitle(BuildContext context) => Text(body);
-}
