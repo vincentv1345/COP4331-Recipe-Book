@@ -282,6 +282,8 @@ app.patch("/api/update_user", async(req, res)=>{
       {
         console.log(user);
         const{ans} = User.findById(UserID);
+        ans.save();
+        res.send(ans);
         res.status(200).json(ans);
       }
     });
