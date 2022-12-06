@@ -121,7 +121,7 @@ function Login()
             <div className="small-text">
               Don't have an account?
               <a className="App-link" href="./SignUp">
-                Create one
+                 Create one
               </a>
               <div>
                 <a className="App-link" href="./ForgotPassword">Forgot Password?</a>

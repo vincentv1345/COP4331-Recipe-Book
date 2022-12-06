@@ -66,6 +66,43 @@ function HomePage() {
     setError("");
   }
 
+  const searchRecipe = async event => {
+    event.preventDefault();
+    
+    let username = document.getElementById("username").value;
+    let bio = document.getElementById("bio").value;
+
+    var obj = {
+      UserID: cookies.id, 
+      Username: username, 
+      Bio: bio, 
+    }
+
+    var js = JSON.stringify(obj);
+    try
+      {    
+        const response = await fetch('https://recipebook5959.herokuapp.com/api/search_recipe', { mode: 'cors' },
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        var stringified = JSON.stringify(await response.text()); 
+        var res = JSON.parse(stringified);
+
+        var res;
+        try {
+          res = JSON.parse(await response.text());
+        }
+        catch(e)
+        {
+          console.log(e);
+        }
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        console.log("Failed to get API call. response" + res);
+        return;
+      }
+  };
+
   const create = async event =>
   {
     event.preventDefault();

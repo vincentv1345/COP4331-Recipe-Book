@@ -12,22 +12,22 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
-
+import { useCookies } from "react-cookie";
 
 
 
 function Profile() {
-
-
-  var username = "username-example";
+  // var username = cookies.Username;
+  var username = "example-username";
   const numRecipes = 3;
   const numFollowers = 5;
   const numFollowing = 10;
-  var bio = "This is a bio. It is very cool and says words";
-  var email = "email-example@gmail.com";
+  var bio = "";
   const recipeNames = ["Pad Thai", "Pasta", "Tacos"];
   const recipeUsers = ["user1", "user2", "user3"];
   const [isOpen, setIsOpen] = useState(false);
+  const [cookies, setCookie] = useCookies(["user"]);
+  const [error, setError] = React.useState("");
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -35,27 +35,40 @@ function Profile() {
 
   const doEditProfile = async event => {
     event.preventDefault();
-    let obj = {Email:email, Username:username, Bio:bio}
+    
+    let username = document.getElementById("username").value;
+    let bio = document.getElementById("bio").value;
+
+    var obj = {
+      UserID: cookies.id, 
+      Username: username, 
+      Bio: bio, 
+    }
+
     var js = JSON.stringify(obj);
     try
-        {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/update_user', { mode: 'cors' },
-                {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
-            var stringified = JSON.stringify(await response.text()); 
-            var res = JSON.parse(stringified);
-          if( res.id <= 0 )
-          {
-            //setMessage('Error');
-          } 
+      {    
+        const response = await fetch('https://recipebook5959.herokuapp.com/api/update_user', { mode: 'cors' },
+            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+        var stringified = JSON.stringify(await response.text()); 
+        var res = JSON.parse(stringified);
 
+        var res;
+        try {
+          res = JSON.parse(await response.text());
         }
         catch(e)
         {
-          alert(e.toString());
-          
-          return;
-        }    
-  }
+          console.log(e);
+        }
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        console.log("Failed to get API call. response" + res);
+        return;
+      }
+  };
 
   // profile pic, username, num recipes, num followers, num following, bio
   // edit profile button
@@ -106,21 +119,18 @@ function Profile() {
                   <img src={padthai} alt="" />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[0]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[0]}</span>
                   </div>
                 </li>
                 <li>
                   <img src={tacos} alt="" />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[1]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[1]}</span>
                   </div>
                 </li>
                 <li>
                   <img src={pasta} alt="" />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[2]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[2]}</span>
                   </div>
                 </li>
               </ul>
@@ -142,13 +152,12 @@ function Profile() {
 
                     <div className="text-area">
                       <ul className="list-create">
-                        <li><div className="name-text">Username<input type="name" name="Username" cols="79" maxlength="79" placeholder={username} ></input></div></li>
-                        <li><div className="name-text">Email<input type="email" name="Email" cols="79" maxlength="79" placeholder={email}></input></div></li>
-                        <li><div className="name-text">Bio<textarea type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio}></textarea></div></li>
+                        <li><div className="name-text">Username<input id="username" type="name" name="Username" cols="79" maxlength="79" placeholder={username} ref={(c) => username = c}></input></div></li>
+                        <li><div className="name-text">Bio<textarea id="bio" type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio} ref={(c) => bio = c}></textarea></div></li>
 
                         <div className="bottom-container">
                           <div className="button-container">
-                            <button className="button-save" href="./profile" onClick={null} >Save</button>
+                            <button className="button-save" href="./profile" onClick={doEditProfile} >Save</button>
                           </div>
                         </div>
                       </ul>
@@ -163,6 +172,6 @@ function Profile() {
       </div>
     </body>
   )
-}
+};
 
 export default Profile;
