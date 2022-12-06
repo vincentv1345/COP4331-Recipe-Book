@@ -1,4 +1,5 @@
 import { createCipheriv } from "crypto";
+import { dnsCache } from "nodemailer/lib/shared";
 
 require('dotenv').config();
 var ObjectId = require('mongodb').ObjectID;
@@ -71,12 +72,10 @@ app.use(cors());
 
 /*
 const root = express.Router();
-
 const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
 root.get('(/*)?', async (req, res, next) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-
 app.use(root);
 */
 
@@ -268,9 +267,10 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-  const { UserID} = req.body;
-  
+  const { UserID } = req.body;
+
   try{
+    // parameters(id, new info, options (for this it retuns the new updated instance), callback)
     User.findByIdAndUpdate(UserID, {$set: req.body}, {new:true}, (err, user) => {
       if(err)
       {
@@ -280,7 +280,8 @@ app.patch("/api/update_user", async(req, res)=>{
       else
       {
         console.log(user);
-        res.status(200).json(user);
+        db.collection.update(  { _id:UserID} , { $set: User });
+        res.status(200).json(User);
       }
     });
   }catch(e){
@@ -337,13 +338,13 @@ app.use((req, res, next) =>
   next();
 });
 
-app.get("/api/get_recipeList", async(req,res,next)=>{
+app.post("/api/get_recipeList", async(req,res,next)=>{
   try{
     const {UserID} = req.body;
     console.log(UserID); 
     try{
       const searchedRecipe = await Recipe.find({
-                RecipeName:{$regex: `${UserID}`, $options: 'i'}
+                UserID:{$regex: `${UserID}`, $options: 'i'}
         })
       res.json(searchedRecipe)
   }catch(err){

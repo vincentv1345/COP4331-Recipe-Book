@@ -56,14 +56,15 @@ function Profile() {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
+  
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
   }
   
-  const handlerecipeClick = (ID) => {
-    currentID = ID;
-    return(togglerecipePopup)
-  }
+  // const handlerecipeClick = (ID) => {
+  //   currentID = ID;
+  //   return(togglerecipePopup)
+  // }
 
   const doEditProfile = async event => {
     event.preventDefault();
@@ -162,14 +163,14 @@ function Profile() {
             <hr></hr>
             <div class="container-profile">
               <ul class="image-gallery-profile">
-                {recipe_id.map( ID => <li><img src={pasta} alt="" onClick={handlerecipeClick(ID)}/>{
+                {/* {recipe_id.map( ID => <li><img src={pasta} alt="" onClick={handlerecipeClick(ID)}/>{
                     
                     <div class="overlay">
                       <span className='recipe-title-profile'>{recipeNames[ID]}</span>
                       <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
                     </div>
                   
-              }</li>)}
+              }</li>)} */}
               </ul>
 
             </div>
@@ -207,14 +208,14 @@ function Profile() {
               </>}
               handleClose={togglePopup}
             />}
-            {isRecipePopUP && <Popuprecipe 
+            {/* {isRecipePopUP && <Popuprecipe 
               recipeName = {recipeNames[currentID]} 
               recipeUser = {recipeUsers[currentID]} 
               ingredients = {ingredients[currentID]}
               directions = {directions[currentID]}
               image = {padthai}
               handleClose={togglerecipePopup}
-            />}
+            />} */}
           </div>
         </header>
       </div>
