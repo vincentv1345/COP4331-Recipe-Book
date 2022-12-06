@@ -316,3 +316,13 @@ input:focus
   background-color: #ffeecc;
   color:#5F2829;
 }
+
+.recipe-popup-title{
+  font: "Darker Grotesque";
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.in-box {
+  display: flex;
+}
