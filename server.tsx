@@ -255,19 +255,6 @@ app.post("/api/create_recipe",async (req, res) => {
   }
 });
 
-app.post("/api/get_recipelist",async (req, res) => {
-  const { UserId } = req.body;
-  console.log("working")
-  try{
-    const result = User.findById({_id: new ObjectId(UserId)});
-    const resArray = result.Recipes;
-    console.log("working 2")
-    res.json(resArray); //.json(reportInfo)
-  }catch(e){
-    res.status(400).json(e.toString());
-  }
-});
-
 app.patch("/api/update_user", async(req, res)=>{
   const { UserID} = req.body;
   

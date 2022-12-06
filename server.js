@@ -289,23 +289,6 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
         }
     });
 }); });
-app.post("/api/get_recipelist", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var UserId, result, resArray;
-    return __generator(this, function (_a) {
-        UserId = req.body.UserId;
-        console.log("working");
-        try {
-            result = User.findById({ _id: new ObjectId(UserId) });
-            resArray = result.Recipes;
-            console.log("working 2");
-            res.json(resArray); //.json(reportInfo)
-        }
-        catch (e) {
-            res.status(400).json(e.toString());
-        }
-        return [2 /*return*/];
-    });
-}); });
 app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var UserID;
     return __generator(this, function (_a) {
