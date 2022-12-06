@@ -268,22 +268,25 @@ app.post("/api/create_recipe",async (req, res) => {
 });
 
 app.patch("/api/update_user", async(req, res)=>{
-  const { UserID, Username, Bio} = req.body;
-  const updateUser = {UserID:UserID, Username: Username, Bio: Bio};
-  
+  const { UserID } = req.body;
+
   try{
-    const resultUser = User.findById({_id: new ObjectId(UserID)});
-    let id = resultUser._id;
-    var ret = { id:id };
-    resultUser.update(
-      { _id: resultUser._id }, 
-      { Bio:Bio },
-      {Username:Username}
-  );
-    res.status(200).json(resultUser);
+    // parameters(id, new info, options (for this it retuns the new updated instance), callback)
+    User.findByIdAndUpdate(UserID, {$set: req.body}, {new:true}, (err, user) => {
+      if(err)
+      {
+        console.log(err);
+        res.status(400).json(err);
+      }
+      else
+      {
+        console.log(user);
+        const{ans} = User.findById(UserID);
+        res.status(200).json(ans);
+      }
+    });
   }catch(e){
-    let error = e.toString();
-    res.status(400).json(error);
+    res.status(400).json(e.toString());
   }
 });
 
