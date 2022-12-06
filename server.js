@@ -313,7 +313,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-                    db.collection.update({ _id: UserID }, { $set: User });
+                    //db.collection.update(  { _id:UserID} , { $set: User });
                     res.status(200).json(User);
                 }
             });
