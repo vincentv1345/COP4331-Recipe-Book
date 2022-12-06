@@ -80,23 +80,20 @@ function Login()
             localStorage.setItem('bio_data', JSON.stringify(bio));
             localStorage.setItem('email_data', JSON.stringify(email));
             localStorage.setItem('following_data', JSON.stringify(following));
-            localStorage.setItem('verified_data', JSON.stringify(verified));
             localStorage.setItem('email_data', JSON.stringify(email));
 
-            let data = localStorage.getItem('username_data');
-            console.log(data);
-            // if(ifverified == "true")
-            // {
-            //   window.location.href = '/homepage';
-            // }
-            // else if(ifverified == "false")
-            // {
-            //   console.log("User is not verified");
-            // }
-            // else
-            // {
-            //   console.log("You should not be here");
-            // }
+            if(verified = true)
+            {
+              window.location.href = '/homepage';
+            }
+            else if(verified = false)
+            {
+              console.log("User is not verified");
+            }
+            else
+            {
+              console.log("You should not be here");
+            }
             
           }
         }
