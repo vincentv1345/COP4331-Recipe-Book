@@ -251,20 +251,22 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
     });
 }); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, newRecipe, result, id, ret, e_4, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, resultUser, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, UserID = _a.UserID, RecipeName = _a.RecipeName, RecipeIngredients = _a.RecipeIngredients, RecipeDirections = _a.RecipeDirections, IsPublic = _a.IsPublic, Tags = _a.Tags;
-                newRecipe = { RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags: Tags, UserID: UserID };
+                _a = req.body, UserID = _a.UserID, RecipeName = _a.RecipeName, RecipeIngredients = _a.RecipeIngredients, RecipeDirections = _a.RecipeDirections, IsPublic = _a.IsPublic, Tags = _a.Tags, RecipeImage = _a.RecipeImage;
+                newRecipe = { RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags: Tags, UserID: UserID, RecipeImage: RecipeImage };
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, Recipe.create(newRecipe)];
             case 2:
                 result = _b.sent();
+                resultUser = User.findById({ _id: new ObjectId(UserID) });
                 id = result._id;
                 ret = { id: id };
+                resultUser.update({ _id: resultUser._id }, { $push: { RecipeList: newRecipe } });
                 /*
                 try{
                   db.students.updateOne(
@@ -287,13 +289,16 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
         }
     });
 }); });
-app.get("/api/get_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeID, result;
+app.post("/api/get_recipeList", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var UserId, result, resArray;
     return __generator(this, function (_a) {
-        RecipeID = req.body.RecipeID;
+        UserId = req.body.UserId;
+        console.log("working");
         try {
-            result = Recipe.findById({ _id: new ObjectId(RecipeID) });
-            res.json(result); //.json(reportInfo)
+            result = User.findById({ _id: new ObjectId(UserId) });
+            resArray = result.Recipes;
+            console.log("working 2");
+            res.json(resArray); //.json(reportInfo)
         }
         catch (e) {
             res.status(400).json(e.toString());
@@ -375,8 +380,33 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
+app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var UserID, searchedList, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                UserID = req.body.UserID;
+                console.log(UserID);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, User.find({
+                        RecipeList: { $regex: "".concat(UserID), $options: 'i' }
+                    })];
+            case 2:
+                searchedList = _a.sent();
+                res.json(searchedList);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.status(400).json({ message: err_1.message });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Username, searchedUsers, err_1;
+    var Username, searchedUsers, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -393,15 +423,15 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
                 res.json(searchedUsers);
                 return [3 /*break*/, 4];
             case 3:
-                err_1 = _a.sent();
-                res.status(400).json({ message: err_1.message });
+                err_2 = _a.sent();
+                res.status(400).json({ message: err_2.message });
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); });
 app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeName, searchedRecipe, err_2, err_3;
+    var RecipeName, searchedRecipe, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -419,20 +449,20 @@ app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_2 = _a.sent();
-                res.status(400).json({ message: err_2.message });
+                err_3 = _a.sent();
+                res.status(400).json({ message: err_3.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_3 = _a.sent();
-                res.status(400).json({ message: err_3.message });
+                err_4 = _a.sent();
+                res.status(400).json({ message: err_4.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var Tags, searchedRecipe, err_4, err_5;
+    var Tags, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -450,13 +480,13 @@ app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0
                 res.json(searchedRecipe);
                 return [3 /*break*/, 4];
             case 3:
-                err_4 = _a.sent();
-                res.status(400).json({ message: err_4.message });
+                err_5 = _a.sent();
+                res.status(400).json({ message: err_5.message });
                 return [3 /*break*/, 4];
             case 4: return [3 /*break*/, 6];
             case 5:
-                err_5 = _a.sent();
-                res.status(400).json({ message: err_5.message });
+                err_6 = _a.sent();
+                res.status(400).json({ message: err_6.message });
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
