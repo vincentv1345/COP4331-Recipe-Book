@@ -82,13 +82,6 @@ function Login()
             localStorage.setItem('following_data', JSON.stringify(following));
             localStorage.setItem('email_data', JSON.stringify(email));
 
-            let data = (localStorage.getItem('username_data'));
-
-            data = data.slice(13);
-            data = data.slice(0, -2);
-            //{"Username":"Username"}
-            console.log(data);
-
             if(res.Verified == true)
             {
               window.location.href = '/homepage';
@@ -117,7 +110,7 @@ function Login()
     return (
       <title>Cookbook | Login</title>,
       <div className="login">
-        <header className="App-header">
+        <header className="App-header-log">
           <div className='form-container'>
             <div className="img-text">
               <div>

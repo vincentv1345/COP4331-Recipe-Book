@@ -99,12 +99,10 @@ app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 /*
 const root = express.Router();
-
 const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
 root.get('(/*)?', async (req, res, next) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-
 app.use(root);
 */
 var path1;
@@ -305,6 +303,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         UserID = req.body.UserID;
         try {
+            // parameters(id, new info, options (for this it retuns the new updated instance), callback)
             User.findByIdAndUpdate(UserID, { $set: req.body }, { "new": true }, function (err, user) {
                 if (err) {
                     console.log(err);
@@ -312,7 +311,11 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-                    res.status(200).json(user);
+                    var ans = User.findById(UserID).ans;
+                    ans.save();
+                    res.send({ User: ans });
+                    db.updateUser("Username", ans);
+                    res.status(200).json(ans);
                 }
             });
         }
@@ -374,7 +377,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
-app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var UserID, searchedRecipe, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -386,7 +389,7 @@ app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, Recipe.find({
-                        RecipeName: { $regex: "".concat(UserID), $options: 'i' }
+                        UserID: { $regex: "".concat(UserID), $options: 'i' }
                     })];
             case 2:
                 searchedRecipe = _a.sent();

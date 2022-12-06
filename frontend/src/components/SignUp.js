@@ -65,7 +65,7 @@ function SignUp()
     return (
       <title>Cookbook | SignUp</title>,
       <div className="SignUp">
-        <header className="App-header">
+        <header className="App-header-log">
           <div className='form-container'>
             <div className="img-text">
               <div>
