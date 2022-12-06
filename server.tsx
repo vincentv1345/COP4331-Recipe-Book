@@ -251,7 +251,15 @@ app.patch("/api/update_recipe",async(req,res)=>{
     res.status(400).json(e.toString());
   }
 });
-
+app.get("/api/get_recipe",async (req, res) => {
+  const { RecipeID } = req.body;
+  try{
+    const result = Recipe.findById({_id: new ObjectId(RecipeID)});
+    res.json(result); //.json(reportInfo)
+  }catch(e){
+    res.status(400).json(e.toString());
+  }
+});
 app.delete("/api/delete_recipe", async(req,res)=>{
   const { RecipeID } = req.body;
 
