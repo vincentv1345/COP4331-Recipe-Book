@@ -177,13 +177,13 @@ function HomePage() {
               }
             });
             }
-
+            console.log("array: " + recipes);
           localStorage.setItem('recipe_images_data', JSON.stringify(Object.values(images)));
           localStorage.setItem('recipe_name_data', JSON.stringify(Object.values(recipes)));
           localStorage.setItem('recipe_user_ids_data', JSON.stringify(Object.values(user_ids)));
           localStorage.setItem('ingredients_data', JSON.stringify(Object.values(ingredients)));
           localStorage.setItem('instructions_data', JSON.stringify(Object.values(directions)));
-    
+          console.log("local storage"+ localStorage.getItem('recipe_name_data'));
         
        // console.log("res " + JSON.stringify(res));
         
@@ -326,7 +326,9 @@ function HomePage() {
         <div class="container">
           <ul class="image-gallery">
           { 
-            recipeNames.map((ID, index) => (
+            console.log(recipeNames)}
+        
+            {recipeNames.map((ID, index) => (
                   <li>
                   <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
                     handlerecipeClick(index);
