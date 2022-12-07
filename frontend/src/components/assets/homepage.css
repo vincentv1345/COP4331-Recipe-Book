@@ -5,7 +5,7 @@ body {
 .App-header{
     position: fixed;
     background-color: #ffeecc;
-    height: 100vh;
+    min-height:100%;
     width: 100vw; 
     display: flex;
     flex-direction: column;
