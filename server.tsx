@@ -10,7 +10,7 @@ const path = require('path');
 const cors = require('cors');
 const multer = require('multer');
 const nodemailer = require("nodemailer");
-const Grid = require('gridfs');
+const fs = require('fs');
 const PORT = process.env.PORT || 5000;
 const testFlag = 0;
 
@@ -19,62 +19,59 @@ const ImageModel = require("./models/Image");
 const { ObjectID } = require('bson');
 const express = require('express');
 const app = express();
-
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+ 
+// Set EJS as templating engine
+app.set("view engine", "ejs");
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
-//store images
-const Storage = multer.diskStorage({
-  destination:"uploads",
-  filename:(req,file,cb)=>{
-    cb(null,file.originalname)
-  }
+//store images 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
 });
-
-const upload = multer({
-  storage: Storage
-}).single('testImage')
-
-app.post('/api/get_image', async(req,res,next)=>{
-try{
-  const {RecipeID} = req.body;
-  console.log(RecipeID); 
-  try{
-    const searchedImage = await ImageModel.find({
-              RecipeID:{$regex: `${RecipeID}`, $options: 'i'}
-      })
-    res.json(searchedImage)
-}catch(err){
-    res.status(400).json({message: err.message })
-}
-}catch(err){
-  res.status(400).json({message: err.message })
-}
+ 
+var upload = multer({ storage: storage });
+var imgModel = require('./Image');
+app.get('/', (req, res) => {
+  imgModel.find({}, (err, items) => {
+      if (err) {
+          console.log(err);
+          res.status(500).send('An error occurred', err);
+      }
+      else {
+          res.render('imagesPage', { items: items });
+      }
+  });
 });
 //db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
-app.post('/api/upload_image',(req,res)=>{
-  upload(req,res,(err)=>{
-    if(err){
-      console.log(err)
-    }else{
-      const newImage = new ImageModel({
-        name:req.body.name,
-        image:{
-          data:req.file.filename,
-          contentType:'image/png'
-        },
-        recipeID:req.body
-      })
-      newImage.save()
-      .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))
-    }
-  })
-})
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.error('Connected to Database'));
-
-app.use(bodyParser.json());
+app.post('/', upload.single('image'), (req, res, next) => {
+ 
+  var obj = {
+      name: req.body.name,
+      desc: req.body.desc,
+      img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png'
+      }
+  }
+  imgModel.create(obj, (err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/');
+      }
+  });
+});
 app.set( 'port', ( process.env.PORT || 5000 ));
 app.use(cors());
 
