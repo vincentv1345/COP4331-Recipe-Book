@@ -405,7 +405,7 @@ app.post("/api/search_tags", async(req,res,next)=>{
     res.status(400).json({message: err.message })
 }
 });
-app.listen(PORT, () => 
+app.listen(process.env.PORT || 5000, () => 
 {
   console.log('Server listening on port ' + PORT);
 });
