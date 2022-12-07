@@ -330,10 +330,7 @@ function HomePage() {
 
 
         </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of a9193d9 (a)
         <div class="main-content-home">
           <ul class="image-gallery">
           { 
