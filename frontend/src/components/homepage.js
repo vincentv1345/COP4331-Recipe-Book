@@ -65,7 +65,8 @@ function HomePage() {
  let user = localStorage.getItem('user_data');
  user = user.slice(7);
  user = user.slice(0, -2);
- 
+ console.log("Found User on homepage!");
+ console.log("user: " + user);
  let recipe_id = localStorage.getItem('recipe_name_data');
 
 
