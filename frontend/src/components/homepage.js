@@ -34,15 +34,12 @@ function HomePage() {
       }
   }
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    
-  });
+
   useEffect(() => {
     // Update the document title using the browser API
     doSearch()
     
-  });
+  },[]);
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
@@ -63,7 +60,6 @@ function HomePage() {
 
  const [isOpen, setIsOpen] = useState(false);
  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
- const[searchTerm, setSearchTerm] = useState('');
 
  
  let user = localStorage.getItem('user_data');
