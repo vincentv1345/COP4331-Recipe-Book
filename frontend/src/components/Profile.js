@@ -65,7 +65,7 @@ function Profile() {
   const handlerecipeClick = recipe_ID=> {
     localStorage.setItem("recipe_ID", recipe_ID);
     
-    return(togglerecipePopup)
+    
   }
 
   
@@ -278,10 +278,11 @@ function Profile() {
 
 export default Profile;
 
-const app_name = 'recipebook5959';
 const Popuprecipe = (props) => {
   function buildPath(route)
     {
+      
+      const app_name = 'recipebook5959';
         if (process.env.NODE_ENV === 'production') 
         {
             console.log("CHECK: In Heroku server");

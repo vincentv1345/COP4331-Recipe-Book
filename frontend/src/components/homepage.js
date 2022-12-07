@@ -322,6 +322,7 @@ function HomePage() {
 
 
         </div>
+        
         <div class="main-content-home">
           <ul class="image-gallery">
           { 
