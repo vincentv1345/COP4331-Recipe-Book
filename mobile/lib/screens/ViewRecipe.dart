@@ -13,6 +13,27 @@ import 'Profile.dart';
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 
+String imageurl = "lib/assets/food.jpg";
+
+
+void changeImage(){
+
+  if(currentRecipe.recipeName == "Tuesday Tacos")
+    imageurl = "lib/assets/tacos.jpg";
+  else if(currentRecipe.recipeName == "A Tasty Pasta")
+    imageurl = "lib/assets/spaghetti.jpg";
+  else if(currentRecipe.recipeName == "Veg Pad Thai")
+    imageurl = "lib/assets/padthai.jpg";
+  else if(currentRecipe.recipeName == "Delicious Raccoon")
+    imageurl = "lib/assets/raccoon.jpg";
+  else if(currentRecipe.recipeName == "Paradise Margarita")
+    imageurl = "lib/assets/leinie.jpg";
+  else
+    imageurl = "lib/assets/food.jpg";
+
+
+}
+
 
 class RecipeScreen extends StatefulWidget {
   @override
@@ -29,6 +50,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    changeImage();
     return Scaffold(
       //   backgroundColor: Colors.blue,
       body: MainPage(),
@@ -213,7 +235,7 @@ class _MainPageState extends State<MainPage> {
                             borderRadius: BorderRadius.circular(8.0),
 
                             child: Image.asset(
-                              "lib/assets/food.jpg",
+                              imageurl,
                               width: 600.0,
                               height: 240.0,
                               fit: BoxFit.cover,

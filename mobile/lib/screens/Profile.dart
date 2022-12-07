@@ -16,6 +16,7 @@ String loginName = '', email = '', password = '';
 
 List<dynamic> recipes = List.empty(growable: true);
 List<dynamic> myRecipes = List.empty(growable: true);
+int myRecipesCounter = 0;
 
 void populateProfile() async {
 
@@ -37,15 +38,29 @@ void populateProfile() async {
   }
 
   myRecipes = List.empty(growable: true);
+  myRecipesCounter = 0;
   for (var data in recipes) {
     print("\n TESTING: " + data["RecipeName"] + data["UserID"] + GlobalData.userId);
     if(data["UserID"] == GlobalData.userId){
       print("\n ADDING: " + data["RecipeName"] + data["UserID"] + GlobalData.userId);
       myRecipes.add(data);
+      myRecipesCounter++;
     }
   }
+  GlobalData.recipesCount = myRecipesCounter;
 }
 
+String profilepictureurl = "lib/assets/profilepicture.png";
+
+void changeProfilePicture(){
+
+  if(GlobalData.userName == "Username")
+    profilepictureurl = "lib/assets/garden.jpg";
+  else
+    profilepictureurl = "lib/assets/profilepicture.png";
+
+
+}
 
 
 class ProfileScreen extends StatefulWidget {
@@ -64,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     populateProfile();
+    changeProfilePicture();
     return Scaffold(
       //   backgroundColor: Colors.blue,
       body: MainPage(),
@@ -227,7 +243,7 @@ class _MainPageState extends State<MainPage> {
 
                                 child: ClipOval(
 
-                                  child: Image.asset("lib/assets/profilepicture.png",
+                                  child: Image.asset(profilepictureurl,
                                   ),
                                 )
                             )

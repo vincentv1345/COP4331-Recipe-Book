@@ -74,6 +74,12 @@ flutter:
     - lib/assets/profilepicture.png
     - lib/assets/recipebg.PNG
     - lib/assets/food.jpg
+    - lib/assets/spaghetti.jpg
+    - lib/assets/tacos.jpg
+    - lib/assets/padthai.jpg
+    - lib/assets/raccoon.jpg
+    - lib/assets/garden.jpg
+    - lib/assets/leinie.jpg
     - lib/assets/cookbook.png
     - lib/assets/add.png
     - lib/addimage.png

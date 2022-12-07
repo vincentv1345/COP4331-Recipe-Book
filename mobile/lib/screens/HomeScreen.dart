@@ -190,7 +190,7 @@ class _MainPageState extends State<MainPage> {
                            Container(
                                margin: const EdgeInsets.only(top: 5, left: 20,),
                                height:50,
-                               width: 150,
+                               width: 175,
                                child:
                             TextField (
                               onChanged: (text) {

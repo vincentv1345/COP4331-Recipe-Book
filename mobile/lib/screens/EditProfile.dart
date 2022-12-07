@@ -131,8 +131,8 @@ class _MainPageState extends State<MainPage> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(),
                       //border: InputBorder.none,
-                      labelText: 'userName',
-                      hintText: 'Enter a new userName',
+                      labelText: 'Username',
+                      hintText: 'Enter a new Username',
                       labelStyle: TextStyle(color: Colors.black),
 
                     ),
