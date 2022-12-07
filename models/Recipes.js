@@ -25,8 +25,10 @@ const recipeSchema = new mongoose.Schema({
     Tags : [{
         type: String
     }],
-    RecipeImage: {
-    type:mongoose.SchemaTypes.ObjectId, ref:'Image'
+    RecipeImageID: {
+    type:String,
+    required:true,
+    default:URL
     },
     UserID: {
         type : String,

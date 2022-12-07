@@ -47,6 +47,7 @@ app.get('/api/get_image', (req, res) => {
       }
   });
 });
+db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
 app.post('/api/upload_image',(req,res)=>{
   upload(req,res,(err)=>{
     if(err){
@@ -57,7 +58,8 @@ app.post('/api/upload_image',(req,res)=>{
         image:{
           data:req.file.filename,
           contentType:'image/png'
-        }
+        },
+        recipeID:req.body
       })
       newImage.save()
       .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))

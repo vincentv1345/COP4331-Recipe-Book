@@ -10,6 +10,10 @@ const imageSchema = new mongoose.Schema({
     {
         data: Buffer,
         contentType: String
+    },
+    recipeID:{
+        type: String,
+        required:true
     }
 });
   

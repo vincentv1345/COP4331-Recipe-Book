@@ -76,6 +76,7 @@ app.get('/api/get_image', function (req, res) {
         }
     });
 });
+db.getCollection('Recipes').updateMany({}, { $set: { "RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg" } });
 app.post('/api/upload_image', function (req, res) {
     upload(req, res, function (err) {
         if (err) {
@@ -87,7 +88,8 @@ app.post('/api/upload_image', function (req, res) {
                 image: {
                     data: req.file.filename,
                     contentType: 'image/png'
-                }
+                },
+                recipeID: req.body
             });
             newImage.save()
                 .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
