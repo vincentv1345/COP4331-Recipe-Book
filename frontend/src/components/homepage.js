@@ -185,7 +185,7 @@ function HomePage() {
           console.log("local storage"+ localStorage.getItem('recipe_name_data'));
         
        // console.log("res " + JSON.stringify(res));
-        
+       window.location.href = '/homepage';
       }
       catch(e)
       {
@@ -234,7 +234,7 @@ function HomePage() {
         console.log(e);
       }
       
-      //window.location.href = '/homepage';
+      window.location.href = '/homepage';
     }
     catch(e)
     {
