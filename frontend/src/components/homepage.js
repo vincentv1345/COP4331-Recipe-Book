@@ -50,10 +50,10 @@ function HomePage() {
 
 
 
-  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data')|| []);
-  let directions = JSON.parse(localStorage.getItem('instructions_data')|| []);
-  let ingredients = JSON.parse(localStorage.getItem('ingredients_data')|| []);
-  let images = JSON.parse(localStorage.getItem('recipe_images_data')|| []);
+  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'))|| [];
+  let directions = JSON.parse(localStorage.getItem('instructions_data'))|| [];
+  let ingredients = JSON.parse(localStorage.getItem('ingredients_data'))|| [];
+  let images = JSON.parse(localStorage.getItem('recipe_images_data'))|| [];
 
 
  const [isOpen, setIsOpen] = useState(false);
