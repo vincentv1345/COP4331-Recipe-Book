@@ -46,6 +46,31 @@ function Profile() {
     setIsRecipePopUP(!isRecipePopUP);
   }
 
+  const doDeleteRecipe = async event => {
+    event.preventDefault();
+    
+    // fix
+    var obj = {
+      //RecipeID: Recipe.id????????????????????????
+    }
+
+    var js = JSON.stringify(obj);
+    try
+      {    
+        const response = await fetch('http://localhost:5000/api/delete_recipe', { mode: 'cors' },
+            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+        var stringified = JSON.stringify(await response.text()); 
+        var res = JSON.parse(stringified);
+
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        
+        return;
+      } 
+  }
+
   const doEditProfile = async event => {
     event.preventDefault();
     
@@ -67,13 +92,13 @@ function Profile() {
         var stringified = JSON.stringify(await response.text()); 
         var res = JSON.parse(stringified);
 
-        }
-        catch(e)
-        {
-          alert(e.toString());
-          
-          return;
-        }    
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        
+        return;
+      }    
   }
 
   // profile pic, username, num recipes, num followers, num following, bio
