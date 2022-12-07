@@ -225,7 +225,7 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
       console.log("User verified!");
       user.Verified = true;
       await user.save();
-      res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+      res.status(200).json('http://www.flavordaddy.xyz/'); // CHANGE to host login page
     }
     else {
       res.status(400).json('Invalid link');

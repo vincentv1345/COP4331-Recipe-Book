@@ -205,7 +205,7 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 link = "http://".concat(host, "/api/verify/").concat(EmailCode);
                 // 
                 mainInfo = {
-                    from: "cookbookverifier@zohomail.com",
+                    from: "git cookbookverifier@zohomail.com",
                     to: Email,
                     subject: "Please confirm your Email account",
                     html: "Please click this link to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
@@ -250,7 +250,7 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
                 return [4 /*yield*/, user.save()];
             case 2:
                 _a.sent();
-                res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+                res.status(200).json('http://www.flavordaddy.xyz/'); // CHANGE to host login page
                 return [3 /*break*/, 4];
             case 3:
                 res.status(400).json('Invalid link');
