@@ -27,6 +27,7 @@ class _CreateScreenState extends State<CreateScreen> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,6 +203,28 @@ class _MainPageState extends State<MainPage> {
                           {
                             newMessageText = "";
                             changeText();
+
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text(''),
+                                  content: Text('Email verification sent'),
+                                  actions: [
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Color(0xff5F2829)),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) =>
+                                                LoginScreen()),
+                                          );
+
+                                        },
+                                        child: Text('Go Back'))
+                                  ],
+                                ),
+                            );
 
                             var userId = '';
                             var jsonObject;

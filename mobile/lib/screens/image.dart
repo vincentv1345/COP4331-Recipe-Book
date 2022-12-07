@@ -38,31 +38,40 @@ class _AddImageState extends State<AddImage> {
               child: Column(
                 children: [
                   ElevatedButton(
+              style: ElevatedButton.styleFrom(
+              primary: Color(0xff5F2829)),
                     //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery);
                     },
+
                     child: Row(
                       children: [
                         Icon(Icons.image),
                         Text('From Gallery'),
                       ],
                     ),
+
                   ),
                   ElevatedButton(
-                    //if user click this button. user can upload image from camera
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xff5F2829)),
+                    //if user click this button, user can upload image from gallery
                     onPressed: () {
                       Navigator.pop(context);
                       getImage(ImageSource.camera);
                     },
+
                     child: Row(
                       children: [
-                        Icon(Icons.camera),
+                        Icon(Icons.image),
                         Text('From Camera'),
                       ],
                     ),
+
                   ),
+
                 ],
               ),
             ),
@@ -74,8 +83,11 @@ class _AddImageState extends State<AddImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Image'),
+        title: Text(''),
+        backgroundColor:Color(0xff5F2829),
+
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -84,8 +96,18 @@ class _AddImageState extends State<AddImage> {
               onPressed: () {
                 myAlert();
               },
+
               child: Text('Upload Photo'),
+              style: ElevatedButton.styleFrom(
+                  primary: Color(0xff5F2829),
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
+                  textStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold)),
+
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -106,7 +128,7 @@ class _AddImageState extends State<AddImage> {
               ),
             )
                 : Text(
-              "No Image",
+              "",
               style: TextStyle(fontSize: 20),
             )
           ],
