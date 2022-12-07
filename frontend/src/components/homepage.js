@@ -35,10 +35,12 @@ function HomePage() {
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
- var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
- var recipeUsers = ["user1", "user2", "user3"];
- var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
- var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+
+  let recipeNames = localStorage.getItem('recipe_name_data');
+  let directions = localStorage.getItem('instructions_data');
+  let ingredients = localStorage.getItem('ingredients_data');
+  let images = localStorage.getItem('recipe_images_data');
+
  const [isOpen, setIsOpen] = useState(false);
  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
  
@@ -118,9 +120,6 @@ function HomePage() {
         var res;
         try {
           res = JSON.parse(await responseClone.text());
-          //console.log(res)
-          
-        
         //console.log(JSON.parse(ingred));
         }
         catch(e)
@@ -131,28 +130,35 @@ function HomePage() {
 
         
         // let data1 = JSON.parse(localStorage.getItem('recipe_name_data'));
-        let UserIDs = [];
           let recipes = [];
           let ingredients = [];
           let directions = [];
-          console.log(res.length);
+          let images = [];
+          
           for(let i = 0; i < res.length; i++){
-            if(typeof res[i].RecipeNames !== 'undefined'){{
-              UserIDs.push(res[i].UserID);
-              ingredients.push(res[i].RecipeIngredients);
-              recipes.push(res[i].RecipeNames);
-              console.log(res[i].RecipeNames);
-              directions.push(res[i].RecipeDirections);
-            }}
 
-        }
-        if (typeof window !== 'undefined') {
-          let rec_res = localStorage.setItem('recipe_data', res);
-          let names = localStorage.setItem('recipe_name_data', recipes);
-          let ingred = localStorage.setItem('ingredients_data', JSON.stringify(ingredients));
-          let instru = localStorage.setItem('instructions_data', JSON.stringify(directions));
-         // console.log(names);
-      }
+            Object.keys(res[i]).forEach(function (item) {
+              if(item === 'RecipeDirections'){
+                directions.push(res[i][item])
+              }
+              if(item === 'RecipeImageID'){
+                images.push(res[i][item])
+              }
+              if(item === 'RecipeIngredients'){
+                ingredients.push(res[i][item])
+              }
+              if(item === 'RecipeName'){
+                recipes.push(res[i][item])
+              }
+            });
+            }
+
+        
+          localStorage.setItem('recipe_images_data', images);
+          localStorage.setItem('recipe_name_data', JSON.stringify(recipes));
+          localStorage.setItem('ingredients_data', ingredients);
+          localStorage.setItem('instructions_data', directions);
+      
 
 
 
@@ -297,7 +303,7 @@ function HomePage() {
         <div class="container">
           <ul class="image-gallery">
           { 
-            recipeNames.map((ID, index) => (
+            localStorage.getItem('recipe_name_data').map((ID, index) => (
                   <li>
                   <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
                     handlerecipeClick(index);
@@ -306,7 +312,7 @@ function HomePage() {
                     event.preventDefault();
                   }} />
                   <div class="overlay">
-                    <span className='recipe-title-profile'>{localStorage.getItem("recipe_name_data")[index]}</span>
+                    <span className='recipe-title-profile'>{ID}</span>
                   </div>
                   </li> 
               ))}
@@ -314,9 +320,9 @@ function HomePage() {
         </div>
         {isRecipePopUP && <Popuprecipe 
               ID = {localStorage.getItem("recipe_ID")}
-              recipeName = {localStorage.getItem("recipe_name_data")[localStorage.getItem("recipe_ID")]} 
-              ingredients = {localStorage.getItem("ingredients")[localStorage.getItem('recipe_ID')]}
-              directions = {localStorage.getItem("directions")[localStorage.getItem('recipe_ID')]}
+              recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
+              ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
+              directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
               
