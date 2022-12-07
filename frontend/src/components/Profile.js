@@ -7,6 +7,7 @@ import tacos from './assets/tacos.jpg';
 import './assets/Profile.css';
 import Popup from './Popup';
 import './assets/viewRecipe.css';
+import './assets/deleteRecipe.css';
 import docreateRecipe from './CreateRecipe';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
@@ -55,6 +56,7 @@ function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = React.useState("");
   const[isRecipePopUP, setIsRecipePopUP] = useState(false);
+  
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -70,34 +72,7 @@ function Profile() {
     return(togglerecipePopup)
   }
 
-  const doDeleteRecipe = async event => {
-    event.preventDefault();
-
-    var obj = {RecipeID: recipeid.value};
-    console.log("recipeid.value: " + recipeid.value);
-    var js = JSON.stringify(obj);
-    console.log("js: " + js);
-
-    try
-        {    
-          //COMMENT OUT when running through HEROKU
-          // const response = await fetch(buildPath('api/login'), 
-          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-          // UNCOMMENT OUT when running locally
-          let response = await fetch('http://localhost:5000/api/delete_recipe',
-          {method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
-        
-          console.log("Delete try");
-          
-          window.location.href = '/profile';
-        }
-        catch(e)
-        {
-          alert(e.toString());
-          return;
-        }    
-  }
+  
 
   const doEditProfile = async event => {
     event.preventDefault();
@@ -249,13 +224,14 @@ function Profile() {
               handleClose={togglePopup}
             />}
             {isRecipePopUP && <Popuprecipe 
+              ID = {localStorage.getItem("recipe_ID")}
               recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
               recipeUser = {recipeUsers[localStorage.getItem('recipe_ID')]} 
               ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
               directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
-              doDeleteRecipe={doDeleteRecipe}
+              
             />} 
           </div>
         </header>
@@ -267,6 +243,40 @@ function Profile() {
 export default Profile;
 
 const Popuprecipe = (props) => {
+
+  const[isDeletePopUP, setIsDeletePopUP] = useState(false);
+
+  const toggledeletePopup = () => {
+    setIsDeletePopUP(!isDeletePopUP);
+  }
+  const doDeleteRecipe = async recipe_ID => {
+    
+    setIsDeletePopUP(!isDeletePopUP);
+    console.log("recipeid.value: " + recipe_ID);
+    var js = JSON.stringify(recipe_ID);
+    console.log("js: " + js);
+
+    try
+        {    
+          //COMMENT OUT when running through HEROKU
+          // const response = await fetch(buildPath('api/login'), 
+          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+          // UNCOMMENT OUT when running locally
+          let response = await fetch('http://localhost:5000/api/delete_recipe',
+          {method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
+        
+          console.log("Delete try");
+          
+          window.location.href = '/profile';
+          return toggledeletePopup;
+        }
+        catch(e)
+        {
+          alert(e.toString());
+          return;
+        }    
+  }
   return (
     <div className="popup-recipe">
       <div className="popup-recipe-box">
@@ -283,7 +293,12 @@ const Popuprecipe = (props) => {
                         <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
                         <div className = "bottom-container-recipe">
                         <div className="button-container-recipe">
-                            <button className="button-recipe-delete"  onClick={props.doDeleteRecipe} >Delete</button>
+                            <button className="button-recipe-delete" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                                doDeleteRecipe(props.ID)
+                    
+                                event.stopPropagation();
+                                event.preventDefault();
+                              }} >Delete</button>
                             <button className="button-recipe-delete"  onClick={null} >Edit</button>
                           </div>
                         </div>
@@ -292,7 +307,34 @@ const Popuprecipe = (props) => {
                   </div>
                 </div>
       </div>
+      {isDeletePopUP && <deleteRecipePopup ID = {props.ID} name = {props.recipeName} handleClose = {toggledeletePopup}/>} 
     </div>
   );
 };
 
+const deleteRecipePopup = (props) =>  {
+  return (
+    <div className="popup-delete">
+      <div className="popup-delete-box">
+        <span className="close-icon-delete" onClick={props.handleClose}>x</span>
+        <div>
+                  <div className="in-box-delete">
+                    <div className="text-area-delete">
+                      <ul className="list-view-delete">
+                        <li><div className="recipe-element-delete">Are you sure you want to delete {props.name} ?</div></li>
+
+                        <div className = "bottom-container-delete">
+                        <div className="button-container-delete">
+                            <button className="button-recipe-confirm"  onClick={props.doDeleteRecipe} >Confirm</button>
+                            <button className="button-recipe-confirm"  onClick={null} >Cancel</button>
+                          </div>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+      </div>
+
+    </div>
+  );
+};

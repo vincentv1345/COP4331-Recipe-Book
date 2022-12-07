@@ -49,8 +49,6 @@ ul.list-view-recipe {
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    
-    
 }
 
 ul.list-view-recipe li {

@@ -6,6 +6,7 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import './assets/homepage.css';
+import './assets/viewRecipe.css';
 import docreateRecipe from './CreateRecipe';
 import Popup from './Popup';
 import food from './assets/addPictureIcon.jpg';
@@ -25,13 +26,28 @@ function HomePage() {
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
-  
+  var recipe_id = [0, 1, 2];
+  var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
+  var recipeUsers = ["user1", "user2", "user3"];
+  var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+  var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
   const [isOpen, setIsOpen] = useState(false);
+  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
+  const togglerecipePopup = () => {
+    setIsRecipePopUP(!isRecipePopUP);
+  }
+
+  const handlerecipeClick = recipe_ID=> {
+    localStorage.setItem("recipe_ID", recipe_ID);
+    setIsRecipePopUP(!isRecipePopUP);
+    return(togglerecipePopup)
+  }
+  
   const [error, setError] = React.useState("");
   const [tags, setTags] = React.useState([]);
 
@@ -229,30 +245,32 @@ function HomePage() {
         </div>
         <div class="container">
           <ul class="image-gallery">
-            <li>
-              <img src={padthai} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pad Thai</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
-            <li>
-              <img src={tacos} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Tacos</span>
-                <span className='recipe-author'>username</span>
-
-              </div>
-            </li>
-            <li>
-              <img src={pasta} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pasta</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
+          { recipe_id.map((ID) => (
+                  <li>
+                  <img id = {JSON.stringify(ID)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                    handlerecipeClick(ID);
+                    
+                    event.stopPropagation();
+                    event.preventDefault();
+                  }} />
+                  <div class="overlay">
+                    <span className='recipe-title-profile'>{recipeNames[ID]}</span>
+                    <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
+                  </div>
+                  </li> 
+              ))}
           </ul>
         </div>
+        {isRecipePopUP && <Popuprecipe 
+              ID = {localStorage.getItem("recipe_ID")}
+              recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
+              recipeUser = {recipeUsers[localStorage.getItem('recipe_ID')]} 
+              ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
+              directions = {directions[localStorage.getItem('recipe_ID')]}
+              image = {padthai}
+              handleClose={togglerecipePopup}
+              
+            />}
 
 
     </header>
@@ -260,3 +278,30 @@ function HomePage() {
     );
 };
 export default HomePage;
+
+const Popuprecipe = (props) => {
+
+
+  return (
+    <div className="popup-recipe">
+      <div className="popup-recipe-box">
+        <span className="close-icon-recipe" onClick={props.handleClose}>x</span>
+        <div>
+                  <div className="in-box-recipe">
+                    <img src={props.image} className="img-holder"></img>
+                    <div className="text-area-recipe">
+                      <ul className="list-view-recipe">
+                        <li><div className="recipe-popup-title">{props.recipeName}</div></li>
+                        <li><div className="recipe-element-title">Ingredients:</div></li>
+                         <li><div classname= "name-text-recipe" cols="20" maxlength="20">{props.ingredients}</div></li>
+                        <li><div className="recipe-element-title">Directions:</div> </li>
+                        <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+      </div>
+     
+    </div>
+  );
+};
