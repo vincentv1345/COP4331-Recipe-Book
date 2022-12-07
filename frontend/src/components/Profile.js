@@ -21,8 +21,6 @@ import garden from './assets/garden.jpg';
 import cake from './assets/cake.jpg';
 import cake2 from './assets/fluffy-homemade-vanilla-cake-995187-hero-01-cb314e573db94d49a49b2c348099e7b2.webp';
 import pasta from './assets/pasta.jpg';
-import pasta from './assets/pasta.jpg';
-import padthai from './assets/padthai.jpg';
 
 
 //import Popuprecipe from './popup-recipe';
