@@ -122,7 +122,7 @@ function HomePage() {
     let recipename = "a";
     
     var obj = {
-      RecipeName: recipename.value
+      RecipeName: recipename
     };
 
     var js = JSON.stringify(obj);
