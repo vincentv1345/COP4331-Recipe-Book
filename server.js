@@ -299,7 +299,7 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
     });
 }); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, resultUser, id, ret, e_4, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -311,21 +311,8 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 return [4 /*yield*/, Recipe.create(newRecipe)];
             case 2:
                 result = _b.sent();
-                resultUser = User.findById({ _id: new ObjectId(UserID) });
                 id = result._id;
                 ret = { id: id };
-                resultUser.update({ _id: resultUser._id }, { $push: { RecipeList: newRecipe } });
-                /*
-                try{
-                  db.students.updateOne(
-                    { _id: UserID },
-                    { $push: { scores: id } }
-                 )
-                }
-                catch(e){
-                  res.status(400).json(e.toString());
-                }
-                */
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:

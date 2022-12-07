@@ -243,24 +243,9 @@ app.post("/api/create_recipe",async (req, res) => {
   
   try{
     const result = await Recipe.create(newRecipe);
-    const resultUser = User.findById({_id: new ObjectId(UserID)});
+    //const resultUser = User.findById({_id: new ObjectId(UserID)});
     let id = result._id;
     var ret = { id:id };
-    resultUser.update(
-      { _id: resultUser._id }, 
-      { $push: { RecipeList: newRecipe } }
-  );
-    /*
-    try{
-      db.students.updateOne(
-        { _id: UserID },
-        { $push: { scores: id } }
-     )
-    }
-    catch(e){
-      res.status(400).json(e.toString());
-    }
-    */
 
     res.status(200).json(ret);
   }catch(e){
