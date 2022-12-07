@@ -1,0 +1,323 @@
+
+
+body {
+    background-color: #ffeecc;
+    
+}
+.NavigationBar{
+  position: fixed;
+  background-color: #ffeecc;
+  top: 0;
+  width: 100%;
+  z-index: 12;
+  height: 80px;
+}
+
+
+.App-header-profile {
+    background-color: #ffeecc;
+    min-height:100%;
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    color: black;
+    width:100%;
+
+  }
+.main-content-profile{
+  margin-top: 80px;
+  padding-top: 16px;
+}
+
+.button-edit-profile {
+    background-color:  #5F2829;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font: "Darker Grotesque";
+    font-weight: normal;
+    font-size: 16px;
+    padding: .5% 3%;
+    width: fit-content;
+    border-radius: 20px;
+    transition-duration: .5s;
+    text-align: center;
+    color: #ffeecc;
+    cursor: pointer;
+    position: absolute;
+    left: 1100px;
+    top: 125px;
+}
+.button-edit-profile:hover {
+    background-color: #ffeecc;
+    color:#5F2829;
+}
+
+.circle-profile {
+    display: flex;
+    width: 300px;
+    height: 300px;
+    background-color: #5F2829;
+    border-radius: 50%;
+    border-color: #3a1819;
+    position: absolute;
+    left: 100px;
+    top: 100px;
+  }
+
+  .username-text-profile{
+    font-size: 30px;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    position: absolute;
+    left: 500px;
+    top: 120px;
+  }
+
+  .followers-text-profile{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 900px;
+    top: 190px;
+  }
+
+  .following-text-profile{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 700px;
+    top: 190px;
+  }
+
+  .recipes-text-profile{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 500px;
+    top: 190px;
+  }
+
+  .bio-text-profile{
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: absolute;
+    left: 500px;
+    top: 300px;
+  }
+
+  .image-gallery-profile {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  
+  .image-gallery-profile > li {
+    top: 400px;
+    height: 300px;
+    list-style-type: none;
+    position: relative;
+  }
+  
+  .image-gallery-profile li img {
+    object-fit: cover;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+  .image-gallery-profile img:hover{
+    opacity:.3;
+    transition: 1000ms;
+ } 
+
+ .recipe-title-profile  {
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    position: absolute;
+
+ }
+
+ .recipe-author-profile  {
+    font-size: 15px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: relative;
+    top: 19px;
+
+ }
+
+ hr {
+    position: absolute;
+    top: 340pt;
+    opacity: 1;
+    width: 100%;
+    height: 1px;
+    background-color:#5F2829;
+    border: none;
+ }
+
+
+
+.Header-link-nav-bar {
+  color: #5F2829;
+  font-family: "Crimson Text", Cambria, Georgia;
+  display: flex;
+  font-size: 40px;
+  min-height:100%;
+  position: fixed;
+  top: 0px;
+  left: 50px;
+}
+
+
+.SearchBar-nav-bar {
+  position: fixed;
+  top: 10px;
+  left: 40%;
+  padding-left: 0px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
+  z-index: 13;
+}
+
+.SearchBar-Textbox-nav-bar{
+  font-family: "Imprima", Cambria, Georgia;
+  border-width: 1px;
+  border-radius: 6px;
+  color: black;
+}
+
+.SearchBar-postButton-nav-bar {
+  position: fixed;
+  top: 7px;
+  left: 40%;
+  padding-left: 190px;
+  font-family: "Imprima", Cambria, Georgia;
+  zoom: 2;
+}
+
+.postButton-nav-bar{
+  position: fixed;
+  top: -10px;
+  left: 68%;
+}
+
+.profileButton-nav-bar{
+  position: fixed;
+  top: 23px;
+  right: 75px;
+}
+
+.profile-img-nav-bar{
+  height: 50px;
+}
+
+.mag-img-nav-bar {
+  height: 28px;
+}
+
+.post-img-nav-bar{
+  height: 150px;
+}
+
+input:focus
+{
+ outline: none;
+}
+
+#horizontal-line-nav-bar{
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  width: 2000px;
+  height: 2px;
+  background-color: black;
+}
+
+.App-link {
+  color: #5F2829;
+  font-size: 15px;
+}
+
+.homeButton-profile{
+  position: fixed;
+
+}
+
+.App-logoHome-profile {
+  position: fixed;
+  height: 40px;
+  top: 25px;
+  left: 550px;
+}
+
+.Header-link {
+  color: #5F2829;
+  font-family: "Crimson Text", Cambria, Georgia;
+  display: flex;
+  font-size: 40px;
+  min-height:100%;
+  position: fixed;
+  top: 0px;
+  left: 50px;
+}
+
+.button-save {
+  background-color:  #D3D3D3;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 15px;    
+  border-radius: 20px;
+  padding: 0% 2%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 360%;
+  border: none;
+  text-align: center;
+  transition-duration: .5s;  
+  cursor: pointer;
+}
+
+.button-save:hover {
+  background-color: white;
+  border: 1px black;
+  color: black;
+}
+
+.logoutButton{
+  background-color: #5f2828;
+  color: #ffeecc;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font: "Darker Grotesque";
+  font-size: 16px;
+  font-weight: normal;
+  position:absolute;
+  border-radius: 20px;
+  transition-duration: .5s;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  margin-top: 1%;
+  left: 1128px;
+  top: 160px;
+  padding: 0% 2%;
+
+}
+
+.logoutButton:hover{
+  background-color: #ffeecc;
+  color:#5F2829;
+}
+
+.recipe-popup-title{
+  font: "Darker Grotesque";
+  font-weight: normal;
+  font-size: 16px;
+}
+

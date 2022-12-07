@@ -5,7 +5,7 @@
   "homepage": ".",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node --openssl-legacy-provider server.js",
     "dev": "nodemon server.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
@@ -25,7 +25,8 @@
     "mongodb": "^4.11.0",
     "mongoose": "^6.7.0",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.8.0"
+    "nodemailer": "^6.8.0",
+    "react-icons": "^4.7.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

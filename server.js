@@ -153,12 +153,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 /*
 const root = express.Router();
-
 const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
 root.get('(/*)?', async (req, res, next) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-
 app.use(root);
 */
 var path1;

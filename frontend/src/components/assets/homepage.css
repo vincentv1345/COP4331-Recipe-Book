@@ -1,0 +1,202 @@
+body {
+    background-color: #ffeecc;
+} 
+
+.App-header{
+    position: fixed;
+    background-color: #ffeecc;
+    height: 100vh;
+    width: 100vw; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: black;
+}
+
+.App-link {
+    color: #5F2829;
+    font-size: 15px;
+}
+
+.App-logoHome {
+    cursor: pointer;
+    position: fixed;
+    height: 40px;
+    left: 23%;
+    pointer-events: none;
+    top: 25px;
+    padding-left: 200px;
+  }
+
+.Header-link {
+    color: #5F2829;
+    font-family: "Crimson Text", Cambria, Georgia;
+    display: flex;
+    font-size: 40px;
+    min-height:100%;
+    position: fixed;
+    top: 0px;
+    left: 50px;
+}
+
+
+.SearchBar {
+    position: fixed;
+    top: 10px;
+    left: 40%;
+    padding-left: 0px;
+    font-family: "Imprima", Cambria, Georgia;
+    zoom: 2;
+    z-index: 13;
+}
+
+.SearchBar-Textbox{
+    font-family: "Imprima", Cambria, Georgia;
+    border-width: 1px;
+    border-radius: 6px;
+    color: black;
+}
+
+.SearchBar-postButton {
+    position: fixed;
+    top: 7px;
+    left: 40%;
+    padding-left: 190px;
+    font-family: "Imprima", Cambria, Georgia;
+    zoom: 2;
+}
+
+.postButton{
+    position: fixed;
+    top: -10px;
+    left: 68%;
+}
+
+.profileButton{
+    position: fixed;
+    top: 23px;
+    right: 75px;
+}
+
+.profile-img{
+    height: 50px;
+}
+
+.mag-img {
+    height: 28px;
+}
+
+.post-img{
+    height: 150px;
+}
+
+input:focus
+{
+   outline: none;
+}
+
+#horizontal-line{
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    width: 2000px;
+    height: 2px;
+    background-color: black;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .image-gallery > li {
+    top: -75px;
+    height: 300px;
+    list-style-type: none;
+    position: relative;
+  }
+  
+  .image-gallery li img {
+    object-fit: cover;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+  .image-gallery img:hover{
+    opacity:.3;
+    transition: 1000ms;
+ } 
+ .recipe-title  {
+    font-size: 20px;
+    font: "Darker Grotesque";
+    font-weight: bold;
+    position: absolute;
+
+ } 
+.recipe-author  {
+    font-size: 15px;
+    font: "Darker Grotesque";
+    font-weight: regular;
+    position: relative;
+    top: 19px;
+
+ } 
+
+ .tags{
+    margin: 10px auto;
+    margin-top: -10px;
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 50%;
+    min-width: 80%;
+    border: 1px rgb(0, 0, 0) solid;
+    border-radius: 15px;
+    color: black;
+}
+
+.single-tag{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 7px 0 7px 7px;
+    padding: 0 3px;
+    padding-right: 3px;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    white-space: nowrap;
+    color: black;
+}
+
+input:focus{
+    outline: none;
+}
+
+
+i{
+    display: flex;
+    padding: 6px;
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+    color: black;
+}
+
+.write-tag{
+    border: none;
+}
+
+.error{
+    color: red;
+}
+
+.inputHolder{
+    font: "Darker Grotesque";
+    border-radius: 12px;
+}
