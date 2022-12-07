@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
         type : Number,
         unique: true
     },
+<<<<<<< Updated upstream
     Following :{
         type: Number,
         required:true,
@@ -45,6 +46,10 @@ const userSchema = new mongoose.Schema({
     RecipeList:[{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     Favorites : [{type: mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     
+=======
+    Favorites : [mongoose.SchemaTypes.ObjectId],
+    Following : [mongoose.SchemaTypes.ObjectId]
+>>>>>>> Stashed changes
 }, { collection: 'Users'});
 
 module.exports = mongoose.model("User", userSchema);
