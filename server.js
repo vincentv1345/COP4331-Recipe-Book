@@ -103,7 +103,38 @@ app.get("/api/", function (req, res) {
     console.log("Test from API");
     res.status(200).json({ message: "Hello from server!" });
 });
-//store images
+// Attempts to verify user using link
+app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var EmailCode, user, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                console.log("Attempting to verify user");
+                EmailCode = req.params.EmailCode;
+                return [4 /*yield*/, User.findOne({ EmailCode: EmailCode })];
+            case 1:
+                user = _a.sent();
+                if (!user) return [3 /*break*/, 3];
+                console.log("User verified!");
+                user.Verified = true;
+                return [4 /*yield*/, user.save()];
+            case 2:
+                _a.sent();
+                res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400).json('Invalid link');
+                _a.label = 4;
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                e_1 = _a.sent();
+                res.status(400).send(e_1.toString());
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
 //COMMENT OUT when running locally
 if (process.env.NODE_ENV === 'production') {
     console.log("Im a local server");
@@ -130,7 +161,7 @@ app.get("/api/", (req, res) => {
 });
 */
 app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, Username, Password, user, result, id, DateCreated, DateLastLoggedIn, Username_1, Bio, Email, Verified, EmailCode, RecipeList, Favorites, Following, ret, e_1, error;
+    var _a, Username, Password, user, result, id, DateCreated, DateLastLoggedIn, Username_1, Bio, Email, Verified, EmailCode, RecipeList, Favorites, Following, ret, e_2, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -168,8 +199,8 @@ app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, vo
                     res.status(400).json("ERROR: more then one user with same username and password");
                 return [3 /*break*/, 4];
             case 3:
-                e_1 = _b.sent();
-                error = e_1.toString();
+                e_2 = _b.sent();
+                error = e_2.toString();
                 res.status(400).json(error);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
@@ -178,7 +209,7 @@ app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, vo
 }); });
 // Creates user and send verification email
 app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var Bio, Verified, Favorites, Following, EmailCode, _a, Username, Password, Email, newUser, result, id, ret, transport, mainInfo, host, link, e_2, error;
+    var Bio, Verified, Favorites, Following, EmailCode, _a, Username, Password, Email, newUser, result, id, ret, transport, mainInfo, host, link, e_3, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -230,81 +261,16 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
-                e_2 = _b.sent();
-                error = e_2.toString();
+                e_3 = _b.sent();
+                error = e_3.toString();
                 res.status(400).json(error);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); });
-// Attempts to verify user using link
-/*
-app.get('/api/verify/:EmailCode', async (req, res) => {
-  console.log("Hello");
-  try {
-    console.log("Attempting to verify user");
-    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
-    const { EmailCode } = req.params;
-
-    //console.log("req: " + EmailCode); // Sanity check
-    const user = await User.findOne({ EmailCode : EmailCode})
-
-    if (user) {
-      console.log("User verified!");
-      user.Verified = true;
-      await user.save();
-      res.status(200).send("It works!"); // CHANGE to host login page
-    }
-    else {
-      res.status(400).json('Invalid link');
-    }
-  } catch (e) {
-    res.status(400).send(e.toString());
-  }
-});
-*/
-app.get('/user/:id', function (req, res) {
-    res.send('user' + req.params.id);
-});
-app.get('/api/verify', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                //const db = client.db("FeastBook");
-                console.log("verify email api");
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.collection("Users").find({ EmailToken: req.query.token }).toArray()];
-            case 2:
-                user = _a.sent();
-                if (user.length < 0) {
-                    req.flash('Invalid token');
-                    res.redirect('/');
-                }
-                console.log(user);
-                db.collection('Users').updateOne({ _id: ObjectId(user[0]._id) }, { $set: { Verified: true } }, function (err, result) {
-                    if (err) {
-                        throw err;
-                    }
-                });
-                console.log("verified updated");
-                res.redirect('/');
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                console.log(error_1);
-                console.log("something went wrong");
-                res.redirect('/');
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_3, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -321,8 +287,8 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
-                e_3 = _b.sent();
-                error = e_3.toString();
+                e_4 = _b.sent();
+                error = e_4.toString();
                 res.status(400).json(error);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
@@ -376,7 +342,7 @@ app.patch("/api/update_recipe", function (req, res) { return __awaiter(void 0, v
     });
 }); });
 app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeID, result, e_4;
+    var RecipeID, result, e_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -391,8 +357,8 @@ app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 
                 res.status(200).send("Deleted recipe"); //.json(reportInfo)
                 return [3 /*break*/, 4];
             case 3:
-                e_4 = _a.sent();
-                res.status(400).json(e_4.toString());
+                e_5 = _a.sent();
+                res.status(400).json(e_5.toString());
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
