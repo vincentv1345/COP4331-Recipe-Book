@@ -114,7 +114,7 @@ input:focus
   }
   
   .image-gallery > li {
-    top: -75px;
+    top: 75px;
     height: 300px;
     list-style-type: none;
     position: relative;
