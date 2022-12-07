@@ -119,7 +119,7 @@ function HomePage() {
 
   const doSearch = async event => {
 
-    let recipename = document.getElementById("searchTerm");
+    let recipename = "a";
     
     var obj = {
       RecipeName: recipename.value
@@ -135,7 +135,6 @@ function HomePage() {
         var responseClone = response.clone();
 
 
-        var responseClone = response.clone();
 
         console.log("Create recipe try");
         var res;
