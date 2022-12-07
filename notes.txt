@@ -19,10 +19,16 @@ To push to github
 
 *** THIS SHOULD ONLY BE DONE WHEN A WHOLE PAGE IS DONE AND BUG FREE ***
 To heroku login
+    heroku login
     git add .
     git commit -m "My first commit"
     heroku git:remote -a recipebook5959
     git push heroku main
+
+To merge to main
+    git checkout main          : To move to BRANCH
+    git merge <your branch>
+
 
 To compile server.tsx
     tsc server.tsx
