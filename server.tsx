@@ -342,7 +342,7 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
 }
 });
 
-app.get("/api/search_user", async(req,res,next)=>{
+app.post("/api/search_user", async(req,res,next)=>{
   try{
   const {Username} = req.body;
   console.log(Username); 
@@ -359,7 +359,7 @@ app.get("/api/search_user", async(req,res,next)=>{
 }
 });
 
-app.get("/api/search_recipe", async(req,res,next)=>{
+app.post("/api/search_recipe", async(req,res,next)=>{
   try{
     const {RecipeName} = req.body;
     console.log(RecipeName); 
