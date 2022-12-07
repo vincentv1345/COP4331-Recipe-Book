@@ -86,12 +86,15 @@ app.get('/api/get_image', function (req, res) {
 app.post('/api/upload_image', upload.single('image'), function (req, res, next) {
     var obj = {
         name: req.body.name,
+        desc: req.body.desc,
         RecipeID: req.body.RecipeID,
         img: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
+            contentType: 'image/png',
+            name: fs.readFileSync(path.join(req.file.filename))
         }
     };
+    console.log("obj: " + obj);
     imgModel.create(obj, function (err, item) {
         if (err) {
             console.log(err);
