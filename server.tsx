@@ -282,10 +282,7 @@ app.patch("/api/update_user", async(req, res)=>{
       else
       {
         console.log(user);
-<<<<<<< HEAD
-=======
         //db.collection.update(  { _id:UserID} , { $set: User });
->>>>>>> 0840d5f67fb8240e572a00993b7b15bab496aaf8
         res.status(200).json(User);
       }
     });
