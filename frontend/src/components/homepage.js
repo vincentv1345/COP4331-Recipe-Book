@@ -1,19 +1,12 @@
 import React from 'react';
-<<<<<<< Updated upstream
 import { useState, useEffect } from 'react';
-=======
-import { useState } from 'react';
->>>>>>> Stashed changes
 import cookbook from './assets/cookbook.png';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import './assets/homepage.css';
-<<<<<<< Updated upstream
 import './assets/viewRecipe.css';
-=======
->>>>>>> Stashed changes
 import docreateRecipe from './CreateRecipe';
 import Popup from './Popup';
 import food from './assets/addPictureIcon.jpg';
@@ -24,7 +17,6 @@ import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
 
 function HomePage() {
-<<<<<<< Updated upstream
 
   console.log("In login function");
   const app_name = 'recipebook5959';
@@ -50,23 +42,16 @@ function HomePage() {
     // Update the document title using the browser API
     doSearch()
   }, []);
-=======
->>>>>>> Stashed changes
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
       //CHANGE THE LOCATION TO ACTUAL PAGE
       location.href = "www.flavordaddy.xyz";
   }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
 
-<<<<<<< Updated upstream
   let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
   let directions = JSON.parse(localStorage.getItem('instructions_data'));
   let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
@@ -82,16 +67,11 @@ function HomePage() {
  
  let recipe_id = localStorage.getItem('recipe_name_data');
 
-=======
-
-  const [isOpen, setIsOpen] = useState(false);
->>>>>>> Stashed changes
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
-<<<<<<< Updated upstream
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
   }
@@ -102,8 +82,6 @@ function HomePage() {
     return(togglerecipePopup)
   }
   
-=======
->>>>>>> Stashed changes
   const [error, setError] = React.useState("");
   const [tags, setTags] = React.useState([]);
 
@@ -126,11 +104,6 @@ function HomePage() {
     }
   };
 
-<<<<<<< Updated upstream
-  
-
-=======
->>>>>>> Stashed changes
   //Remove tags by clicking the cross sign
   const removeTags = index => {
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
@@ -141,7 +114,6 @@ function HomePage() {
     setError("");
   }
 
-<<<<<<< Updated upstream
   const doSearch = async event => {
 
     let recipename = document.getElementById("searchTerm");
@@ -271,22 +243,16 @@ function HomePage() {
     }
 };
 
-  return (
-    <body>
-      <header className="App-header" >
-=======
 
   return (
     <body>
       <header className="App-header">
->>>>>>> Stashed changes
         <div className='NavigationBar'>
           <h1 className="Header-link" id="title">
             <a>Cookbook</a>
             <img src={houseIcon} className="App-logoHome" alt="logo" />
           </h1>
           <div className='SearchBar' id="search">
-<<<<<<< Updated upstream
             <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
           <div className='SearchBar-postButton' onClick={doSearch}>
@@ -352,82 +318,11 @@ function HomePage() {
           </a>
         </div>
         <div id="horizontal-line"></div>
-=======
-            <input type="text" className="SearchBar-Textbox" cols="79" maxlength="79" placeholder="Search" ></input>
-          </div>
-          <div className='SearchBar-postButton'>
-            <input type="image" src={lookup} className="mag-img"></input>
-          </div>
-
-
-
-
-          <div className='postButton'>
-            <input type="image" src={postIcon} className="post-img" onClick={togglePopup}></input>
-            {isOpen && <Popup
-              content={<>
-
-                <div>
-                  <div className="in-box">
-                    <img src={food} className="img-holder"></img>
-
-                    <div className="text-area">
-                      <ul className="list-create">
-                        <li><div className="name-text">Name<input type="name" name="name" cols="79" maxlength="79" placeholder="Like 'Delicious Recipe'" ></input></div></li>
-                        <li><textarea type="ingredients" name="ingredients" className="large-box" rows="3" cols="79" placeholder="Write your ingredients here." ></textarea></li>
-                        <li><textarea type="description" name="description" className="large-box" rows="3" cols="79" placeholder="Write your directions here." ></textarea></li>
-                      </ul>
-
-                      <div className="bottom-container">
-                        <div className="tags">
-                          {tags.map((tag, index) => (
-                            <div className="single-tag" key={index}>
-                              <span>{tag}</span>
-                              <i
-                                onClick={() => removeTags(index)}
-                              >
-                                <MdClose />
-                              </i>
-                            </div>
-                          ))}
-
-                          <input
-                            className="write-tag"
-                            type="text"
-                            onKeyDown={event => handleTags(event)}
-                            onChange={handleError}
-                            placeholder="Write your tag here."
-                          />
-                        </div>
-
-                        <div className="error">
-                          {error}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="button-container">
-                    <button className="button-create" onClick={docreateRecipe} >Create</button>
-                  </div>
-                </div>
-
-              </>}
-              handleClose={togglePopup}
-            />}
-          </div>
-          <div className='profileButton' >
-            <a href="./profile">
-              <input type="image" src={profileIcon} className="profile-img" ></input>
-            </a>
-          </div>
-          <div id="horizontal-line"></div>
->>>>>>> Stashed changes
 
 
         </div>
         <div class="container">
           <ul class="image-gallery">
-<<<<<<< Updated upstream
           { 
             recipeNames.map((ID, index) => (
                   <li>
@@ -487,36 +382,3 @@ const Popuprecipe = (props) => {
     </div>
   );
 };
-=======
-            <li>
-              <img src={padthai} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pad Thai</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
-            <li>
-              <img src={tacos} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Tacos</span>
-                <span className='recipe-author'>username</span>
-
-              </div>
-            </li>
-            <li>
-              <img src={pasta} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pasta</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-
-      </header>
-    </body >
-  );
-};
-export default HomePage;
->>>>>>> Stashed changes
