@@ -100,11 +100,11 @@ function HomePage() {
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
-  }
+  };
 
   const handlerecipeClick = recipe_ID=> {
     if(recipeNames[localStorage.getItem("recipe_ID")] === "A Tasty Pasta"){
@@ -133,8 +133,8 @@ function HomePage() {
     }
     localStorage.setItem("recipe_ID", recipe_ID);
     
-    return(togglerecipePopup)
-  }
+    return(togglerecipePopup);
+  };
 
   
   const [error, setError] = React.useState("");
@@ -167,7 +167,7 @@ function HomePage() {
   //To update the error after user changes something
   const handleError = () => {
     setError("");
-  }
+  };
 
   const doSearch = async event => {
 
