@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
 //store images
 const Storage = multer.diskStorage({
-  destination:'uploads',
+  destination:"uploads",
   filename:(req,file,cb)=>{
     cb(null,file.originalname)
   }
@@ -54,8 +54,10 @@ app.post('/api/upload_image',(req,res)=>{
     }else{
       const newImage = new ImageModel({
         name:req.body.name,
-        data:req.file.filename,
-        contentType:'image/png'
+        image:{
+          data:req.file.filename,
+          contentType:'image/png'
+        }
       })
       newImage.save()
       .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))

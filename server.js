@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 //store images
 var Storage = multer.diskStorage({
-    destination: 'uploads',
+    destination: "uploads",
     filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
@@ -84,8 +84,10 @@ app.post('/api/upload_image', function (req, res) {
         else {
             var newImage = new ImageModel({
                 name: req.body.name,
-                data: req.file.filename,
-                contentType: 'image/png'
+                image: {
+                    data: req.file.filename,
+                    contentType: 'image/png'
+                }
             });
             newImage.save()
                 .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
