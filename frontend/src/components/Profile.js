@@ -20,6 +20,13 @@ function Profile() {
   let user = localStorage.getItem('user_data');
   user = user.slice(7);
   user = user.slice(0, -2);
+
+  let recipeUserIds = JSON.parse(localStorage.getItem('recipe_user_ids_data'));
+
+  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
+  let directions = JSON.parse(localStorage.getItem('instructions_data'));
+  let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
+  let images = JSON.parse(localStorage.getItem('recipe_images_data'));
   
   let username = localStorage.getItem('username_data');
   username = username.slice(13);
@@ -41,13 +48,6 @@ function Profile() {
   email = email.slice(10);
   email = email.slice(0,-2);
 
-  // recipe items
-  var recipe_id = [0, 1, 2];
-  var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
-  var recipeUsers = ["user1", "user2", "user3"];
-  var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
-  var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
-  
   
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = React.useState("");
@@ -168,16 +168,17 @@ function Profile() {
             <hr></hr>
             <div class="container-profile">
               <ul class="image-gallery-profile">
-                { recipe_id.map((ID) => (
+                { recipeUserIds.map((ID, index) => ID === user &&(
                   <li>
-                  <img id = {JSON.stringify(ID)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
-                    handlerecipeClick(ID);
+                  <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+
+                    handlerecipeClick(index);
                     
                     event.stopPropagation();
                     event.preventDefault();
                   }} />
                   <div class="overlay">
-                    <span className='recipe-title-profile'>{recipeNames[ID]}</span>
+                    <span className='recipe-title-profile'>{recipeNames[index]}</span>
                   </div>
                   </li> 
               ))}

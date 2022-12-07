@@ -36,10 +36,11 @@ function HomePage() {
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
 
-  let recipeNames = localStorage.getItem('recipe_name_data');
-  let directions = localStorage.getItem('instructions_data');
-  let ingredients = localStorage.getItem('ingredients_data');
-  let images = localStorage.getItem('recipe_images_data');
+  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
+  let directions = JSON.parse(localStorage.getItem('instructions_data'));
+  let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
+  let images = JSON.parse(localStorage.getItem('recipe_images_data'));
+
 
  const [isOpen, setIsOpen] = useState(false);
  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
@@ -131,6 +132,7 @@ function HomePage() {
         
         // let data1 = JSON.parse(localStorage.getItem('recipe_name_data'));
           let recipes = [];
+          let user_ids = [];
           let ingredients = [];
           let directions = [];
           let images = [];
@@ -141,27 +143,27 @@ function HomePage() {
               if(item === 'RecipeDirections'){
                 directions.push(res[i][item])
               }
+              if(item === 'UserID'){
+                user_ids.push(res[i][item])
+              }
               if(item === 'RecipeImageID'){
                 images.push(res[i][item])
               }
-              if(item === 'RecipeIngredients'){
+              else if(item === 'RecipeIngredients'){
                 ingredients.push(res[i][item])
               }
-              if(item === 'RecipeName'){
+              else if(item === 'RecipeName'){
                 recipes.push(res[i][item])
               }
             });
             }
 
-        
-          localStorage.setItem('recipe_images_data', images);
-          localStorage.setItem('recipe_name_data', JSON.stringify(recipes));
-          localStorage.setItem('ingredients_data', ingredients);
-          localStorage.setItem('instructions_data', directions);
-      
-
-
-
+          localStorage.setItem('recipe_images_data', JSON.stringify(Object.values(images)));
+          localStorage.setItem('recipe_name_data', JSON.stringify(Object.values(recipes)));
+          localStorage.setItem('recipe_user_ids_data', JSON.stringify(Object.values(user_ids)));
+          localStorage.setItem('ingredients_data', JSON.stringify(Object.values(ingredients)));
+          localStorage.setItem('instructions_data', JSON.stringify(Object.values(directions)));
+    
         
        // console.log("res " + JSON.stringify(res));
         
@@ -232,9 +234,9 @@ function HomePage() {
             <img src={houseIcon} className="App-logoHome" alt="logo" />
           </h1>
           <div className='SearchBar' id="search">
-            <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search" onClick={doSearch}></input>
+            <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
-          <div className='SearchBar-postButton'>
+          <div className='SearchBar-postButton' onClick={doSearch}>
             <input type="image" src={lookup} className="mag-img"></input>
           </div>
 
@@ -303,7 +305,7 @@ function HomePage() {
         <div class="container">
           <ul class="image-gallery">
           { 
-            localStorage.getItem('recipe_name_data').map((ID, index) => (
+            recipeNames.map((ID, index) => (
                   <li>
                   <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
                     handlerecipeClick(index);

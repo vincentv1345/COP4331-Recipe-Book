@@ -248,6 +248,7 @@ ul.list-view-recipe li input {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 90%;
 
 }
 
