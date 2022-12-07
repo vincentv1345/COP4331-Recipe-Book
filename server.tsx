@@ -242,8 +242,8 @@ app.post("/api/create_recipe",async (req, res) => {
   var RecipeDirections ="";
   const RecipeIngredients = [];
   const tags = [];*/
-  const { UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags,RecipeImage } = req.body;
-  const newRecipe = {RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags:Tags, UserID:UserID,RecipeImage:RecipeImage};
+  const { UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags,RecipeImageID } = req.body;
+  const newRecipe = {RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags:Tags, UserID:UserID,RecipeImageID:RecipeImageID};
   
   try{
     const result = await Recipe.create(newRecipe);
