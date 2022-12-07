@@ -76,7 +76,30 @@ app.get("/api/", (req, res) => {
   console.log("Test from API");
   res.status(200).json({ message: "Hello from server!" });
 });
-//store images
+
+// Attempts to verify user using link
+app.get('/api/verify/:EmailCode', async (req, res) => {
+  try {
+    console.log("Attempting to verify user");
+    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
+    const { EmailCode } = req.params;
+
+    //console.log("req: " + EmailCode); // Sanity check
+    const user = await User.findOne({ EmailCode : EmailCode})
+
+    if (user) {
+      console.log("User verified!");
+      user.Verified = true;
+      await user.save();
+      res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+    }
+    else {
+      res.status(400).json('Invalid link');
+    }
+  } catch (e) {
+    res.status(400).send(e.toString());
+  }
+});
 
 //COMMENT OUT when running locally
 if(process.env.NODE_ENV === 'production')
@@ -215,66 +238,6 @@ app.post('/api/create_user',async (req, res) => {
         let error = e.toString();
         res.status(400).json(error);
     }
-});
-
-// Attempts to verify user using link
-/*
-app.get('/api/verify/:EmailCode', async (req, res) => {
-  console.log("Hello");
-  try {
-    console.log("Attempting to verify user");
-    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
-    const { EmailCode } = req.params;
-
-    //console.log("req: " + EmailCode); // Sanity check
-    const user = await User.findOne({ EmailCode : EmailCode})
-
-    if (user) {
-      console.log("User verified!");
-      user.Verified = true;
-      await user.save();
-      res.status(200).send("It works!"); // CHANGE to host login page
-    }
-    else {
-      res.status(400).json('Invalid link');
-    }
-  } catch (e) {
-    res.status(400).send(e.toString());
-  }
-});
-*/
-
-app.get('/user/:id', function(req, res) {
-  res.send('user' + req.params.id);    
-});
-
-app.get('/api/verify', async (req, res) => {
-
-  //const db = client.db("FeastBook");
-  console.log("verify email api")
-  try {
-    const user = await db.collection("Users").find({EmailToken: req.query.token}).toArray();
-    if (user.length < 0) {
-      req.flash('Invalid token');
-      res.redirect('/');
-    }
-    console.log(user);
-
-    db.collection('Users').updateOne({_id: ObjectId(user[0]._id)}, {$set: {Verified: true}}, function(err, result)
-    {
-      if (err) 
-      {
-        throw err;
-      }
-    })
-    console.log("verified updated");
-    res.redirect('/');
-  }
-  catch (error) {
-    console.log(error);
-    console.log("something went wrong")
-    res.redirect('/');
-  }
 });
 
 app.post("/api/create_recipe",async (req, res) => {
