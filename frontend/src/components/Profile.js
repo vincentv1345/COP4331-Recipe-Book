@@ -330,13 +330,14 @@ function Profile() {
         </header>
       </div>
     </body>
-  )
+  );
 }
 
 export default Profile;
 
-const app_name = 'recipebook5959';
+
 const Popuprecipe = (props) => {
+  const app_name = 'recipebook5959';
   function buildPath(route)
     {
         if (process.env.NODE_ENV === 'production') 
@@ -349,7 +350,7 @@ const Popuprecipe = (props) => {
             console.log("CHECK: In local server"); 
             return 'http://localhost:5000/' + route;
         }
-    }
+    };
     
 
 
