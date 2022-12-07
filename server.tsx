@@ -84,45 +84,6 @@ if(process.env.NODE_ENV === 'production')
   });
 }
 
-const Storage = multer.diskStorage({
-  destination:'uploads',
-  filename:(req,file,cb)=>{
-    cb(null,file.originalname)
-  }
-});
-
-const upload = multer({
-  storage: Storage
-}).single('testImage')
-
-app.get('/api/get_image', (req, res) => {
-  ImageModel.find({}, (err, items) => {
-      if (err) {
-          console.log(err);
-          res.status(500).send('An error occurred', err);
-      }
-      else {
-          res.render('imagesPage', { items: items });
-      }
-  });
-});
-app.post('/api/upload_image',(req,res)=>{
-  upload(req,res,(err)=>{
-    if(err){
-      console.log(err)
-    }else{
-      const newImage = new ImageModel({
-        name:req.body.name,
-        data:req.file.filename,
-        contentType:'image/png'
-      })
-      newImage.save()
-      .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))
-    }
-  })
-})
-
-
 /*
 const root = express.Router();
 
