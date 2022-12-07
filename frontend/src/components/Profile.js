@@ -257,7 +257,7 @@ function Profile() {
                   </div>
                 </div>
               </>}
-              handleClose={togglePopup}
+              handleclose={togglePopup}
             />}
             {isRecipePopUP && <Popuprecipe 
               index = {localStorage.getItem("recipe_ID")}
@@ -295,14 +295,10 @@ const Popuprecipe = (props) => {
     }
     
 
-  const[isDeletePopUP, setIsDeletePopUP] = useState(false);
 
-  const toggledeletePopup = () => {
-    setIsDeletePopUP(!isDeletePopUP);
-  }
+
+
   const doDeleteRecipe = async recipe_ID => {
-    
-    setIsDeletePopUP(!isDeletePopUP);
     console.log("recipeid.value: " + recipe_ID);
     var js = JSON.stringify(recipe_ID);
     console.log("js: " + js);
@@ -320,7 +316,7 @@ const Popuprecipe = (props) => {
           console.log("Delete try");
           
           window.location.href = '/profile';
-          return toggledeletePopup;
+          return;
         }
         catch(e)
         {
@@ -334,7 +330,7 @@ const Popuprecipe = (props) => {
         <span className="close-icon-recipe" onClick={props.handleClose}>x</span>
         <div>
                   <div className="in-box-recipe">
-                    <img src={props.image} className="img-holder"></img>
+                    <img src={props.image} className="img-holder-recipe"></img>
                     <div className="text-area-recipe">
                       <ul className="list-view-recipe">
                         <li><div className="recipe-popup-title">{props.recipeName}</div></li>
@@ -344,12 +340,8 @@ const Popuprecipe = (props) => {
                         <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
                         <div className = "bottom-container-recipe">
                         <div className="button-container-recipe">
-                            <button className="button-recipe-delete" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
-                                doDeleteRecipe(props.ID)
-                    
-                                event.stopPropagation();
-                                event.preventDefault();
-                              }} >Delete</button>
+                            <button className="button-recipe-delete"  onClick={doDeleteRecipe(props.ID)} >Delete</button>
+                             
                           </div>
                         </div>
                       </ul>
@@ -357,34 +349,33 @@ const Popuprecipe = (props) => {
                   </div>
                 </div>
       </div>
-      {isDeletePopUP && <deleteRecipePopup ID = {props.ID} name = {props.recipeName} handleClose = {toggledeletePopup}/>} 
+      
     </div>
   );
 };
 
-const deleteRecipePopup = (props) =>  {
-  return (
-    <div className="popup-delete">
-      <div className="popup-delete-box">
-        <span className="close-icon-delete" onClick={props.handleClose}>x</span>
-        <div>
-                  <div className="in-box-delete">
-                    <div className="text-area-delete">
-                      <ul className="list-view-delete">
-                        <li><div className="recipe-element-delete">Are you sure you want to delete {props.name} ?</div></li>
+// const DeleteRecipePopup = (props) =>  {
+//   return (
+//     <div className="popup-delete">
+//       <div className="popup-delete-box">
+//         <span className="close-icon-delete" onClick={props.handleclose}>x</span>
+//         <div>
+//                   <div className="in-box-delete">
+//                     <div className="text-area-delete">
+//                       <div className="recipe-element-delete">Are you sure you want to delete {props.name} ?</div>
 
-                        <div className = "bottom-container-delete">
-                        <div className="button-container-delete">
-                            <button className="button-recipe-confirm"  onClick={props.doDeleteRecipe} >Confirm</button>
-                            <button className="button-recipe-confirm"  onClick={null} >Cancel</button>
-                          </div>
-                        </div>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-      </div>
+//                         <div className = "bottom-container-delete">
+//                         <div className="button-container-delete">
+//                             <button className="button-recipe-confirm"  onClick={props.deleteRecipe(props.ID)} >Confirm</button>
+//                             <button className="button-recipe-confirm"  onClick={null} >Cancel</button>
+//                           </div>
+//                         </div>
+                      
+//                     </div>
+//                   </div>
+//                 </div>
+//       </div>
 
-    </div>
-  );
-};
+//     </div>
+//   );
+// };
