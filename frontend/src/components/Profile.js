@@ -59,13 +59,13 @@ function Profile() {
   }
   
   const togglerecipePopup = () => {
+    localStorage.setItem("recipe_ID", recipe_ID);
     setIsRecipePopUP(!isRecipePopUP);
+    return(togglerecipePopup)
   }
   
   const handlerecipeClick = recipe_ID=> {
     localStorage.setItem("recipe_ID", recipe_ID);
-    
-    
   }
 
   
