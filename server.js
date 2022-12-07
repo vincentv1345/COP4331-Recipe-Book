@@ -76,7 +76,7 @@ app.get('/api/get_image', function (req, res) {
         }
     });
 });
-db.getCollection('Recipes').updateMany({}, { $set: { "RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg" } });
+//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
 app.post('/api/upload_image', function (req, res) {
     upload(req, res, function (err) {
         if (err) {
