@@ -51,7 +51,7 @@ function SignUp()
             localStorage.setItem('user_data', JSON.stringify(user));
             
             setMessage('');
-            setIsOpen(!isOpen);
+            window.location.href = '/';
           }
         }
         catch(e)
@@ -75,17 +75,12 @@ function SignUp()
                 Welcome to <div className="Title">Cookbook</div> 
               </div>
             </div>
+            <div className="small-text">An Email for verification will be sent</div>
             <ul className="list">
               <li><input type="Email" name="Email" placeholder="Email" ref={(c) => email = c}></input></li>
               <li><input type="user" name="User" placeholder="Username" ref={(c) => username = c}></input></li>
               <li><input type="password" name="Password" placeholder="Password" ref={(c) => password = c}></input></li>
-              <li><button type="button" name="Submit" class="button" onClick={doSignUp} > SignUp</button></li>
-              {isOpen && <Popup
-                content={<>
-                  <b>Email Confirmation has been sent.</b>
-                  </>}
-                handleClose={doSignUp}
-              />} 
+              <li><button type="button" name="Submit" class="button" onClick={doSignUp} > SignUp</button></li> 
             </ul>
             <div className="small-text">
               Already have an account?

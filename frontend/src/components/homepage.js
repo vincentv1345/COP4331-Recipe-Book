@@ -28,6 +28,10 @@ function HomePage() {
   
   const [isOpen, setIsOpen] = useState(false);
 
+  let user = localStorage.getItem('user_data');
+  user = user.slice(7);
+  user = user.slice(0, -2);
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
@@ -110,17 +114,17 @@ function HomePage() {
     let name = document.getElementById("name").value;
     let ingredients = document.getElementById("ingredients").value;
     let directions = document.getElementById("directions").value;
-    let tag;
 
-    // fix
     var obj = {
-      //UserID: cookies.id, 
+      UserID: user, 
       RecipeName: name, 
       RecipeIngredients: ingredients, 
-      RecipeDirections: directions, 
+      RecipeDirections: directions
       }
 
     var js = JSON.stringify(obj);
+    console.log("js: " + js);
+
     let response;
 
     try
@@ -141,6 +145,8 @@ function HomePage() {
       {
         console.log(e);
       }
+      
+      //window.location.href = '/homepage';
     }
     catch(e)
     {
@@ -172,7 +178,7 @@ function HomePage() {
 
               <div>
                 <div className="in-box">
-                  <img src={food} className="img-holder"></img>
+                  <input type="file" src={food} className="inputHolder"></input>
 
                   <div className="text-area">
                     <ul className="list-create">

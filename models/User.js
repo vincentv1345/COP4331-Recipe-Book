@@ -37,9 +37,14 @@ const userSchema = new mongoose.Schema({
         type : Number,
         unique: true
     },
+    Following :{
+        type: Number,
+        required:true,
+        default:'0'
+    },
     RecipeList:[{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     Favorites : [{type: mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
-    Following : [{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}]
+    
 }, { collection: 'Users'});
 
 module.exports = mongoose.model("User", userSchema);

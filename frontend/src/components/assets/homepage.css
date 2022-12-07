@@ -195,3 +195,8 @@ i{
 .error{
     color: red;
 }
+
+.inputHolder{
+    font: "Darker Grotesque";
+    border-radius: 12px;
+}
