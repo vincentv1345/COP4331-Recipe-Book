@@ -126,7 +126,7 @@ class RecipeData {
       throw Exception('Failed to update user');
     }
   }
-  static Future<dynamic> delete(String bio, String newUsername,String id) async {
+  static Future<dynamic> delete(String id) async {
 
     final response = await http.patch(
       Uri.parse('https://recipebook5959.herokuapp.com/api/update_user'),
@@ -134,9 +134,7 @@ class RecipeData {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
-        "UserID" : id,
-        "Bio": bio,
-        "Username": newUsername,
+        "_id" : id,
       }),
     );
 
