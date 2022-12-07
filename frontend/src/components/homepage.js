@@ -37,11 +37,12 @@ function HomePage() {
   useEffect(() => {
     // Update the document title using the browser API
     
-  }, []);
+  });
   useEffect(() => {
     // Update the document title using the browser API
     doSearch()
-  }, []);
+    
+  });
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
@@ -52,6 +53,8 @@ function HomePage() {
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
 
+
+
   let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
   let directions = JSON.parse(localStorage.getItem('instructions_data'));
   let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
@@ -60,12 +63,15 @@ function HomePage() {
 
  const [isOpen, setIsOpen] = useState(false);
  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
+ const[searchTerm, setSearchTerm] = useState('');
+
  
  let user = localStorage.getItem('user_data');
  user = user.slice(7);
  user = user.slice(0, -2);
  
  let recipe_id = localStorage.getItem('recipe_name_data');
+
 
 
   const togglePopup = () => {
