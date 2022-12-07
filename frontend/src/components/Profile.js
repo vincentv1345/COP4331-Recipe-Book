@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import ProfilePage from '../pages/ProfilePage';
-import padthai from './assets/padthai.jpg';
-import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/Profile.css';
 import Popup from './Popup';
