@@ -68,7 +68,7 @@ app.post('/api/upload_image', upload.single('image'), (req, res, next) => {
       }
       else {
           // item.save();
-          res.redirect('/');
+          res.status(200).json();
       }
   });
 });
