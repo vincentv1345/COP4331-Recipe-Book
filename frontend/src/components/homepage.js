@@ -36,7 +36,7 @@ function HomePage() {
 
   useLayoutEffect (() => {
     doSearch();
-  },[])
+  })
 
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
@@ -185,7 +185,7 @@ function HomePage() {
           console.log("local storage"+ localStorage.getItem('recipe_name_data'));
         
        // console.log("res " + JSON.stringify(res));
-       window.location.href = '/homepage';
+       
       }
       catch(e)
       {
@@ -257,7 +257,7 @@ function HomePage() {
             <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
           <div className='SearchBar-postButton' onClick={doSearch}>
-            <input type="image" src={lookup} className="mag-img"></input>
+            <input type="image" src={lookup} className="mag-img" onClick = {window.location.href = '/homepage'}></input>
           </div>
 
           <div className='postButton'>
