@@ -36,7 +36,7 @@ function HomePage() {
 
   useLayoutEffect (() => {
     doSearch();
-  })
+  },[])
 
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
