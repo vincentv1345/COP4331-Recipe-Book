@@ -24,7 +24,29 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
+
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.error('Connected to Database'));
+
+app.use(bodyParser.json());
+app.set( 'port', ( process.env.PORT || 5000 ));
+app.use(cors());
+
 //store images
+
+//COMMENT OUT when running locally
+if(process.env.NODE_ENV === 'production')
+{
+  console.log("Im a local server");
+
+  app.use(express.static('frontend/build'));
+
+ app.get('*', (req, res) => 
+ {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
+
 const Storage = multer.diskStorage({
   destination:'uploads',
   filename:(req,file,cb)=>{
@@ -62,12 +84,6 @@ app.post('/api/upload_image',(req,res)=>{
     }
   })
 })
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.error('Connected to Database'));
-
-app.use(bodyParser.json());
-app.set( 'port', ( process.env.PORT || 5000 ));
-app.use(cors());
 
 
 /*
@@ -82,19 +98,6 @@ app.use(root);
 */
 
 let path1;
-
-//COMMENT OUT when running locally
-if(process.env.NODE_ENV === 'production')
-{
-  console.log("Im a local server");
-
-  app.use(express.static('frontend/build'));
-
- app.get('*', (req, res) => 
- {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-}
 
 app.get("/api/", (req, res) => {
   console.log("Test from API");
@@ -405,7 +408,7 @@ app.post("/api/search_tags", async(req,res,next)=>{
     res.status(400).json({message: err.message })
 }
 });
-app.listen(PORT, () => 
+app.listen(process.env.PORT || 5000, () => 
 {
   console.log('Server listening on port ' + PORT);
 });
