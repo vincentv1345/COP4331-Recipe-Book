@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import cookbook from './assets/cookbook.png';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png'
 import './assets/homepage.css';
+import './assets/viewRecipe.css';
 import docreateRecipe from './CreateRecipe';
 import Popup from './Popup';
 import food from './assets/addPictureIcon.jpg';
@@ -16,6 +17,15 @@ import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
 
 function HomePage() {
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    
+  }, []);
+  useEffect(() => {
+    // Update the document title using the browser API
+    doSearch()
+  }, []);
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
@@ -25,13 +35,37 @@ function HomePage() {
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
-  
-  const [isOpen, setIsOpen] = useState(false);
+
+  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
+  let directions = JSON.parse(localStorage.getItem('instructions_data'));
+  let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
+  let images = JSON.parse(localStorage.getItem('recipe_images_data'));
+
+
+ const [isOpen, setIsOpen] = useState(false);
+ const[isRecipePopUP, setIsRecipePopUP] = useState(false);
+ 
+ let user = localStorage.getItem('user_data');
+ user = user.slice(7);
+ user = user.slice(0, -2);
+ 
+ let recipe_id = localStorage.getItem('recipe_name_data');
+
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
+  const togglerecipePopup = () => {
+    setIsRecipePopUP(!isRecipePopUP);
+  }
+
+  const handlerecipeClick = recipe_ID=> {
+    localStorage.setItem("recipe_ID", recipe_ID);
+    setIsRecipePopUP(!isRecipePopUP);
+    return(togglerecipePopup)
+  }
+  
   const [error, setError] = React.useState("");
   const [tags, setTags] = React.useState([]);
 
@@ -54,6 +88,8 @@ function HomePage() {
     }
   };
 
+  
+
   //Remove tags by clicking the cross sign
   const removeTags = index => {
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
@@ -64,36 +100,73 @@ function HomePage() {
     setError("");
   }
 
-  const searchRecipe = async event => {
-    event.preventDefault();
-    
-    let username = document.getElementById("username").value;
-    let bio = document.getElementById("bio").value;
+  const doSearch = async event => {
 
-    // fix
+    let recipename = document.getElementById("searchTerm");
+    
     var obj = {
-      //UserID: cookies.id, 
-      Username: username, 
-      Bio: bio, 
+      RecipeName: recipename.value
     }
 
     var js = JSON.stringify(obj);
+
+    let response;
     try
       {    
-        const response = await fetch('http://localhost:5000/api/search_recipe', { mode: 'cors' },
+        response = await fetch('http://localhost:5000/api/search_recipe',
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-        var stringified = JSON.stringify(await response.text()); 
-        var res = JSON.parse(stringified);
+        var responseClone = response.clone();
 
         console.log("Create recipe try");
         var res;
         try {
-          res = JSON.parse(await response.text());
+          res = JSON.parse(await responseClone.text());
+        //console.log(JSON.parse(ingred));
         }
         catch(e)
         {
-          console.log(e);
+          
+          console.log('Error parsing JSON:', e, await response.text());
         }
+
+        
+        // let data1 = JSON.parse(localStorage.getItem('recipe_name_data'));
+          let recipes = [];
+          let user_ids = [];
+          let ingredients = [];
+          let directions = [];
+          let images = [];
+          
+          for(let i = 0; i < res.length; i++){
+
+            Object.keys(res[i]).forEach(function (item) {
+              if(item === 'RecipeDirections'){
+                directions.push(res[i][item])
+              }
+              if(item === 'UserID'){
+                user_ids.push(res[i][item])
+              }
+              if(item === 'RecipeImageID'){
+                images.push(res[i][item])
+              }
+              else if(item === 'RecipeIngredients'){
+                ingredients.push(res[i][item])
+              }
+              else if(item === 'RecipeName'){
+                recipes.push(res[i][item])
+              }
+            });
+            }
+
+          localStorage.setItem('recipe_images_data', JSON.stringify(Object.values(images)));
+          localStorage.setItem('recipe_name_data', JSON.stringify(Object.values(recipes)));
+          localStorage.setItem('recipe_user_ids_data', JSON.stringify(Object.values(user_ids)));
+          localStorage.setItem('ingredients_data', JSON.stringify(Object.values(ingredients)));
+          localStorage.setItem('instructions_data', JSON.stringify(Object.values(directions)));
+    
+        
+       // console.log("res " + JSON.stringify(res));
+        
       }
       catch(e)
       {
@@ -110,17 +183,17 @@ function HomePage() {
     let name = document.getElementById("name").value;
     let ingredients = document.getElementById("ingredients").value;
     let directions = document.getElementById("directions").value;
-    let tag;
 
-    // fix
     var obj = {
-      //UserID: cookies.id, 
+      UserID: user, 
       RecipeName: name, 
       RecipeIngredients: ingredients, 
-      RecipeDirections: directions, 
+      RecipeDirections: directions
       }
 
     var js = JSON.stringify(obj);
+    console.log("js: " + js);
+
     let response;
 
     try
@@ -141,6 +214,8 @@ function HomePage() {
       {
         console.log(e);
       }
+      
+      //window.location.href = '/homepage';
     }
     catch(e)
     {
@@ -152,16 +227,16 @@ function HomePage() {
 
   return (
     <body>
-      <header className="App-header">
+      <header className="App-header" >
         <div className='NavigationBar'>
           <h1 className="Header-link" id="title">
             <a>Cookbook</a>
             <img src={houseIcon} className="App-logoHome" alt="logo" />
           </h1>
           <div className='SearchBar' id="search">
-            <input type="text" className="SearchBar-Textbox" cols="79" maxlength="79" placeholder="Search" ></input>
+            <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
-          <div className='SearchBar-postButton'>
+          <div className='SearchBar-postButton' onClick={doSearch}>
             <input type="image" src={lookup} className="mag-img"></input>
           </div>
 
@@ -172,7 +247,7 @@ function HomePage() {
 
               <div>
                 <div className="in-box">
-                  <img src={food} className="img-holder"></img>
+                  <input type="file" src={food} className="inputHolder"></input>
 
                   <div className="text-area">
                     <ul className="list-create">
@@ -229,30 +304,31 @@ function HomePage() {
         </div>
         <div class="container">
           <ul class="image-gallery">
-            <li>
-              <img src={padthai} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pad Thai</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
-            <li>
-              <img src={tacos} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Tacos</span>
-                <span className='recipe-author'>username</span>
-
-              </div>
-            </li>
-            <li>
-              <img src={pasta} alt="" />
-              <div class="overlay">
-                <span className='recipe-title'>Pasta</span>
-                <span className='recipe-author'>username</span>
-              </div>
-            </li>
+          { 
+            recipeNames.map((ID, index) => (
+                  <li>
+                  <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                    handlerecipeClick(index);
+                    
+                    event.stopPropagation();
+                    event.preventDefault();
+                  }} />
+                  <div class="overlay">
+                    <span className='recipe-title-profile'>{ID}</span>
+                  </div>
+                  </li> 
+              ))}
           </ul>
         </div>
+        {isRecipePopUP && <Popuprecipe 
+              ID = {localStorage.getItem("recipe_ID")}
+              recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
+              ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
+              directions = {directions[localStorage.getItem('recipe_ID')]}
+              image = {padthai}
+              handleClose={togglerecipePopup}
+              
+            />}
 
 
     </header>
@@ -260,3 +336,30 @@ function HomePage() {
     );
 };
 export default HomePage;
+
+const Popuprecipe = (props) => {
+
+
+  return (
+    <div className="popup-recipe">
+      <div className="popup-recipe-box">
+        <span className="close-icon-recipe" onClick={props.handleClose}>x</span>
+        <div>
+                  <div className="in-box-recipe">
+                    <img src={props.image} className="img-holder"></img>
+                    <div className="text-area-recipe">
+                      <ul className="list-view-recipe">
+                        <li><div className="recipe-popup-title">{props.recipeName}</div></li>
+                        <li><div className="recipe-element-title">Ingredients:</div></li>
+                         <li><div classname= "name-text-recipe" cols="20" maxlength="20">{props.ingredients}</div></li>
+                        <li><div className="recipe-element-title">Directions:</div> </li>
+                        <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+      </div>
+     
+    </div>
+  );
+};

@@ -49,8 +49,6 @@ ul.list-view-recipe {
     display: flex;
     flex-direction: column;
     list-style-type: none;
-    
-    
 }
 
 ul.list-view-recipe li {
@@ -250,6 +248,7 @@ ul.list-view-recipe li input {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 90%;
 
 }
 

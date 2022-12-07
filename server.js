@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 //store images
 var Storage = multer.diskStorage({
-    destination: 'uploads',
+    destination: "uploads",
     filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
@@ -84,8 +84,10 @@ app.post('/api/upload_image', function (req, res) {
         else {
             var newImage = new ImageModel({
                 name: req.body.name,
-                data: req.file.filename,
-                contentType: 'image/png'
+                image: {
+                    data: req.file.filename,
+                    contentType: 'image/png'
+                }
             });
             newImage.save()
                 .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
@@ -97,17 +99,7 @@ db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
-/*
-const root = express.Router();
-
-const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
-root.get('(/*)?', async (req, res, next) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
-});
-
-app.use(root);
-*/
-var path1;
+//store images
 //COMMENT OUT when running locally
 if (process.env.NODE_ENV === 'production') {
     console.log("Im a local server");
@@ -116,6 +108,15 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
+/*
+const root = express.Router();
+const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
+root.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+app.use(root);
+*/
+var path1;
 app.get("/api/", function (req, res) {
     console.log("Test from API");
     res.status(200).json({ message: "Hello from server!" });
@@ -262,7 +263,7 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
     });
 }); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, resultUser, id, ret, e_4, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -274,21 +275,8 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 return [4 /*yield*/, Recipe.create(newRecipe)];
             case 2:
                 result = _b.sent();
-                resultUser = User.findById({ _id: new ObjectId(UserID) });
                 id = result._id;
                 ret = { id: id };
-                resultUser.update({ _id: resultUser._id }, { $push: { RecipeList: newRecipe } });
-                /*
-                try{
-                  db.students.updateOne(
-                    { _id: UserID },
-                    { $push: { scores: id } }
-                 )
-                }
-                catch(e){
-                  res.status(400).json(e.toString());
-                }
-                */
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
@@ -305,6 +293,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
     return __generator(this, function (_a) {
         UserID = req.body.UserID;
         try {
+            // parameters(id, new info, options (for this it retuns the new updated instance), callback)
             User.findByIdAndUpdate(UserID, { $set: req.body }, { "new": true }, function (err, user) {
                 if (err) {
                     console.log(err);
@@ -312,7 +301,7 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-                    res.status(200).json(user);
+                    res.status(200).json(User);
                 }
             });
         }
@@ -374,7 +363,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
-app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var UserID, searchedRecipe, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -386,7 +375,7 @@ app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, Recipe.find({
-                        RecipeName: { $regex: "".concat(UserID), $options: 'i' }
+                        UserID: { $regex: "".concat(UserID), $options: 'i' }
                     })];
             case 2:
                 searchedRecipe = _a.sent();
@@ -405,7 +394,7 @@ app.get("/api/get_recipeList", function (req, res, next) { return __awaiter(void
         }
     });
 }); });
-app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var Username, searchedUsers, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -436,7 +425,7 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -498,6 +487,6 @@ app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0
         }
     });
 }); });
-app.listen(PORT, function () {
+app.listen(process.env.PORT || 5000, function () {
     console.log('Server listening on port ' + PORT);
 });

@@ -24,8 +24,7 @@ function Login()
   //   }
     
 
-    var username;
-    var password;
+    var username, password, bio, email, following, verified;
     const [message,setMessage] = useState('');
     //const [cookies, setCookie] = useCookies(["user"]);
     
@@ -59,7 +58,7 @@ function Login()
             console.log(e);
           }
 
-          console.log("res " + res);
+          console.log("res " + JSON.stringify(res));
 
           if( res.id <= 0 )
           {
@@ -67,14 +66,37 @@ function Login()
           } 
           else
           {
-            var user = {id: res.id}
+            var user = {id: res.id};
+            username = {Username: res.Username};
+            bio = {Bio: res.Bio};
+            email = {Email: res.Email};
+            following = {Following: res.Following};
+            verified = {Verified: res.Verified};
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
             console.log("Found user");
             
-            localStorage.setItem('username-info', JSON.stringify(username.value));
-            localStorage.setItem('pass-info', JSON.stringify(password.value));
-            window.location.href = '/homepage';
+            localStorage.setItem('username_data', JSON.stringify(username));
+            localStorage.setItem('bio_data', JSON.stringify(bio));
+            localStorage.setItem('email_data', JSON.stringify(email));
+            localStorage.setItem('following_data', JSON.stringify(following));
+            localStorage.setItem('email_data', JSON.stringify(email));
+
+            if(res.Verified == true)
+            {
+              window.location.href = '/homepage';
+            }
+            else if(res.Verified == false)
+            {
+              console.log("User is not verified");
+              window.location.href = '/';
+            }
+            else
+            {
+              console.log("You should not be here");
+              window.location.href = '/';
+            }
+            
           }
         }
         catch(e)
@@ -88,7 +110,7 @@ function Login()
     return (
       <title>Cookbook | Login</title>,
       <div className="login">
-        <header className="App-header">
+        <header className="App-header-log">
           <div className='form-container'>
             <div className="img-text">
               <div>

@@ -20,20 +20,12 @@ const recipeSchema = new mongoose.Schema({
         required: true
     }, 
     IsPublic : {
-        type : Boolean,
-        required: true,
+        type : Boolean
     },
     Tags : [{
         type: String
     }],
-    RecipeImage: {
-    type:mongoose.SchemaTypes.ObjectId, ref:'Image'
-    },
-    //UserID : mongoose.SchemaTypes.ObjectId
-    UserID: {
-        type:String,
-        required: true,
-    }
+    UserID : mongoose.SchemaTypes.ObjectId
 }, { collection: 'Recipes' } );
 
 module.exports = mongoose.model("Recipe", recipeSchema);
