@@ -64,7 +64,7 @@ function Profile() {
   
   const handlerecipeClick = recipe_ID=> {
     localStorage.setItem("recipe_ID", recipe_ID);
-    setIsRecipePopUP(!isRecipePopUP);
+    
     return(togglerecipePopup)
   }
 
