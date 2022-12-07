@@ -197,15 +197,15 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                     port: 465,
                     secure: true,
                     auth: {
-                        user: process.env.ZOHO_USER,
-                        pass: process.env.ZOHO_PASS
+                        user: "cookbookverifier@zohomail.com",
+                        pass: "Sh@rkBeatWuhaHA!"
                     }
                 });
                 host = req.get('host');
                 link = "http://".concat(host, "/api/verify/").concat(EmailCode);
                 // 
                 mainInfo = {
-                    from: process.env.ZOHO_USER,
+                    from: "cookbookverifier@zohomail.com",
                     to: Email,
                     subject: "Please confirm your Email account",
                     html: "Please click this link to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")

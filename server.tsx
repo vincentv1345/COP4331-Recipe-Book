@@ -187,7 +187,7 @@ app.post('/api/create_user',async (req, res) => {
 
         // 
         mainInfo={
-            from : "cookbookverifier@zohomail.com",
+            from : "git cookbookverifier@zohomail.com",
             to : Email,
             subject : "Please confirm your Email account",
             html : `Please click this link to confirm your email: <a href="${link}">${link}</a>`,
