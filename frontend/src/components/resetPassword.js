@@ -17,7 +17,7 @@ function resetPassword()
     return (
       <title>Cookbook | Login</title>,
       <div className="login">
-        <header className="App-header">
+        <header className="App-header-log">
           <div className='form-container'>
             <div className="img-text">
               <div>

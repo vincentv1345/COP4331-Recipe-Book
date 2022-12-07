@@ -20,14 +20,28 @@ import food from './assets/addPictureIcon.jpg'
 
 
 function Profile() {
+  let user = localStorage.getItem('user_data');
+  user = user.slice(7);
+  user = user.slice(0, -2);
+  
+  let username = localStorage.getItem('username_data');
+  username = username.slice(13);
+  username = username.slice(0, -2);
+  //{"Username":"Username"}
 
-
-  var username = "username-example";
   const numRecipes = 3;
   const numFollowers = 5;
   const numFollowing = 10;
-  var bio = "This is a bio. It is very cool and says words";
-  var email = "email-example@gmail.com";
+  
+  // let bio = "This is a bio. It is very cool and says words";
+  let bio = localStorage.getItem('bio_data');
+  bio = bio.slice(8);
+  bio = bio.slice(0, -2);
+  //var email = "email-example@gmail.com";
+
+  let email = localStorage.getItem('email_data');
+  email = email.slice(10);
+  email = email.slice(0,-2);
 
   // recipe items
   var recipe_id = [0, 1, 2];
@@ -44,6 +58,7 @@ function Profile() {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
+  
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
   }
@@ -57,31 +72,43 @@ function Profile() {
   const doEditProfile = async event => {
     event.preventDefault();
     
-    let username = document.getElementById("username").value;
-    let bio = document.getElementById("bio").value;
+    let usernamenew = document.getElementById("username").value;
+    let bionew = document.getElementById("bio").value;
 
-    // fix
     var obj = {
-      //UserID: cookies.id, 
-      Username: username, 
-      Bio: bio, 
+      UserID: user, 
+      Username: usernamenew, 
+      Bio: bionew, 
     }
 
     var js = JSON.stringify(obj);
+    console.log("js: " + js);
     try
       {    
-        const response = await fetch('http://localhost:5000/api/update_user', { mode: 'cors' },
-            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
-        var stringified = JSON.stringify(await response.text()); 
-        var res = JSON.parse(stringified);
+        //COMMENT OUT when running through HEROKU
+          // const response = await fetch(buildPath('api/login'), 
+          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-        }
-        catch(e)
-        {
-          alert(e.toString());
-          
-          return;
-        }    
+        // UNCOMMENT OUT when running locally
+        const response = await fetch('http://localhost:5000/api/update_user',
+          {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+
+        console.log("In update user try");
+
+        username = {Username: usernamenew};
+        bio = {Bio: bionew};
+
+        localStorage.setItem('username_data', JSON.stringify(username));
+        localStorage.setItem('bio_data', JSON.stringify(bio));
+
+        window.location.href = '/profile';
+      }
+      catch(e)
+      {
+        alert(e.toString());
+        
+        return;
+      }    
   }
 
   const logout = () => {
@@ -176,13 +203,12 @@ function Profile() {
 
                     <div className="text-area">
                       <ul className="list-create">
-                        <li><div className="name-text">Username<input type="name" name="Username" cols="79" maxlength="79" placeholder={username} ></input></div></li>
-                        <li><div className="name-text">Email<input type="email" name="Email" cols="79" maxlength="79" placeholder={email}></input></div></li>
-                        <li><div className="name-text">Bio<textarea type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio}></textarea></div></li>
+                        <li><div className="name-text">Username<input id="username" type="name" name="Username" cols="79" maxlength="79" placeholder={username} ></input></div></li>
+                        <li><div className="name-text">Bio<textarea id="bio" type="bio" name="Bio" className="large-box" rows="3" cols="79" placeholder={bio}></textarea></div></li>
 
                         <div className="bottom-container">
                           <div className="button-container">
-                            <button className="button-save" href="./profile" onClick={null} >Save</button>
+                            <button className="button-save" href="./profile" onClick={doEditProfile} >Save</button>
                           </div>
                         </div>
                       </ul>
@@ -199,7 +225,7 @@ function Profile() {
               directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
-            />}
+            />} 
           </div>
         </header>
       </div>
