@@ -176,8 +176,8 @@ app.post('/api/create_user',async (req, res) => {
           port: 465,
           secure: true,
           auth: {
-            user: process.env.ZOHO_USER,
-            pass: process.env.ZOHO_PASS
+            user: "cookbookverifier@zohomail.com",
+            pass: "Sh@rkBeatWuhaHA!"
           }
         });
       
@@ -187,7 +187,7 @@ app.post('/api/create_user',async (req, res) => {
 
         // 
         mainInfo={
-            from : process.env.ZOHO_USER,
+            from : "cookbookverifier@zohomail.com",
             to : Email,
             subject : "Please confirm your Email account",
             html : `Please click this link to confirm your email: <a href="${link}">${link}</a>`,
