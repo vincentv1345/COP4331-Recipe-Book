@@ -21,6 +21,9 @@ const express = require('express');
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+app.set( 'port', ( process.env.PORT || 5000 ));
+app.use(cors());
  
 // Set EJS as templating engine
 app.set("view engine", "ejs");
@@ -28,6 +31,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
+
 //store images 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -50,38 +54,6 @@ app.get('/api/get_image', (req, res) => {
           res.render('imagesPage', { items: items });
       }
   });
-});
-//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
-app.post('/api/upload_image', upload.single('image'), (req, res, next) => {
- 
-  var obj = {
-      name: req.body.name,
-      desc: req.body.desc,
-      RecipeID: req.body.RecipeID,
-      img: {
-          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-          contentType: 'image/png',
-          name: fs.readFileSync(path.join(req.file.filename))
-      }
-  }
-  console.log("obj: " + obj);
-  imgModel.create(obj, (err, item) => {
-      if (err) {
-          console.log(err);
-      }
-      else {
-          // item.save();
-          res.redirect('/');
-      }
-  });
-});
-app.set( 'port', ( process.env.PORT || 5000 ));
-app.use(cors());
-
-
-app.get("/api/", (req, res) => {
-  console.log("Test from API");
-  res.status(200).json({ message: "Hello from server!" });
 });
 
 // Attempts to verify user using link
@@ -106,6 +78,36 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
   } catch (e) {
     res.status(400).send(e.toString());
   }
+});
+
+//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
+app.post('/api/upload_image', upload.single('image'), (req, res, next) => {
+ 
+  var obj = {
+      name: req.body.name,
+      desc: req.body.desc,
+      RecipeID: req.body.RecipeID,
+      img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png',
+          name: fs.readFileSync(path.join(req.file.filename))
+      }
+  }
+  console.log("obj: " + obj);
+  imgModel.create(obj, (err, item) => {
+      if (err) {
+          console.log(err);
+      }
+      else {
+          // item.save();
+          res.redirect('/');
+      }
+  });
+});
+
+app.get("/api/", (req, res) => {
+  console.log("Test from API");
+  res.status(200).json({ message: "Hello from server!" });
 });
 
 //COMMENT OUT when running locally
