@@ -272,7 +272,7 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
   }
 });
 */
-
+/*
 app.get('/api/verify/', async (req, res, next) => {
   console.log("Attempting to verify user");
   
@@ -298,6 +298,7 @@ app.get('/api/verify/', async (req, res, next) => {
     res.send("Deleted recipe");//.redirect('/');
   }
 });
+*/
 
 app.post("/api/create_recipe",async (req, res) => {
    /*var RecipeName = "";
