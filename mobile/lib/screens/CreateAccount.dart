@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                        margin: const EdgeInsets.only(top: 230),
+                        margin: const EdgeInsets.only(top: 280),
                         child: Text('Create Account For',style: TextStyle(fontSize: 24 ,color:Colors.black))
                     ),
                   ],
@@ -228,6 +228,7 @@ class _MainPageState extends State<MainPage> {
 
                             var userId = '';
                             var jsonObject;
+
 
                               await RecipeData.signup(email.trim(),
                                   loginName.trim(), password.trim());
