@@ -16,10 +16,6 @@ import profileIcon from './assets/profileIcon.png'
 import food from './assets/addPictureIcon.jpg'
 //import Popuprecipe from './popup-recipe';
 
-
-
-
-
 function Profile() {
   let user = localStorage.getItem('user_data');
   user = user.slice(7);
@@ -91,7 +87,7 @@ function Profile() {
     try
       {    
         //COMMENT OUT when running through HEROKU
-          // const response = await fetch(buildPath('api/login'), 
+          // const response = await fetch(buildPath('api/update_user'), 
           // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
         // UNCOMMENT OUT when running locally
