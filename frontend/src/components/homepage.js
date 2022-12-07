@@ -15,6 +15,11 @@ import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
+import food from './assets/food.jpg';
+import margarita from './assets/frontend/Margarita.jpg';
+import tacos2 from './assets/tacos.jpg';
+import racoon from './assets/racoon.jpg'
+import garden from './assets/garden.jpg';
 
 function HomePage() {
 
@@ -162,6 +167,9 @@ function HomePage() {
               if(item === 'RecipeDirections'){
                 directions.push(res[i][item])
               }
+              // if(item === 'RecipeID'){
+
+              // }
               if(item === 'UserID'){
                 user_ids.push(res[i][item])
               }
@@ -322,7 +330,7 @@ function HomePage() {
 
 
         </div>
-        
+
         <div class="main-content-home">
           <ul class="image-gallery">
           { 

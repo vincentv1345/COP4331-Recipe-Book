@@ -12,8 +12,14 @@ import docreateRecipe from './CreateRecipe';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
-import profileIcon from './assets/profileIcon.png'
-import food from './assets/addPictureIcon.jpg'
+import profileIcon from './assets/profileIcon.png';
+import food from './assets/food.jpg';
+import margarita from './assets/frontend/Margarita.jpg';
+import tacos2 from './assets/tacos.jpg';
+import racoon from './assets/racoon.jpg'
+import garden from './assets/garden.jpg';
+import cake from './assets/cake.jpg';
+import cake2 from './assets/fluffy-homemade-vanilla-cake-995187-hero-01-cb314e573db94d49a49b2c348099e7b2.webp';
 //import Popuprecipe from './popup-recipe';
 
 function Profile() {
@@ -61,8 +67,58 @@ function Profile() {
   const togglerecipePopup = () => {
     setIsRecipePopUP(!isRecipePopUP);
   }
-  
+  const getImages = recipeName => {
+    if(recipeName === "A Tasty Pasta"){
+      return(pasta);
+    }
+    else if(recipeName === "Tuesday Tacos"){
+      return(tacos);
+    }
+    else if(recipeName === "Veg Pad Thai"){
+      return( padthai);
+    }
+    else if(recipeName === "Delicious Raccoon"){
+      return(racoon);
+    }
+    else if(recipeName === "Vanilla Cake"){
+      return(cake2);
+    }
+    else if(recipeName === "Cake"){
+      return(cake);
+    }
+    else if(recipeName === "Paradise Margarita"){
+      return(margarita);
+    }
+    else{
+      return(food);
+    }
+  };
+
   const handlerecipeClick = recipe_ID=> {
+    if(recipeNames[localStorage.getItem("recipe_ID")] === "A Tasty Pasta"){
+      localStorage.setItem("recipe_image", pasta);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Tuesday Tacos"){
+      localStorage.setItem("recipe_image", tacos);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Veg Pad Thai"){
+      localStorage.setItem("recipe_image", padthai);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Delicious Raccoon"){
+      localStorage.setItem("recipe_image", racoon);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Vanilla Cake"){
+      localStorage.setItem("recipe_image", cake2);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Cake"){
+      localStorage.setItem("recipe_image", cake);
+    }
+    else if(recipeNames[localStorage.getItem("recipe_ID")] === "Paradise Margarita"){
+      localStorage.setItem("recipe_image", margarita);
+    }
+    else{
+      localStorage.setItem("recipe_image", food);
+    }
     localStorage.setItem("recipe_ID", recipe_ID);
     
     
@@ -199,7 +255,7 @@ function Profile() {
 
 
           <div className="main-content-profile">
-            <div class="circle-profile"></div>
+            <div type = "image"class="circle-profile" ></div>
             <div class="recipes-text-profile"> {numRecipes} recipes</div>
             <div class="username-text-profile"> {username}</div>
             <div class="followers-text-profile"> {numFollowers} followers</div>
@@ -210,7 +266,7 @@ function Profile() {
               <ul class="image-gallery-profile">
                 { recipeUserIds.map((ID, index) => ID === user &&(
                   <li>
-                  <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                  <img id = {JSON.stringify(index)} src={getImages(recipeNames[index])} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
 
                     handlerecipeClick(index);
                     
@@ -240,7 +296,7 @@ function Profile() {
 
                 <div>
                   <div className="in-box">
-                    <img src={food} className="img-holder"></img>
+                    <img src={garden} className="img-holder"></img>
 
                     <div className="text-area">
                       <ul className="list-create">
@@ -259,13 +315,14 @@ function Profile() {
               </>}
               handleclose={togglePopup}
             />}
+
             {isRecipePopUP && <Popuprecipe 
               index = {localStorage.getItem("recipe_ID")}
               ID = {recipeUserIds[localStorage.getItem("recipe_ID")]}
               recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
               ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
               directions = {directions[localStorage.getItem('recipe_ID')]}
-              image = {padthai}
+              image = {localStorage.getItem("recipe_image")}
               handleClose={togglerecipePopup}
               
             />} 
