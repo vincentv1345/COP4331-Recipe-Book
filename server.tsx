@@ -213,6 +213,7 @@ app.post('/api/create_user',async (req, res) => {
     }
 });
 
+/*
 // Attempts to verify user using link
 app.get('/api/verify/:EmailCode', async (req, res) => {
   try {
@@ -234,6 +235,31 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
     }
   } catch (e) {
     res.status(400).send(e.toString());
+  }
+});
+*/
+
+app.get('/api/verify', async (req, res, next) => {
+  console.log("Attempting to verify user");
+  
+  try {
+    const user = await User.findOne({EmailCode: req.query.token});
+    if (user.length < 0) {
+      req.flash('Invalid token');
+      res.redirect('/');
+    }
+
+    console.log("User verified!");
+    user.Verified = true;
+    await user.save();
+    console.log("verified updated");
+    
+    res.redirect('/');
+  }
+  catch (error) {
+    console.log(error);
+    console.log("something went wrong")
+    res.redirect('/');
   }
 });
 
