@@ -119,7 +119,7 @@ function HomePage() {
 
   const doSearch = async event => {
 
-    let recipename = document.getElementById("searchTerm");
+    let recipename = "a";
     
     var obj = {
       RecipeName: recipename.value
