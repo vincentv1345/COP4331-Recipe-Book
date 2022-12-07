@@ -36,7 +36,7 @@ function HomePage() {
 
   useLayoutEffect (() => {
     doSearch();
-  }, [])
+  })
 
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
@@ -117,11 +117,11 @@ function HomePage() {
 
   const doSearch = async event => {
 
-    let recipename = "a";
+    let recipename = document.getElementById("searchTerm");
     console.log("recipename: " + recipeNames);
     
     var obj = {
-      RecipeName: "a"
+      RecipeName: recipename.value
     };
     console.log("obj" + obj);
     var js = JSON.stringify(obj);
