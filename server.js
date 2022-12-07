@@ -250,7 +250,7 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 link = "http://".concat(host, "/api/verify/").concat(EmailCode);
                 // 
                 mainInfo = {
-                    from: "git cookbookverifier@zohomail.com",
+                    from: "cookbookverifier@zohomail.com",
                     to: Email,
                     subject: "Please confirm your Email account",
                     html: "Please click this link to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
