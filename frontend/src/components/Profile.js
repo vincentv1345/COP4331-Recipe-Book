@@ -14,7 +14,7 @@ import lookup from './assets/lookup.png';
 import postIcon from './assets/postIcon.png';
 import profileIcon from './assets/profileIcon.png';
 import food from './assets/food.jpg';
-import margarita from './assets/frontend/Margarita.jpg';
+import margarita from './assets/Margarita.jpg';
 import tacos2 from './assets/tacos.jpg';
 import racoon from './assets/raccoon.jpg'
 import garden from './assets/garden.jpg';

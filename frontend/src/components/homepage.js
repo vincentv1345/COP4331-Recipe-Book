@@ -10,9 +10,9 @@ import './assets/viewRecipe.css';
 import docreateRecipe from './CreateRecipe';
 import Popup from './Popup';
 import food from './assets/food.jpg';
-import margarita from './assets/frontend/Margarita.jpg';
+import margarita from './assets/Margarita.jpg';
 import tacos2 from './assets/tacos.jpg';
-//import racoon from './assets/raccoon.jpg'
+import racoon from './assets/raccoon.jpg'
 import garden from './assets/garden.jpg';
 import cake from './assets/cake.jpg';
 import cake2 from './assets/fluffy-homemade-vanilla-cake-995187-hero-01-cb314e573db94d49a49b2c348099e7b2.webp';
