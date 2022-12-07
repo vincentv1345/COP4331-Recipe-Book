@@ -106,6 +106,42 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
+var Storage = multer.diskStorage({
+    destination: 'uploads',
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+var upload = multer({
+    storage: Storage
+}).single('testImage');
+app.get('/api/get_image', function (req, res) {
+    ImageModel.find({}, function (err, items) {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('imagesPage', { items: items });
+        }
+    });
+});
+app.post('/api/upload_image', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var newImage = new ImageModel({
+                name: req.body.name,
+                data: req.file.filename,
+                contentType: 'image/png'
+            });
+            newImage.save()
+                .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
+        }
+    });
+});
 /*
 const root = express.Router();
 
