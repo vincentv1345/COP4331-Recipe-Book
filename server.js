@@ -45,28 +45,34 @@ var path = require('path');
 var cors = require('cors');
 var multer = require('multer');
 var nodemailer = require("nodemailer");
+var fs = require('fs');
 var PORT = process.env.PORT || 5000;
 var testFlag = 0;
 var ImageModel = require("./models/Image");
 var ObjectID = require('bson').ObjectID;
 var express = require('express');
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+// Set EJS as templating engine
+app.set("view engine", "ejs");
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
-//store images
-var Storage = multer.diskStorage({
-    destination: "uploads",
+//store images 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads');
+    },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
+        cb(null, file.fieldname + '-' + Date.now());
     }
 });
-var upload = multer({
-    storage: Storage
-}).single('testImage');
+var upload = multer({ storage: storage });
+var imgModel = require('./models/Image');
 app.get('/api/get_image', function (req, res) {
-    ImageModel.find({}, function (err, items) {
+    imgModel.find({}, function (err, items) {
         if (err) {
             console.log(err);
             res.status(500).send('An error occurred', err);
@@ -76,27 +82,26 @@ app.get('/api/get_image', function (req, res) {
         }
     });
 });
-app.post('/api/upload_image', function (req, res) {
-    upload(req, res, function (err) {
+//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
+app.post('/api/upload_image', upload.single('image'), function (req, res, next) {
+    var obj = {
+        name: req.body.name,
+        RecipeID: req.body.RecipeID,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    };
+    imgModel.create(obj, function (err, item) {
         if (err) {
             console.log(err);
         }
         else {
-            var newImage = new ImageModel({
-                name: req.body.name,
-                image: {
-                    data: req.file.filename,
-                    contentType: 'image/png'
-                }
-            });
-            newImage.save()
-                .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
+            // item.save();
+            res.redirect('/');
         }
     });
 });
-db.on('error', function (error) { return console.error(error); });
-db.once('open', function () { return console.error('Connected to Database'); });
-app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
 app.get("/api/", function (req, res) {
@@ -269,13 +274,74 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+/*
+// Attempts to verify user using link
+app.get('/api/verify/:EmailCode', async (req, res) => {
+  try {
+    console.log("Attempting to verify user");
+    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
+    const { EmailCode } = req.params;
+
+    //console.log("req: " + EmailCode); // Sanity check
+    const user = await User.findOne({ EmailCode : EmailCode})
+
+    if (user) {
+      console.log("User verified!");
+      user.Verified = true;
+      await user.save();
+      res.redirect('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+    }
+    else {
+      res.status(400).json('Invalid link');
+    }
+  } catch (e) {
+    res.status(400).send(e.toString());
+  }
+});
+*/
+app.get('/api/verify/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log("Attempting to verify user");
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 4, , 5]);
+                console.log("key: " + req.query.token);
+                return [4 /*yield*/, User.findOne({ EmailCode: req.query.token })];
+            case 2:
+                user = _a.sent();
+                console.log("user: " + user);
+                if (user.length < 0) {
+                    req.flash('Invalid token');
+                    res.send("Deleted recipe"); //.redirect('/');
+                }
+                console.log("User verified!");
+                user.Verified = true;
+                return [4 /*yield*/, user.save()];
+            case 3:
+                _a.sent();
+                console.log("verified updated");
+                res.send("Deleted recipe"); //.redirect('/');
+                return [3 /*break*/, 5];
+            case 4:
+                error_1 = _a.sent();
+                console.log(error_1);
+                console.log("something went wrong");
+                res.send("Deleted recipe"); //.redirect('/');
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_4, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImageID, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, UserID = _a.UserID, RecipeName = _a.RecipeName, RecipeIngredients = _a.RecipeIngredients, RecipeDirections = _a.RecipeDirections, IsPublic = _a.IsPublic, Tags = _a.Tags, RecipeImage = _a.RecipeImage;
-                newRecipe = { RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags: Tags, UserID: UserID, RecipeImage: RecipeImage };
+                _a = req.body, UserID = _a.UserID, RecipeName = _a.RecipeName, RecipeIngredients = _a.RecipeIngredients, RecipeDirections = _a.RecipeDirections, IsPublic = _a.IsPublic, Tags = _a.Tags, RecipeImageID = _a.RecipeImageID;
+                newRecipe = { RecipeName: RecipeName, RecipeIngredients: RecipeIngredients, RecipeDirections: RecipeDirections, IsPublic: IsPublic, Tags: Tags, UserID: UserID, RecipeImageID: RecipeImageID };
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
