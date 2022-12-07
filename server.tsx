@@ -36,16 +36,21 @@ const upload = multer({
   storage: Storage
 }).single('testImage')
 
-app.get('/api/get_image', (req, res) => {
-  ImageModel.find({}, (err, items) => {
-      if (err) {
-          console.log(err);
-          res.status(500).send('An error occurred', err);
-      }
-      else {
-          res.render('imagesPage', { items: items });
-      }
-  });
+app.get('/api/get_image', async(req,res,next)=>{
+try{
+  const {RecipeID} = req.body;
+  console.log(RecipeID); 
+  try{
+    const searchedImage = await ImageModel.find({
+              RecipeID:{$regex: `${RecipeID}`, $options: 'i'}
+      })
+    res.json(searchedImage)
+}catch(err){
+    res.status(400).json({message: err.message })
+}
+}catch(err){
+  res.status(400).json({message: err.message })
+}
 });
 //db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
 app.post('/api/upload_image',(req,res)=>{
