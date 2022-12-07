@@ -34,12 +34,13 @@ function HomePage() {
       }
   }
 
-
-  // useEffect(() => {
-  //   // Update the document title using the browser API
-  //   doSearch()
+console.log("hi");
+  useEffect(() => {
+    // Update the document title using the browser API
+    console.log("in use effect");
+    doSearch()
     
-  // },[]);
+  },[]);
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
