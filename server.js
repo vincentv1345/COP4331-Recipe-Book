@@ -302,42 +302,33 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
   }
 });
 */
-app.get('/api/verify/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log("Attempting to verify user");
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 4, , 5]);
-                console.log("key: " + req.query.token);
-                return [4 /*yield*/, User.findOne({ EmailCode: req.query.token })];
-            case 2:
-                user = _a.sent();
-                console.log("user: " + user);
-                if (user.length < 0) {
-                    req.flash('Invalid token');
-                    res.send("Deleted recipe"); //.redirect('/');
-                }
-                console.log("User verified!");
-                user.Verified = true;
-                return [4 /*yield*/, user.save()];
-            case 3:
-                _a.sent();
-                console.log("verified updated");
-                res.send("Deleted recipe"); //.redirect('/');
-                return [3 /*break*/, 5];
-            case 4:
-                error_1 = _a.sent();
-                console.log(error_1);
-                console.log("something went wrong");
-                res.send("Deleted recipe"); //.redirect('/');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
+/*
+app.get('/api/verify/', async (req, res, next) => {
+  console.log("Attempting to verify user");
+  
+  try {
+    console.log("key: " + req.query.token);
+    const user = await User.findOne({EmailCode: req.query.token});
+    console.log("user: " + user);
+    if (user.length < 0) {
+      req.flash('Invalid token');
+      res.send("Deleted recipe")//.redirect('/');
+    }
+
+    console.log("User verified!");
+    user.Verified = true;
+    await user.save();
+    console.log("verified updated");
+    
+    res.send("Deleted recipe");//.redirect('/');
+  }
+  catch (error) {
+    console.log(error);
+    console.log("something went wrong")
+    res.send("Deleted recipe");//.redirect('/');
+  }
+});
+*/
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImageID, newRecipe, result, id, ret, e_4, error;
     return __generator(this, function (_b) {
