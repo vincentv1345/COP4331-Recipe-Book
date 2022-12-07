@@ -117,11 +117,11 @@ function HomePage() {
 
   const doSearch = async event => {
 
-    let recipename = "a";
+    let recipename = document.getElementById("searchTerm");
     console.log("recipename: " + recipeNames);
     
     var obj = {
-      RecipeName: "a"
+      RecipeName: recipename.value
     };
     console.log("obj" + obj);
     var js = JSON.stringify(obj);
@@ -185,7 +185,7 @@ function HomePage() {
           console.log("local storage"+ localStorage.getItem('recipe_name_data'));
         
        // console.log("res " + JSON.stringify(res));
-        
+       
       }
       catch(e)
       {
@@ -234,7 +234,7 @@ function HomePage() {
         console.log(e);
       }
       
-      //window.location.href = '/homepage';
+      window.location.href = '/homepage';
     }
     catch(e)
     {
@@ -257,7 +257,7 @@ function HomePage() {
             <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
           <div className='SearchBar-postButton' onClick={doSearch}>
-            <input type="image" src={lookup} className="mag-img"></input>
+            <input type="image" src={lookup} className="mag-img" ></input>
           </div>
 
           <div className='postButton'>
@@ -322,7 +322,7 @@ function HomePage() {
 
 
         </div>
-        <div class="container">
+        <div class="main-content-home">
           <ul class="image-gallery">
           { 
             console.log(recipeNames)}

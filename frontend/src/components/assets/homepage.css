@@ -138,6 +138,11 @@ input:focus
     position: absolute;
 
  } 
+
+ .main-content-home{
+    margin-top: 80px;
+    padding-top: 16px;
+  }
 .recipe-author  {
     font-size: 15px;
     font: "Darker Grotesque";
@@ -146,6 +151,7 @@ input:focus
     top: 19px;
 
  } 
+
 
  .tags{
     margin: 10px auto;
