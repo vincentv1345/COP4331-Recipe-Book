@@ -17,6 +17,8 @@ import food from './assets/addPictureIcon.jpg'
 
 
 
+
+
 function Profile() {
   let user = localStorage.getItem('user_data');
   user = user.slice(7);
@@ -42,7 +44,7 @@ function Profile() {
   email = email.slice(0,-2);
 
   // recipe items
-  var recipe_id = [0, 1, 2]
+  var recipe_id = [0, 1, 2];
   var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
   var recipeUsers = ["user1", "user2", "user3"];
   var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
@@ -61,10 +63,11 @@ function Profile() {
     setIsRecipePopUP(!isRecipePopUP);
   }
   
-  // const handlerecipeClick = (ID) => {
-  //   currentID = ID;
-  //   return(togglerecipePopup)
-  // }
+  const handlerecipeClick = recipe_ID=> {
+    localStorage.setItem("recipe_ID", recipe_ID);
+    setIsRecipePopUP(!isRecipePopUP);
+    return(togglerecipePopup)
+  }
 
   const doEditProfile = async event => {
     event.preventDefault();
@@ -114,6 +117,7 @@ function Profile() {
     localStorage.removeItem('email_data');
     localStorage.removeItem('following_data');
     localStorage.removeItem('email_data');
+    localStorage.removeItem('recipe_ID');
 
     window.location.href = '/';
   }
@@ -163,14 +167,20 @@ function Profile() {
             <hr></hr>
             <div class="container-profile">
               <ul class="image-gallery-profile">
-                {/* {recipe_id.map( ID => <li><img src={pasta} alt="" onClick={handlerecipeClick(ID)}/>{
+                { recipe_id.map((ID) => (
+                  <li>
+                  <img id = {JSON.stringify(ID)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                    handlerecipeClick(ID);
                     
-                    <div class="overlay">
-                      <span className='recipe-title-profile'>{recipeNames[ID]}</span>
-                      <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
-                    </div>
-                  
-              }</li>)} */}
+                    event.stopPropagation();
+                    event.preventDefault();
+                  }} />
+                  <div class="overlay">
+                    <span className='recipe-title-profile'>{recipeNames[ID]}</span>
+                    <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
+                  </div>
+                  </li> 
+              ))}
               </ul>
 
             </div>
@@ -208,14 +218,14 @@ function Profile() {
               </>}
               handleClose={togglePopup}
             />}
-            {/* {isRecipePopUP && <Popuprecipe 
-              recipeName = {recipeNames[currentID]} 
-              recipeUser = {recipeUsers[currentID]} 
-              ingredients = {ingredients[currentID]}
-              directions = {directions[currentID]}
+            {isRecipePopUP && <Popuprecipe 
+              recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
+              recipeUser = {recipeUsers[localStorage.getItem('recipe_ID')]} 
+              ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
+              directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
-            />} */}
+            />} 
           </div>
         </header>
       </div>
@@ -254,4 +264,4 @@ const Popuprecipe = (props) => {
     </div>
   );
 };
- 
+
