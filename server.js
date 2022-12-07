@@ -71,7 +71,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 var imgModel = require('./Image');
-app.get('/', function (req, res) {
+app.get('/api/get_image', function (req, res) {
     imgModel.find({}, function (err, items) {
         if (err) {
             console.log(err);
@@ -83,7 +83,7 @@ app.get('/', function (req, res) {
     });
 });
 //db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
-app.post('/', upload.single('image'), function (req, res, next) {
+app.post('/api/upload_image', upload.single('image'), function (req, res, next) {
     var obj = {
         name: req.body.name,
         desc: req.body.desc,
