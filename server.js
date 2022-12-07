@@ -70,7 +70,7 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage });
-var imgModel = require('./Image');
+var imgModel = require('./models/Image');
 app.get('/api/get_image', function (req, res) {
     imgModel.find({}, function (err, items) {
         if (err) {
