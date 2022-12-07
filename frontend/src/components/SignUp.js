@@ -5,6 +5,23 @@ import './assets/SignUp.css';
 
 function SignUp()
 {
+    //COMMENT OUT when running locally
+    console.log("In SignUp function");
+    const app_name = 'recipebook5959';
+    function buildPath(route)
+    {
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:5000/' + route;
+        }
+    }
+
     var email;
     var username;
     var password;
@@ -13,22 +30,22 @@ function SignUp()
     const doSignUp = async event => 
     {
         event.preventDefault();
-        let obj = {Email:email,Username:username,Password:password};
+        let obj = {Email:email.value ,Username:username.value ,Password:password.value };
         var js = JSON.stringify(obj);
         try
         {    
-            const response = await fetch('https://recipebook5959.herokuapp.com/api/create_user', { mode: 'cors' },
+            const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var stringified = JSON.stringify(await response.text()); 
-            var res = JSON.parse(stringified);
+            //var stringified = JSON.stringify(await response.text()); 
+            var res = JSON.parse(await response.text());
           if( res.id <= 0 )
           {
             setMessage('User/Password combination incorrect');
           } 
           else
           {
-            var user = 
-            {id:res.id}
+            var user = {id:res.id}
+            console.log("user id: " + res.id);
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
           }
@@ -54,15 +71,15 @@ function SignUp()
               </div>
             </div>
             <ul className="list">
-              <li><input type="Email" name="Email" placeholder="Email"></input></li>
-              <li><input type="user" name="User" placeholder="User Name"></input></li>
-              <li><input type="password" name="Password" placeholder="Password"></input></li>
+              <li><input type="Email" name="Email" placeholder="Email" ref={(c) => email = c}></input></li>
+              <li><input type="user" name="User" placeholder="User Name" ref={(c) => username = c}></input></li>
+              <li><input type="password" name="Password" placeholder="Password" ref={(c) => password = c}></input></li>
               <li><button type="button" name="Submit" class="button" onClick={doSignUp} >SignUp</button></li>
               
             </ul>
             <div className="small-text">
               Already have an account?
-              <a className="App-link" href="./Login" >
+              <a className="App-link" href="./" >
                 Log In
               </a>
             </div>

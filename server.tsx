@@ -69,19 +69,7 @@ app.use(bodyParser.json());
 app.set( 'port', ( process.env.PORT || 5000 ));
 app.use(cors());
 
-
-/*
-const root = express.Router();
-
-const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
-root.get('(/*)?', async (req, res, next) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
-});
-
-app.use(root);
-*/
-
-let path1;
+//store images
 
 //COMMENT OUT when running locally
 if(process.env.NODE_ENV === 'production')
@@ -95,6 +83,58 @@ if(process.env.NODE_ENV === 'production')
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   });
 }
+
+const Storage = multer.diskStorage({
+  destination:'uploads',
+  filename:(req,file,cb)=>{
+    cb(null,file.originalname)
+  }
+});
+
+const upload = multer({
+  storage: Storage
+}).single('testImage')
+
+app.get('/api/get_image', (req, res) => {
+  ImageModel.find({}, (err, items) => {
+      if (err) {
+          console.log(err);
+          res.status(500).send('An error occurred', err);
+      }
+      else {
+          res.render('imagesPage', { items: items });
+      }
+  });
+});
+app.post('/api/upload_image',(req,res)=>{
+  upload(req,res,(err)=>{
+    if(err){
+      console.log(err)
+    }else{
+      const newImage = new ImageModel({
+        name:req.body.name,
+        data:req.file.filename,
+        contentType:'image/png'
+      })
+      newImage.save()
+      .then(()=>res.send('sucessfully uploaded')).catch(err=>console.log(err))
+    }
+  })
+})
+
+
+/*
+const root = express.Router();
+
+const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
+root.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+app.use(root);
+*/
+
+let path1;
 
 app.get("/api/", (req, res) => {
   console.log("Test from API");
@@ -347,7 +387,6 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
       const searchedRecipe = await Recipe.find({
                 UserID:{$regex: `${UserID}`, $options: 'i'}
         })
-      console.log("searchRecipe: " + searchedRecipe);
       res.json(searchedRecipe)
   }catch(err){
       res.status(400).json({message: err.message })
@@ -357,7 +396,7 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
 }
 });
 
-app.post("/api/search_user", async(req,res,next)=>{
+app.get("/api/search_user", async(req,res,next)=>{
   try{
   const {Username} = req.body;
   console.log(Username); 
@@ -374,7 +413,7 @@ app.post("/api/search_user", async(req,res,next)=>{
 }
 });
 
-app.post("/api/search_recipe", async(req,res,next)=>{
+app.get("/api/search_recipe", async(req,res,next)=>{
   try{
     const {RecipeName} = req.body;
     console.log(RecipeName); 
@@ -406,7 +445,7 @@ app.post("/api/search_tags", async(req,res,next)=>{
     res.status(400).json({message: err.message })
 }
 });
-app.listen(PORT, () => 
+app.listen(process.env.PORT || 5000, () => 
 {
   console.log('Server listening on port ' + PORT);
 });

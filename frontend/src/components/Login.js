@@ -71,7 +71,7 @@ function Login()
             localStorage.setItem('user_data', JSON.stringify(user));
             setMessage('');
             // window.location.href = '/Login';
-            console.log("Found user");
+            console.log("Found user: " + res.id);
           }
         }
         catch(e)

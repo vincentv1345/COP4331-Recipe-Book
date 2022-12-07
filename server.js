@@ -97,6 +97,51 @@ db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
+//store images
+//COMMENT OUT when running locally
+if (process.env.NODE_ENV === 'production') {
+    console.log("Im a local server");
+    app.use(express.static('frontend/build'));
+    app.get('*', function (req, res) {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    });
+}
+var Storage = multer.diskStorage({
+    destination: 'uploads',
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+var upload = multer({
+    storage: Storage
+}).single('testImage');
+app.get('/api/get_image', function (req, res) {
+    ImageModel.find({}, function (err, items) {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('imagesPage', { items: items });
+        }
+    });
+});
+app.post('/api/upload_image', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var newImage = new ImageModel({
+                name: req.body.name,
+                data: req.file.filename,
+                contentType: 'image/png'
+            });
+            newImage.save()
+                .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
+        }
+    });
+});
 /*
 const root = express.Router();
 
@@ -108,14 +153,6 @@ root.get('(/*)?', async (req, res, next) => {
 app.use(root);
 */
 var path1;
-//COMMENT OUT when running locally
-if (process.env.NODE_ENV === 'production') {
-    console.log("Im a local server");
-    app.use(express.static('frontend/build'));
-    app.get('*', function (req, res) {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-    });
-}
 app.get("/api/", function (req, res) {
     console.log("Test from API");
     res.status(200).json({ message: "Hello from server!" });
@@ -377,6 +414,7 @@ app.use(function (req, res, next) {
 });
 app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var UserID, searchedRecipe, err_1, err_2;
+<<<<<<< HEAD
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -409,10 +447,46 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
 }); });
 app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var Username, searchedUsers, err_3, err_4;
+=======
+>>>>>>> main
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 5, , 6]);
+<<<<<<< HEAD
+=======
+                UserID = req.body.UserID;
+                console.log(UserID);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Recipe.find({
+                        UserID: { $regex: "".concat(UserID), $options: 'i' }
+                    })];
+            case 2:
+                searchedRecipe = _a.sent();
+                res.json(searchedRecipe);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.status(400).json({ message: err_1.message });
+                return [3 /*break*/, 4];
+            case 4: return [3 /*break*/, 6];
+            case 5:
+                err_2 = _a.sent();
+                res.status(400).json({ message: err_2.message });
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); });
+app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var Username, searchedUsers, err_3, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+>>>>>>> main
                 Username = req.body.Username;
                 console.log(Username);
                 _a.label = 1;
@@ -438,7 +512,11 @@ app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0
         }
     });
 }); });
+<<<<<<< HEAD
 app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+=======
+app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+>>>>>>> main
     var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -500,6 +578,6 @@ app.post("/api/search_tags", function (req, res, next) { return __awaiter(void 0
         }
     });
 }); });
-app.listen(PORT, function () {
+app.listen(process.env.PORT || 5000, function () {
     console.log('Server listening on port ' + PORT);
 });

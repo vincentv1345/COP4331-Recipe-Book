@@ -20,8 +20,7 @@ const recipeSchema = new mongoose.Schema({
         required: true
     }, 
     IsPublic : {
-        type : Boolean,
-        required: true,
+        type : Boolean
     },
     Tags : [{
         type: String
