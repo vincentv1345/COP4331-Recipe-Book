@@ -322,7 +322,7 @@ function HomePage() {
 
 
         </div>
-        <div class="container">
+        <div class="main-content-home">
           <ul class="image-gallery">
           { 
             console.log(recipeNames)}
