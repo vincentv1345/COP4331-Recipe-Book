@@ -54,6 +54,8 @@ var express = require('express');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.set('port', (process.env.PORT || 5000));
+app.use(cors());
 // Set EJS as templating engine
 app.set("view engine", "ejs");
 var mongoose = require('mongoose');
@@ -81,35 +83,6 @@ app.get('/api/get_image', function (req, res) {
             res.render('imagesPage', { items: items });
         }
     });
-});
-//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
-app.post('/api/upload_image', upload.single('image'), function (req, res, next) {
-    var obj = {
-        name: req.body.name,
-        desc: req.body.desc,
-        RecipeID: req.body.RecipeID,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png',
-            name: fs.readFileSync(path.join(req.file.filename))
-        }
-    };
-    console.log("obj: " + obj);
-    imgModel.create(obj, function (err, item) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/');
-        }
-    });
-});
-app.set('port', (process.env.PORT || 5000));
-app.use(cors());
-app.get("/api/", function (req, res) {
-    console.log("Test from API");
-    res.status(200).json({ message: "Hello from server!" });
 });
 // Attempts to verify user using link
 app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -143,6 +116,33 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
         }
     });
 }); });
+//db.getCollection('Recipes').updateMany({},{$set:{"RecipeImageID": "https://i.stack.imgur.com/34AD2.jpg"}})
+app.post('/api/upload_image', upload.single('image'), function (req, res, next) {
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        RecipeID: req.body.RecipeID,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png',
+            name: fs.readFileSync(path.join(req.file.filename))
+        }
+    };
+    console.log("obj: " + obj);
+    imgModel.create(obj, function (err, item) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/');
+        }
+    });
+});
+app.get("/api/", function (req, res) {
+    console.log("Test from API");
+    res.status(200).json({ message: "Hello from server!" });
+});
 //COMMENT OUT when running locally
 if (process.env.NODE_ENV === 'production') {
     console.log("Im a local server");
@@ -250,7 +250,7 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
                 link = "http://".concat(host, "/api/verify/").concat(EmailCode);
                 // 
                 mainInfo = {
-                    from: "git cookbookverifier@zohomail.com",
+                    from: "cookbookverifier@zohomail.com",
                     to: Email,
                     subject: "Please confirm your Email account",
                     html: "Please click this link to confirm your email: <a href=\"".concat(link, "\">").concat(link, "</a>")
