@@ -120,6 +120,7 @@ function HomePage() {
   const doSearch = async event => {
 
     let recipename = "a";
+    console.log("recipename: " + recipeNames);
     
     var obj = {
       RecipeName: "a"
