@@ -126,11 +126,12 @@ function HomePage() {
     };
 
     var js = JSON.stringify(obj);
+    console.log("js" + js);
 
     let response;
     try
       {    
-        response = await fetch(buildPath('api/search_recipe'),
+        response = await fetch('https://recipebook5959.herokuapp.com/api/search_recipe',
            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
         var responseClone = response.clone();
 
