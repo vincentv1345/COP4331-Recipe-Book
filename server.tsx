@@ -213,6 +213,7 @@ app.post('/api/create_user',async (req, res) => {
 
 // Attempts to verify user using link
 app.get('/api/verify/:EmailCode', async (req, res) => {
+  console.log("Hello");
   try {
     console.log("Attempting to verify user");
     //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
