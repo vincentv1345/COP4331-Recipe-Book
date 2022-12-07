@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="Updated Imageupload">
+    <list default="true" id="0064d454-41f2-4b03-b57f-0a40cfe22973" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/CreateAccount.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/Profile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/lib/screens/ViewRecipe.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/ViewRecipe.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/screens/image.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/screens/image.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/lib/utils/getAPI.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670381685031</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="update">
+      <created>1670436434545</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1670436434545</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -339,7 +344,8 @@
     <MESSAGE value="Updated API connections" />
     <MESSAGE value="Updated Imageupload connections" />
     <MESSAGE value="Updated Imageupload" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated Imageupload" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

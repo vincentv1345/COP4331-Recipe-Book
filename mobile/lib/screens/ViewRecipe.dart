@@ -159,6 +159,22 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ]
                 ),
+                Column(
+                    children:<Widget>[
+
+                      const SizedBox(width: 16),
+
+                      FloatingActionButton.small(
+                        backgroundColor: Color(0xff5F2829),
+                        onPressed: () {
+                          Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => new ProfileScreen())
+                          );
+                        },
+                        child: const Icon(Icons.delete),
+                      ),
+                    ]
+                ),
 
 
              /*   Container(

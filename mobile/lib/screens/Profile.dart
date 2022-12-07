@@ -362,6 +362,7 @@ class _MainPageState extends State<MainPage> {
                           onPressed: () {
                             print(recipe);
 
+
                             if(recipe["RecipeName"] != null)
                               currentRecipe.recipeName = recipe["RecipeName"];
 
