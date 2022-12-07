@@ -128,7 +128,7 @@ class RecipeData {
   }
   static Future<dynamic> delete(String id) async {
 
-    final response = await http.patch(
+    final response = await http.delete(
       Uri.parse('https://recipebook5959.herokuapp.com/api/update_user'),
       headers:<String,String> {
         'Content-Type': 'application/json; charset=UTF-8',
