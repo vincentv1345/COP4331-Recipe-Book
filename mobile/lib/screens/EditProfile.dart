@@ -3,8 +3,8 @@ import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/screens/Profile.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
-
 import 'HomeScreen.dart';
+import 'Profile.dart';
 
 String message = "", newMessageText = ''; //error messages
 
@@ -166,6 +166,9 @@ class _MainPageState extends State<MainPage> {
 
 
                             try {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ProfileScreen()));
 
                               print(userName);
                               print(bioText);
@@ -175,12 +178,6 @@ class _MainPageState extends State<MainPage> {
 
 
 
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>
-                                    ProfileScreen()),
-                              );
                             }catch(e){
 
                             }
@@ -208,8 +205,9 @@ class _MainPageState extends State<MainPage> {
                       onPressed: () {
                         bioText = '';
                         //signup screen
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProfileScreen()));
+                        Navigator.push(context, new MaterialPageRoute(
+                            builder: (context) => new ProfileScreen())
+                        );
                       },)
                   ],
                 ) //CREATE ACC

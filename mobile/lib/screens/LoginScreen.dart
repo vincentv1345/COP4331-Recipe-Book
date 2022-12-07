@@ -200,7 +200,7 @@ class _MainPageState extends State<MainPage> {
                               userId = jsonObject["id"];
                               GlobalData.bio = jsonObject["Bio"].toString();
                               GlobalData.userId = userId.trim();
-                              print(GlobalData.userId);//do these work?
+                              print(GlobalData.bio);//do these work?
                               GlobalData.userName = userName.trim();
                               GlobalData.password = password;
                               Navigator.push(
