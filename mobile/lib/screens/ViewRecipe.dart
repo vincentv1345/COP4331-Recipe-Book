@@ -3,6 +3,7 @@ import 'package:mobile/screens/LoginScreen.dart';
 import 'package:mobile/utils/getAPI.dart';
 import 'dart:convert';
 
+
 import '../main.dart';
 import 'AddScreen.dart';
 import 'CreateAccount.dart';
@@ -225,7 +226,7 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.center, //Center Column contents vertically,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text(currentRecipe.recipeName,style: TextStyle(fontSize: 60 ,color:Colors.black)),
+                    Text(currentRecipe.recipeName,style: TextStyle(fontSize: 30 ,fontWeight:FontWeight.bold,color:Colors.black)),
                   ],
                 ), //NAME
 

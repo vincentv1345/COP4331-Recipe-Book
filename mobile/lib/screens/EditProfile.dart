@@ -166,9 +166,12 @@ class _MainPageState extends State<MainPage> {
 
 
                             try {
+
+                              print(userName);
+                              print(bioText);
                               GlobalData.bio = bioText;
                               GlobalData.userName = userName;
-                              await RecipeData.edit(GlobalData.bio.trim(),GlobalData.userName.trim(), GlobalData.userId.trim() );
+                              await RecipeData.edit(bioText,userName, GlobalData.userId.trim() );
 
 
 

@@ -32,6 +32,7 @@ class RecipeData {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
       print("User Found ${response.statusCode}! ${response.body}");
+      //print(response.body);
       return (jsonDecode(response.body));
     } else {
       print("Error logging in ${response.statusCode}! ${response.body}");
@@ -99,7 +100,7 @@ class RecipeData {
     }
 
   }
-  static Future<dynamic> edit(String bio, String newID,String id) async {
+  static Future<dynamic> edit(String bio, String newUsername,String id) async {
 
     final response = await http.patch(
       Uri.parse('https://recipebook5959.herokuapp.com/api/update_user'),
@@ -107,9 +108,9 @@ class RecipeData {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
-        "id" : id,
+        "UserID" : id,
         "Bio": bio,
-        "Username": newID,
+        "Username": newUsername,
       }),
     );
 

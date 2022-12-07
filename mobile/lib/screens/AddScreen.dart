@@ -19,6 +19,7 @@ String recipeName = '',recipeingredients = '', directions = '', imageInput='';
 bool isChecked = false;
 
 
+
 class AddScreen extends StatefulWidget {
   @override
   _AddScreenState createState() => _AddScreenState();
@@ -26,31 +27,7 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   @override
-  File? image;
 
-  Future selectImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        return;
-      }
-      final imageTemp = File(image.path);
-      List<int> imageBytes = await image.readAsBytes();
-      final len = imageBytes.length;
-      final kb = len / 1024;
-      final mb = kb / 1024;
-      if (mb > 8) {
-        throw ("Image Too Big");
-      }
-      String imageBase64Temp = base64Encode(imageBytes);
-      setState(() {
-        this.image = imageTemp;
-        imageInput = imageBase64Temp;
-      });
-    } on Exception catch (error) {
-      debugPrint("Failed to select image: $error");
-    }
-  }
 
   void initState() {
     super.initState();
@@ -174,16 +151,7 @@ class _MainPageState extends State<MainPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
 
-                      const SizedBox(height: 20.0),
-                      MaterialButton(
-                        color: Colors.blue,
-                        child: const Text(
-                          "Select Image from Gallery",
-                        ),
-                        onPressed: () {
-                          selectImage();
-                        },
-                      ),
+
 
                       /*Container(
                           padding: EdgeInsets.all(0), // Border width
@@ -205,10 +173,39 @@ class _MainPageState extends State<MainPage> {
                             ),
                           )
                       ),*/
+                      Container(
+                        margin: const EdgeInsets.only(top: 20, left: 0,bottom: 20,right:30),
+                        width: MediaQuery.of(context).size.width - 250,
+                        child:
+                        MaterialButton(
+                            child: Text('Add Photo',style: TextStyle(fontSize: 18 ,color:Color(0xffffffff))
+                            ),
+
+                            onPressed: () async {
+                              try{
+
+                                Navigator.push(context, new MaterialPageRoute(
+                                    builder: (context) => new AddImage())
+                                );
+
+
+                              }catch(e){
+
+                              }
+                            },
+
+                            color:const Color(0xff5F2829),
+                            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(22.0) ),
+                            textColor: Color(0xffF9DEE8),
+                            padding: EdgeInsets.all(2.0),
+                            splashColor: Colors.black
+                        ),
+                      ),
                       Row(
                         children: <Widget>[
+
                       SizedBox(
-                        width: 200,
+                        width: 150,
                         height: 50,
 
                         child:

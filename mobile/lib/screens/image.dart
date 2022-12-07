@@ -1,53 +1,116 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ImageSelect extends StatefulWidget {
-  const ImageSelect({Key? key}) : super(key: key);
 
+class AddImage extends StatefulWidget {
   @override
-  State<ImageSelect> createState() => _ImageSelectState();
+  _AddImageState createState() => _AddImageState();
 }
 
-class _ImageSelectState extends State<ImageSelect> {
-  File? image;
-  String base64Image = "";
+class _AddImageState extends State<AddImage> {
 
-  String getBase64Image() {
-    return base64Image;
+  XFile? image;
+
+  final ImagePicker picker = ImagePicker();
+
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+
+    setState(() {
+      image = img;
+    });
   }
 
-  Future selectImage() async {
-    try {
-      final image = await ImagePicker().getImage(source: ImageSource.gallery);
-      if (image == null) {
-        return;
-      }
-      final imageTemp = File(image.path);
-      List<int> imageBytes = await image.readAsBytes();
-      String imageBase64Temp = base64Encode(imageBytes);
-      setState(() {
-        this.image = imageTemp;
-        base64Image = imageBase64Temp;
-      });
-    } on PlatformException catch (error) {
-      print("Failed to select image: $error");
-    }
+  //show popup dialog
+  void myAlert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            title: Text('Please choose media to select'),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    //if user click this button, user can upload image from gallery
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.image),
+                        Text('From Gallery'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    //if user click this button. user can upload image from camera
+                    onPressed: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera),
+                        Text('From Camera'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      color: Colors.blue,
-      child: const Text(
-        "Select Image from Gallery",
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Upload Image'),
       ),
-      onPressed: () {
-        selectImage();
-      },
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                myAlert();
+              },
+              child: Text('Upload Photo'),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            //if image not null show the image
+            //if image null show text
+            image != null
+                ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.file(
+                  //to show image, you type like this.
+                  File(image!.path),
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                ),
+              ),
+            )
+                : Text(
+              "No Image",
+              style: TextStyle(fontSize: 20),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

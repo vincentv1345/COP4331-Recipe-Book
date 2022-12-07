@@ -19,7 +19,7 @@ class GlobalData
   static String userName = '';
   static String firstName = '';
   static String lastName = '';
-  //static String loginName = '';
+  static String email = '';
   static String password = '';
 
   static int recipesCount = 0;
@@ -192,19 +192,21 @@ class _MainPageState extends State<MainPage> {
                             var userId = "";
 
 
+
                             try
                             {
 
                               var jsonObject = await RecipeData.login(userName.trim(), password.trim());
                               userId = jsonObject["id"];
-                              GlobalData.userId = userId;
+                              GlobalData.bio = jsonObject["Bio"].toString();
+                              GlobalData.userId = userId.trim();
                               print(GlobalData.userId);//do these work?
-                              GlobalData.userName = userName;
+                              GlobalData.userName = userName.trim();
                               GlobalData.password = password;
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => HomeScreen()),
-                              );
+                                MaterialPageRoute(builder: (context) => HomeScreen()));
+
 
                             }
                             catch(e)
