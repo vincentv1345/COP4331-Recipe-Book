@@ -233,42 +233,72 @@ app.post('/api/create_user', function (req, res) { return __awaiter(void 0, void
     });
 }); });
 // Attempts to verify user using link
-app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var EmailCode, user, e_3;
+/*
+app.get('/api/verify/:EmailCode', async (req, res) => {
+  console.log("Hello");
+  try {
+    console.log("Attempting to verify user");
+    //console.log("host URL from verifier link: " + req.protocol + ":/" + req.get('host')) // Sanity check
+    const { EmailCode } = req.params;
+
+    //console.log("req: " + EmailCode); // Sanity check
+    const user = await User.findOne({ EmailCode : EmailCode})
+
+    if (user) {
+      console.log("User verified!");
+      user.Verified = true;
+      await user.save();
+      res.status(200).send("It works!"); // CHANGE to host login page
+    }
+    else {
+      res.status(400).json('Invalid link');
+    }
+  } catch (e) {
+    res.status(400).send(e.toString());
+  }
+});
+*/
+app.get('/user/:id', function (req, res) {
+    res.send('user' + req.params.id);
+});
+app.get('/api/verify', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Hello");
+                //const db = client.db("FeastBook");
+                console.log("verify email api");
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 6, , 7]);
-                console.log("Attempting to verify user");
-                EmailCode = req.params.EmailCode;
-                return [4 /*yield*/, User.findOne({ EmailCode: EmailCode })];
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.collection("Users").find({ EmailToken: req.query.token }).toArray()];
             case 2:
                 user = _a.sent();
-                if (!user) return [3 /*break*/, 4];
-                console.log("User verified!");
-                user.Verified = true;
-                return [4 /*yield*/, user.save()];
+                if (user.length < 0) {
+                    req.flash('Invalid token');
+                    res.redirect('/');
+                }
+                console.log(user);
+                db.collection('Users').updateOne({ _id: ObjectId(user[0]._id) }, { $set: { Verified: true } }, function (err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                });
+                console.log("verified updated");
+                res.redirect('/');
+                return [3 /*break*/, 4];
             case 3:
-                _a.sent();
-                res.status(200).send("It works!"); // CHANGE to host login page
-                return [3 /*break*/, 5];
-            case 4:
-                res.status(400).json('Invalid link');
-                _a.label = 5;
-            case 5: return [3 /*break*/, 7];
-            case 6:
-                e_3 = _a.sent();
-                res.status(400).send(e_3.toString());
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
+                error_1 = _a.sent();
+                console.log(error_1);
+                console.log("something went wrong");
+                res.redirect('/');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
 app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_4, error;
+    var _a, UserID, RecipeName, RecipeIngredients, RecipeDirections, IsPublic, Tags, RecipeImage, newRecipe, result, id, ret, e_3, error;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -285,8 +315,8 @@ app.post("/api/create_recipe", function (req, res) { return __awaiter(void 0, vo
                 res.status(200).json(ret);
                 return [3 /*break*/, 4];
             case 3:
-                e_4 = _b.sent();
-                error = e_4.toString();
+                e_3 = _b.sent();
+                error = e_3.toString();
                 res.status(400).json(error);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
@@ -340,7 +370,7 @@ app.patch("/api/update_recipe", function (req, res) { return __awaiter(void 0, v
     });
 }); });
 app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var RecipeID, result, e_5;
+    var RecipeID, result, e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -355,8 +385,8 @@ app["delete"]("/api/delete_recipe", function (req, res) { return __awaiter(void 
                 res.status(200).send("Deleted recipe"); //.json(reportInfo)
                 return [3 /*break*/, 4];
             case 3:
-                e_5 = _a.sent();
-                res.status(400).json(e_5.toString());
+                e_4 = _a.sent();
+                res.status(400).json(e_4.toString());
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
