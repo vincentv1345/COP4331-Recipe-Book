@@ -32,6 +32,7 @@ function Profile() {
   const numRecipes = 3;
   const numFollowers = 5;
   const numFollowing = 10;
+  var recipeid;
   
   // let bio = "This is a bio. It is very cool and says words";
   let bio = localStorage.getItem('bio_data');
@@ -67,6 +68,35 @@ function Profile() {
     localStorage.setItem("recipe_ID", recipe_ID);
     setIsRecipePopUP(!isRecipePopUP);
     return(togglerecipePopup)
+  }
+
+  const doDeleteRecipe = async event => {
+    event.preventDefault();
+
+    var obj = {RecipeID: recipeid.value};
+    console.log("recipeid.value: " + recipeid.value);
+    var js = JSON.stringify(obj);
+    console.log("js: " + js);
+
+    try
+        {    
+          //COMMENT OUT when running through HEROKU
+          // const response = await fetch(buildPath('api/login'), 
+          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+          // UNCOMMENT OUT when running locally
+          let response = await fetch('http://localhost:5000/api/delete_recipe',
+          {method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
+        
+          console.log("Delete try");
+          
+          window.location.href = '/profile';
+        }
+        catch(e)
+        {
+          alert(e.toString());
+          return;
+        }    
   }
 
   const doEditProfile = async event => {
@@ -225,6 +255,7 @@ function Profile() {
               directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
+              doDeleteRecipe={doDeleteRecipe}
             />} 
           </div>
         </header>
@@ -252,7 +283,7 @@ const Popuprecipe = (props) => {
                         <li><div classname= "name-text-recipe" cols="79" maxlength="79">{props.directions}</div></li>
                         <div className = "bottom-container-recipe">
                         <div className="button-container-recipe">
-                            <button className="button-recipe-delete"  onClick={null} >Delete</button>
+                            <button className="button-recipe-delete"  onClick={props.doDeleteRecipe} >Delete</button>
                             <button className="button-recipe-delete"  onClick={null} >Edit</button>
                           </div>
                         </div>
