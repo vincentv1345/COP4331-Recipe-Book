@@ -282,10 +282,6 @@ app.patch("/api/update_user", async(req, res)=>{
       else
       {
         console.log(user);
-<<<<<<< HEAD
-=======
-        //db.collection.update(  { _id:UserID} , { $set: User });
->>>>>>> 0840d5f67fb8240e572a00993b7b15bab496aaf8
         res.status(200).json(User);
       }
     });
@@ -361,7 +357,7 @@ app.post("/api/get_recipeList", async(req,res,next)=>{
 }
 });
 
-app.get("/api/search_user", async(req,res,next)=>{
+app.post("/api/search_user", async(req,res,next)=>{
   try{
   const {Username} = req.body;
   console.log(Username); 
@@ -378,7 +374,7 @@ app.get("/api/search_user", async(req,res,next)=>{
 }
 });
 
-app.get("/api/search_recipe", async(req,res,next)=>{
+app.post("/api/search_recipe", async(req,res,next)=>{
   try{
     const {RecipeName} = req.body;
     console.log(RecipeName); 

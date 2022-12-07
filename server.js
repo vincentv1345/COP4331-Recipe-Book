@@ -313,10 +313,6 @@ app.patch("/api/update_user", function (req, res) { return __awaiter(void 0, voi
                 }
                 else {
                     console.log(user);
-<<<<<<< HEAD
-=======
-                    //db.collection.update(  { _id:UserID} , { $set: User });
->>>>>>> 0840d5f67fb8240e572a00993b7b15bab496aaf8
                     res.status(200).json(User);
                 }
             });
@@ -411,7 +407,7 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
         }
     });
 }); });
-app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var Username, searchedUsers, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -442,7 +438,7 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
