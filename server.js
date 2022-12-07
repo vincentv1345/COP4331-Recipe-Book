@@ -99,6 +99,10 @@ db.once('open', function () { return console.error('Connected to Database'); });
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5000));
 app.use(cors());
+app.get("/api/", function (req, res) {
+    console.log("Test from API");
+    res.status(200).json({ message: "Hello from server!" });
+});
 //store images
 //COMMENT OUT when running locally
 if (process.env.NODE_ENV === 'production') {
@@ -119,10 +123,12 @@ root.get('(/*)?', async (req, res, next) => {
 app.use(root);
 */
 var path1;
-app.get("/api/", function (req, res) {
-    console.log("Test from API");
-    res.status(200).json({ message: "Hello from server!" });
+/*
+app.get("/api/", (req, res) => {
+  console.log("Test from API");
+  res.status(200).json({ message: "Hello from server!" });
 });
+*/
 app.post('/api/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, Username, Password, user, result, id, DateCreated, DateLastLoggedIn, Username_1, Bio, Email, Verified, EmailCode, RecipeList, Favorites, Following, ret, e_1, error;
     return __generator(this, function (_b) {

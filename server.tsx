@@ -71,6 +71,11 @@ app.use(bodyParser.json());
 app.set( 'port', ( process.env.PORT || 5000 ));
 app.use(cors());
 
+
+app.get("/api/", (req, res) => {
+  console.log("Test from API");
+  res.status(200).json({ message: "Hello from server!" });
+});
 //store images
 
 //COMMENT OUT when running locally
@@ -98,11 +103,12 @@ app.use(root);
 */
 
 let path1;
-
+/*
 app.get("/api/", (req, res) => {
   console.log("Test from API");
   res.status(200).json({ message: "Hello from server!" });
 });
+*/
 
 app.post('/api/login', async (req, res) => 
 {
