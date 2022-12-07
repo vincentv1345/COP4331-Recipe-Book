@@ -70,30 +70,30 @@ function Profile() {
 
   
 
-  const doDeleteRecipe = async event => {
-    event.preventDefault();
+  // const doDeleteRecipe = async event => {
+  //   event.preventDefault();
     
-    // fix
-    var obj = {
-      //RecipeID: Recipe.id????????????????????????
-    }
+  //   // fix
+  //   var obj = {
+  //     //RecipeID: Recipe.id????????????????????????
+  //   }
 
-    var js = JSON.stringify(obj);
-    try
-      {    
-        const response = await fetch('http://localhost:5000/api/delete_recipe', { mode: 'cors' },
-            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
-        var stringified = JSON.stringify(await response.text()); 
-        var res = JSON.parse(stringified);
+  //   var js = JSON.stringify(obj);
+  //   try
+  //     {    
+  //       const response = await fetch('http://localhost:5000/api/delete_recipe', { mode: 'cors' },
+  //           {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+  //       var stringified = JSON.stringify(await response.text()); 
+  //       var res = JSON.parse(stringified);
 
-      }
-      catch(e)
-      {
-        alert(e.toString());
+  //     }
+  //     catch(e)
+  //     {
+  //       alert(e.toString());
         
-        return;
-      } 
-  }
+  //       return;
+  //     } 
+  // }
 
   const doEditProfile = async event => {
     event.preventDefault();
@@ -245,7 +245,8 @@ function Profile() {
               handleClose={togglePopup}
             />}
             {isRecipePopUP && <Popuprecipe 
-              ID = {localStorage.getItem("recipe_ID")}
+              index = {localStorage.getItem("recipe_ID")}
+              ID = {recipeUserIds[localStorage.getItem("recipe_ID")]}
               recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
               ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
               directions = {directions[localStorage.getItem('recipe_ID')]}
