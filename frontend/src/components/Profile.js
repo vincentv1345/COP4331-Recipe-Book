@@ -71,6 +71,22 @@ function Profile() {
   
 
   const doDeleteRecipe = async event => {
+    console.log("In doDeleteRecipe function");
+    const app_name = 'recipebook5959';
+    function buildPath(route)
+    {
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:5000/' + route;
+        }
+    }
+    
     event.preventDefault();
     
     // fix
@@ -81,8 +97,10 @@ function Profile() {
     var js = JSON.stringify(obj);
     try
       {    
-        const response = await fetch('http://localhost:5000/api/delete_recipe', { mode: 'cors' },
-            {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+        const response = await fetch(buildPath('api/delete_recipe'), 
+        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        //const response = await fetch('http://localhost:5000/api/delete_recipe', { mode: 'cors' },
+        //    {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
         var stringified = JSON.stringify(await response.text()); 
         var res = JSON.parse(stringified);
 
@@ -96,6 +114,21 @@ function Profile() {
   }
 
   const doEditProfile = async event => {
+    function buildPath(route)
+    {
+        const app_name = 'recipebook5959';
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:5000/' + route;
+        }
+    }
+    
     event.preventDefault();
     
     let usernamenew = document.getElementById("username").value;
@@ -112,12 +145,12 @@ function Profile() {
     try
       {    
         //COMMENT OUT when running through HEROKU
-          // const response = await fetch(buildPath('api/update_user'), 
-          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        const response = await fetch(buildPath('api/update_user'), 
+          {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
 
         // UNCOMMENT OUT when running locally
-        const response = await fetch('http://localhost:5000/api/update_user',
-          {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
+        //const response = await fetch('http://localhost:5000/api/update_user',
+        //  {method:'PATCH',body:js,headers:{'Content-Type': 'application/json'}});
 
         console.log("In update user try");
 
@@ -262,7 +295,22 @@ function Profile() {
 
 export default Profile;
 
+const app_name = 'recipebook5959';
 const Popuprecipe = (props) => {
+  function buildPath(route)
+    {
+        if (process.env.NODE_ENV === 'production') 
+        {
+            console.log("CHECK: In Heroku server");
+            return 'https://' + app_name +  '.herokuapp.com/' + route;
+        }
+        else
+        {       
+            console.log("CHECK: In local server"); 
+            return 'http://localhost:5000/' + route;
+        }
+    }
+    
 
   const[isDeletePopUP, setIsDeletePopUP] = useState(false);
 
@@ -279,12 +327,12 @@ const Popuprecipe = (props) => {
     try
         {    
           //COMMENT OUT when running through HEROKU
-          // const response = await fetch(buildPath('api/login'), 
-          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          const response = await fetch(buildPath('api/delete_recipe'), 
+           {method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
 
           // UNCOMMENT OUT when running locally
-          let response = await fetch('http://localhost:5000/api/delete_recipe',
-          {method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
+          //let response = await fetch('http://localhost:5000/api/delete_recipe',
+          //{method:'delete',body:js,headers:{'Content-Type': 'application/json'}});
         
           console.log("Delete try");
           

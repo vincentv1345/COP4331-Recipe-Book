@@ -6,22 +6,22 @@ import './assets/Login.css';
 function Login()
 {
  
-  //COMMENT OUT when running locally
-  // console.log("In login function");
-  //   const app_name = 'recipebook5959';
-  //   function buildPath(route)
-  //   {
-  //       if (process.env.NODE_ENV === 'production') 
-  //       {
-  //           console.log("CHECK: In Heroku server");
-  //           return 'https://' + app_name +  '.herokuapp.com/' + route;
-  //       }
-  //       else
-  //       {       
-  //           console.log("CHECK: In local server"); 
-  //           return 'http://localhost:5000/' + route;
-  //       }
-  //   }
+
+   console.log("In login function");
+     const app_name = 'recipebook5959';
+     function buildPath(route)
+     {
+         if (process.env.NODE_ENV === 'production') 
+         {
+             console.log("CHECK: In Heroku server");
+             return 'https://' + app_name +  '.herokuapp.com/' + route;
+         }
+         else
+         {       
+             console.log("CHECK: In local server"); 
+             return 'http://localhost:5000/' + route;
+         }
+     }
     
 
     var username, password, bio, email, following, verified;
@@ -41,12 +41,12 @@ function Login()
         try
         {    
           //COMMENT OUT when running through HEROKU
-          // const response = await fetch(buildPath('api/login'), 
-          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          response = await fetch(buildPath('api/login'), 
+           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
           // UNCOMMENT OUT when running locally
-          response = await fetch('http://localhost:5000/api/login',
-          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          //response = await fetch('http://localhost:5000/api/login',
+          //{method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
         
           console.log("In login try");
           var res;

@@ -40,12 +40,12 @@ function SignUp()
 
         try
         {    
-          // const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
-          // {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          const response = await fetch(buildPath('api/create_user'), // took out { mode: 'cors' },
+           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
           
           // UNCOMMENT OUT when running locally
-          response = await fetch('http://localhost:5000/api/create_user',
-          {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+          //response = await fetch('http://localhost:5000/api/create_user',
+          //{method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
           
           var res;
           
