@@ -36,7 +36,7 @@ const upload = multer({
   storage: Storage
 }).single('testImage')
 
-app.get('/api/get_image', async(req,res,next)=>{
+app.post('/api/get_image', async(req,res,next)=>{
 try{
   const {RecipeID} = req.body;
   console.log(RecipeID); 
