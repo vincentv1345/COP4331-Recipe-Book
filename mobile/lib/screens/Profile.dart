@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/AddScreen.dart';
 import 'package:mobile/screens/EditProfile.dart';
@@ -13,6 +14,7 @@ import 'ViewRecipe.dart';
 String message = "help", newMessageText = ''; //error messages
 String loginName = '', email = '', password = '';
 
+List<dynamic> recipes = List.empty(growable: true);
 List<dynamic> myRecipes = List.empty(growable: true);
 
 void populateProfile() async {
@@ -29,13 +31,18 @@ void populateProfile() async {
   }
 
   try {
-  myRecipes = await RecipeData.getUserRecipes(GlobalData.userId);
+    recipes = await RecipeData.search('');
   }catch(e){
     print("PROFILE ERRORRRRR GETTING RECIPES" + e.toString());
   }
 
-  for (var data in myRecipes) {
-    print("\n MY RECIPE: " + data["RecipeName"] + data["UserID"]);
+  myRecipes = List.empty(growable: true);
+  for (var data in recipes) {
+    print("\n TESTING: " + data["RecipeName"] + data["UserID"] + GlobalData.userId);
+    if(data["UserID"] == GlobalData.userId){
+      print("\n ADDING: " + data["RecipeName"] + data["UserID"] + GlobalData.userId);
+      myRecipes.add(data);
+    }
   }
 }
 
@@ -318,7 +325,7 @@ class _MainPageState extends State<MainPage> {
                   ],
                 ),
 
-              /*  Container(
+                Container(
 
 
                   height: MediaQuery.of(context).size.height,
@@ -326,7 +333,7 @@ class _MainPageState extends State<MainPage> {
                   child: ListView.builder(
 
                     // Let the ListView know how many items it needs to build.
-                    itemCount: recipes.length,
+                    itemCount: myRecipes.length,
                     // Provide a builder function. This is where the magic happens.
                     // Convert each item into a widget based on the type of item it is.
                     itemBuilder: (context, index) {
@@ -363,7 +370,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-                ),*/
+                ),
 
               ],
             )
