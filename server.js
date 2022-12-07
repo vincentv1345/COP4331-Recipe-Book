@@ -427,7 +427,7 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
