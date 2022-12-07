@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import ProfilePage from '../pages/ProfilePage';
-import padthai from './assets/padthai.jpg';
-import pasta from './assets/pasta.webp';
 import tacos from './assets/tacos.jpg';
 import './assets/Profile.css';
 import Popup from './Popup';
@@ -20,8 +18,7 @@ import racoon from './assets/raccoon.jpg'
 import garden from './assets/garden.jpg';
 import cake from './assets/cake.jpg';
 import cake2 from './assets/fluffy-homemade-vanilla-cake-995187-hero-01-cb314e573db94d49a49b2c348099e7b2.webp';
-import pasta from './assets/pasta.jpg';
-import pasta from './assets/pasta.jpg';
+import pasta1 from './assets/pasta.jpg';
 import padthai from './assets/padthai.jpg';
 
 
