@@ -250,7 +250,7 @@ app.get('/api/verify/:EmailCode', function (req, res) { return __awaiter(void 0,
                 return [4 /*yield*/, user.save()];
             case 2:
                 _a.sent();
-                res.status(200).json('http://www.flavordaddy.xyz/'); // CHANGE to host login page
+                res.status(200).send("It works!"); // CHANGE to host login page
                 return [3 /*break*/, 4];
             case 3:
                 res.status(400).json('Invalid link');
