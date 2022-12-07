@@ -244,14 +244,16 @@ app.get('/api/verify/:EmailCode', async (req, res) => {
 });
 */
 
-app.get('/api/verify', async (req, res, next) => {
+app.get('/api/verify/', async (req, res, next) => {
   console.log("Attempting to verify user");
   
   try {
+    console.log("key: " + req.query.token);
     const user = await User.findOne({EmailCode: req.query.token});
+    console.log("user: " + user);
     if (user.length < 0) {
       req.flash('Invalid token');
-      res.redirect('/');
+      res.send("Deleted recipe")//.redirect('/');
     }
 
     console.log("User verified!");
@@ -259,12 +261,12 @@ app.get('/api/verify', async (req, res, next) => {
     await user.save();
     console.log("verified updated");
     
-    res.redirect('/');
+    res.send("Deleted recipe");//.redirect('/');
   }
   catch (error) {
     console.log(error);
     console.log("something went wrong")
-    res.redirect('/');
+    res.send("Deleted recipe");//.redirect('/');
   }
 });
 
