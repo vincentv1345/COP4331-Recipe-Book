@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import cookbook from './assets/cookbook.png';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
@@ -34,13 +34,10 @@ function HomePage() {
       }
   }
 
-console.log("hi");
-  useEffect(() => {
-    // Update the document title using the browser API
-    console.log("in use effect");
-    doSearch()
-    
-  },[]);
+  useLayoutEffect (() => {
+    doSearch();
+  }, [])
+
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
@@ -53,10 +50,10 @@ console.log("hi");
 
 
 
-  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data'));
-  let directions = JSON.parse(localStorage.getItem('instructions_data'));
-  let ingredients = JSON.parse(localStorage.getItem('ingredients_data'));
-  let images = JSON.parse(localStorage.getItem('recipe_images_data'));
+  let recipeNames = JSON.parse(localStorage.getItem('recipe_name_data')|| []);
+  let directions = JSON.parse(localStorage.getItem('instructions_data')|| []);
+  let ingredients = JSON.parse(localStorage.getItem('ingredients_data')|| []);
+  let images = JSON.parse(localStorage.getItem('recipe_images_data')|| []);
 
 
  const [isOpen, setIsOpen] = useState(false);
