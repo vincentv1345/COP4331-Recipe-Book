@@ -81,7 +81,9 @@ function Login()
             localStorage.setItem('email_data', JSON.stringify(email));
             localStorage.setItem('following_data', JSON.stringify(following));
             localStorage.setItem('email_data', JSON.stringify(email));
-
+          
+            console.log("Found User on login!");
+            console.log("user: " + JSON.parse(localStorage.getItem("username_data")));
             if(res.Verified == true)
             {
               window.location.href = '/homepage';
