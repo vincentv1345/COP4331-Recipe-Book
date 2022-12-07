@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URL);
 var db = mongoose.connection;
 //store images
 var Storage = multer.diskStorage({
-    destination: 'uploads',
+    destination: "uploads",
     filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
@@ -84,8 +84,10 @@ app.post('/api/upload_image', function (req, res) {
         else {
             var newImage = new ImageModel({
                 name: req.body.name,
-                data: req.file.filename,
-                contentType: 'image/png'
+                image: {
+                    data: req.file.filename,
+                    contentType: 'image/png'
+                }
             });
             newImage.save()
                 .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
@@ -106,42 +108,6 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
-var Storage = multer.diskStorage({
-    destination: 'uploads',
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-var upload = multer({
-    storage: Storage
-}).single('testImage');
-app.get('/api/get_image', function (req, res) {
-    ImageModel.find({}, function (err, items) {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('imagesPage', { items: items });
-        }
-    });
-});
-app.post('/api/upload_image', function (req, res) {
-    upload(req, res, function (err) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            var newImage = new ImageModel({
-                name: req.body.name,
-                data: req.file.filename,
-                contentType: 'image/png'
-            });
-            newImage.save()
-                .then(function () { return res.send('sucessfully uploaded'); })["catch"](function (err) { return console.log(err); });
-        }
-    });
-});
 /*
 const root = express.Router();
 const buildPath = path.normalize(path.join(__dirname, './frontend/build'))
@@ -428,7 +394,7 @@ app.post("/api/get_recipeList", function (req, res, next) { return __awaiter(voi
         }
     });
 }); });
-app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_user", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var Username, searchedUsers, err_3, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -459,7 +425,7 @@ app.get("/api/search_user", function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-app.get("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/search_recipe", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeName, searchedRecipe, err_5, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {

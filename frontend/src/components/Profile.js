@@ -178,7 +178,6 @@ function Profile() {
                   }} />
                   <div class="overlay">
                     <span className='recipe-title-profile'>{recipeNames[ID]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
                   </div>
                   </li> 
               ))}
@@ -222,7 +221,6 @@ function Profile() {
             {isRecipePopUP && <Popuprecipe 
               ID = {localStorage.getItem("recipe_ID")}
               recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
-              recipeUser = {recipeUsers[localStorage.getItem('recipe_ID')]} 
               ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
               directions = {directions[localStorage.getItem('recipe_ID')]}
               image = {padthai}
@@ -295,7 +293,6 @@ const Popuprecipe = (props) => {
                                 event.stopPropagation();
                                 event.preventDefault();
                               }} >Delete</button>
-                            <button className="button-recipe-delete"  onClick={null} >Edit</button>
                           </div>
                         </div>
                       </ul>

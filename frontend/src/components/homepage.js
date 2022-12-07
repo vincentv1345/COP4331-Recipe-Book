@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import cookbook from './assets/cookbook.png';
 import houseIcon from './assets/houseIcon.png';
 import lookup from './assets/lookup.png';
@@ -17,6 +17,15 @@ import './assets/CreateRecipe.css';
 import { MdClose } from "react-icons/md";
 
 function HomePage() {
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    
+  }, []);
+  useEffect(() => {
+    // Update the document title using the browser API
+    doSearch()
+  }, []);
   /*profileButton = document.createElement("button");
   profileButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   profileButton.onclick = function () {
@@ -26,17 +35,19 @@ function HomePage() {
   let addPostButton = document.createElement("button");
   addPostButton.innerHTML = '<img src="https://www.pngwing.com/en/free-png-nlvhq" />'
   */
-  var recipe_id = [0, 1, 2];
-  var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
-  var recipeUsers = ["user1", "user2", "user3"];
-  var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
-  var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
-  const [isOpen, setIsOpen] = useState(false);
-  const[isRecipePopUP, setIsRecipePopUP] = useState(false);
+ var recipeNames = ["Pad Thai", "Pasta", "Tacos"];
+ var recipeUsers = ["user1", "user2", "user3"];
+ var ingredients = ["2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin", "1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin" ,"1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+ var directions = ["Add the gin, lemon juice, simple syrup and egg white to a shaker and vigorously dry-shake (without ice) for about 15 seconds.\nAdd 3 or 4 ice cubes and shake vigorously until well-chilled.\nDouble-strain into a chilled Collins glass and top with club soda. 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word 2 ounces gin \n 1 ounce lemon juice, freshly squeezed ", "3/4 ounce simple syrup \n1 egg white (about 1/2 ounce) \nClub soda, to top (about word word2 ounces gin \n 1 ounce lemon juice, freshly squeezed \n3/4 ounce simple syrup", "1 egg white (about 1/2 ounce) \nClub soda, to top (about word word"];
+ const [isOpen, setIsOpen] = useState(false);
+ const[isRecipePopUP, setIsRecipePopUP] = useState(false);
+ 
+ let user = localStorage.getItem('user_data');
+ user = user.slice(7);
+ user = user.slice(0, -2);
+ 
+ let recipe_id = localStorage.getItem('recipe_name_data');
 
-  let user = localStorage.getItem('user_data');
-  user = user.slice(7);
-  user = user.slice(0, -2);
 
   const togglePopup = () => {
     setIsOpen(!isOpen);
@@ -74,6 +85,8 @@ function HomePage() {
     }
   };
 
+  
+
   //Remove tags by clicking the cross sign
   const removeTags = index => {
     setTags([...tags.filter(tag => tags.indexOf(tag) !== index)]);
@@ -84,36 +97,68 @@ function HomePage() {
     setError("");
   }
 
-  const searchRecipe = async event => {
-    event.preventDefault();
-    
-    let username = document.getElementById("username").value;
-    let bio = document.getElementById("bio").value;
+  const doSearch = async event => {
 
-    // fix
+    let recipename = document.getElementById("searchTerm");
+    
     var obj = {
-      //UserID: cookies.id, 
-      Username: username, 
-      Bio: bio, 
+      RecipeName: recipename.value
     }
 
     var js = JSON.stringify(obj);
+
+    let response;
     try
       {    
-        const response = await fetch('http://localhost:5000/api/search_recipe', { mode: 'cors' },
+        response = await fetch('http://localhost:5000/api/search_recipe',
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-        var stringified = JSON.stringify(await response.text()); 
-        var res = JSON.parse(stringified);
+        var responseClone = response.clone();
 
         console.log("Create recipe try");
         var res;
         try {
-          res = JSON.parse(await response.text());
+          res = JSON.parse(await responseClone.text());
+          //console.log(res)
+          
+        
+        //console.log(JSON.parse(ingred));
         }
         catch(e)
         {
-          console.log(e);
+          
+          console.log('Error parsing JSON:', e, await response.text());
         }
+
+        
+        // let data1 = JSON.parse(localStorage.getItem('recipe_name_data'));
+        let UserIDs = [];
+          let recipes = [];
+          let ingredients = [];
+          let directions = [];
+          console.log(res.length);
+          for(let i = 0; i < res.length; i++){
+            if(typeof res[i].RecipeNames !== 'undefined'){{
+              UserIDs.push(res[i].UserID);
+              ingredients.push(res[i].RecipeIngredients);
+              recipes.push(res[i].RecipeNames);
+              console.log(res[i].RecipeNames);
+              directions.push(res[i].RecipeDirections);
+            }}
+
+        }
+        if (typeof window !== 'undefined') {
+          let rec_res = localStorage.setItem('recipe_data', res);
+          let names = localStorage.setItem('recipe_name_data', recipes);
+          let ingred = localStorage.setItem('ingredients_data', JSON.stringify(ingredients));
+          let instru = localStorage.setItem('instructions_data', JSON.stringify(directions));
+         // console.log(names);
+      }
+
+
+
+        
+       // console.log("res " + JSON.stringify(res));
+        
       }
       catch(e)
       {
@@ -174,14 +219,14 @@ function HomePage() {
 
   return (
     <body>
-      <header className="App-header">
+      <header className="App-header" >
         <div className='NavigationBar'>
           <h1 className="Header-link" id="title">
             <a>Cookbook</a>
             <img src={houseIcon} className="App-logoHome" alt="logo" />
           </h1>
           <div className='SearchBar' id="search">
-            <input type="text" className="SearchBar-Textbox" cols="79" maxlength="79" placeholder="Search" ></input>
+            <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search" onClick={doSearch}></input>
           </div>
           <div className='SearchBar-postButton'>
             <input type="image" src={lookup} className="mag-img"></input>
@@ -251,17 +296,17 @@ function HomePage() {
         </div>
         <div class="container">
           <ul class="image-gallery">
-          { recipe_id.map((ID) => (
+          { 
+            recipeNames.map((ID, index) => (
                   <li>
-                  <img id = {JSON.stringify(ID)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
-                    handlerecipeClick(ID);
+                  <img id = {JSON.stringify(index)} src={pasta} alt="" onMouseDown={(event) => event.stopPropagation()} onClick={(event) => {
+                    handlerecipeClick(index);
                     
                     event.stopPropagation();
                     event.preventDefault();
                   }} />
                   <div class="overlay">
-                    <span className='recipe-title-profile'>{recipeNames[ID]}</span>
-                    <span className='recipe-author-profile'>{recipeUsers[ID]}</span>
+                    <span className='recipe-title-profile'>{localStorage.getItem("recipe_name_data")[index]}</span>
                   </div>
                   </li> 
               ))}
@@ -269,10 +314,9 @@ function HomePage() {
         </div>
         {isRecipePopUP && <Popuprecipe 
               ID = {localStorage.getItem("recipe_ID")}
-              recipeName = {recipeNames[localStorage.getItem("recipe_ID")]} 
-              recipeUser = {recipeUsers[localStorage.getItem('recipe_ID')]} 
-              ingredients = {ingredients[localStorage.getItem('recipe_ID')]}
-              directions = {directions[localStorage.getItem('recipe_ID')]}
+              recipeName = {localStorage.getItem("recipe_name_data")[localStorage.getItem("recipe_ID")]} 
+              ingredients = {localStorage.getItem("ingredients")[localStorage.getItem('recipe_ID')]}
+              directions = {localStorage.getItem("directions")[localStorage.getItem('recipe_ID')]}
               image = {padthai}
               handleClose={togglerecipePopup}
               
