@@ -28,7 +28,7 @@ const recipeSchema = new mongoose.Schema({
     RecipeImageID: {
     type:String,
     required:true,
-    default:URL
+    default:"https://i.stack.imgur.com/34AD2.jpg"
     },
     UserID: {
         type : String,
