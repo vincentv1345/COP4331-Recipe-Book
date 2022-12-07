@@ -65,7 +65,7 @@ var Storage = multer.diskStorage({
 var upload = multer({
     storage: Storage
 }).single('testImage');
-app.get('/api/get_image', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+app.post('/api/get_image', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var RecipeID, searchedImage, err_1, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
