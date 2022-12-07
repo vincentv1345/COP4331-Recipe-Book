@@ -39,7 +39,8 @@ const userSchema = new mongoose.Schema({
     },
     Following :{
         type: Number,
-        required:true
+        required:true,
+        default:'0'
     },
     RecipeList:[{type:mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
     Favorites : [{type: mongoose.SchemaTypes.ObjectId, ref:'Recipes'}],
