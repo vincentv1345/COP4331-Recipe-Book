@@ -119,23 +119,22 @@ function HomePage() {
 
   const doSearch = async event => {
 
-    let recipename = "a";
+    let recipename = document.getElementById("searchTerm");
     
     var obj = {
       RecipeName: recipename.value
-    }
+    };
 
     var js = JSON.stringify(obj);
 
     let response;
     try
       {    
-        //response = await fetch('http://localhost:5000/api/search_recipe',
-        //    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-        //var responseClone = response.clone();
+        response = await fetch(buildPath('api/search_recipe'),
+           {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        var responseClone = response.clone();
 
-        response = await fetch(buildPath('api/login'), 
-            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
         var responseClone = response.clone();
 
         console.log("Create recipe try");
