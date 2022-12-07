@@ -256,8 +256,8 @@ function HomePage() {
           <div className='SearchBar' id="search">
             <input type="text" className="SearchBar-Textbox" id = "searchTerm" cols="79" maxlength="79" placeholder="Search"></input>
           </div>
-          <div className='SearchBar-postButton' onMouseDown={(event) => event.stopPropagation()} onClick={doSearch}>
-            <input type="image" src={lookup} className="mag-img" onClick = {window.location.href = '/homepage'}></input>
+          <div className='SearchBar-postButton' onClick={doSearch}>
+            <input type="image" src={lookup} className="mag-img" ></input>
           </div>
 
           <div className='postButton'>
